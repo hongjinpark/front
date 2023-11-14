@@ -13,8 +13,7 @@ const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
 
-  const [user, setUser] = useState('');
-  const [pwd, setPwd] = useState('');
+  const [user, setUser] = useState({ email: '', password: '' });
   const [errMsg, setErrMsg] = useState('');
 
   useEffect(() => {
@@ -23,22 +22,18 @@ const Login = () => {
 
   useEffect(() => {
     setErrMsg('');
-  }, [user, pwd]);
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const email = 'react@test.com';
-    const password = '123qwe';
-    const requestUser = { email, password };
     try {
-      const response = await login(requestUser); // 성공
+      const response = await login(user); // 성공
       console.log(JSON.stringify(response?.data));
-      //console.log(JSON.stringify(response));
+      console.log(response);
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
-      setAuth({ user, pwd, roles, accessToken });
+      setAuth({ user, roles, accessToken });
       setUser('');
-      setPwd('');
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
@@ -71,8 +66,8 @@ const Login = () => {
           id="username"
           ref={userRef}
           autoComplete="off"
-          onChange={(e) => setUser(e.target.value)}
-          value={user}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          value={user.email}
           required
         />
 
@@ -80,8 +75,8 @@ const Login = () => {
         <input
           type="password"
           id="password"
-          onChange={(e) => setPwd(e.target.value)}
-          value={pwd}
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
+          value={user.password}
           required
         />
         <button>Sign In</button>
