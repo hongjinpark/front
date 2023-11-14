@@ -1,8 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import axios from '../api/axios';
-const LOGIN_URL = '/user/login';
+import { login } from '../api/user.api';
 
 const Login = () => {
   const { setAuth } = useAuth();
@@ -28,18 +27,11 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const email = 'react@test.com';
+    const password = '123qwe';
+    const requestUser = { email, password };
     try {
-      const response = await axios.post(
-        LOGIN_URL,
-        JSON.stringify({ user, pwd }),
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await login(requestUser); // 성공
       console.log(JSON.stringify(response?.data));
       //console.log(JSON.stringify(response));
       const accessToken = response?.data?.accessToken;

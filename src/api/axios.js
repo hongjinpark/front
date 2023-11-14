@@ -10,3 +10,6 @@ export const axiosPrivate = axios.create({
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
 });
+export const httpApi = axios.create({
+  baseURL: 'http://localhost:8090',
+});
