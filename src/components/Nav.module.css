@@ -1,0 +1,32 @@
+.nav {
+  position: relative;
+  z-index: 1;
+  padding: 10px 600px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+ul.menu {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.menu > li:not(:last-child) {
+  margin-right: 30px;
+}
+
+.menu a:hover,
+.menu a:active {
+  text-decoration: underline;
+}
+
+.menu > li {
+  text-transform: uppercase;
+}

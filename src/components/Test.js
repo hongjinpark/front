@@ -22,7 +22,7 @@ function Test() {
     setData(data);*/
 
   const dataList = data.map((data) => (
-    <div key={data.index}>
+    <div key={data.update_time}>
       <div>update_time={data.update_time}</div>
       <div>contents={data.contents}</div>
       <div>nickname={data.nickname}</div>

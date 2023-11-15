@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  padding: 10px 600px;
+}
+
+.box1 {
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px 0;
+}
+
+.items {
+  display: flex;
+}
+
+.card {
+  width: 150px;
+  height: 150px;
+  margin-right: 10px;
+  text-align: center;
+}
+
+.card:hover {
+  cursor: pointer;
+}
