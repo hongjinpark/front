@@ -1,19 +1,17 @@
-import { useNavigate } from 'react-router-dom';
 import styles from './Home.module.css';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import Card from '../components/ItemCard';
+import useAuth from '../hooks/useAuth';
+import { useEffect } from 'react';
 
 const Home = () => {
-  /*const { setAuth } = useContext(AuthContext);*/
-  const navigate = useNavigate();
+  // const { setAuth } = useContext(AuthContext);
+  const { auth } = useAuth();
 
-  const logout = async () => {
-    // if used in more components, this should be in context
-    // axios to /logout endpoint
-    /*setAuth({});*/
-    navigate('/linkpage');
-  };
+  useEffect(() => {
+    // console.log(login);
+  }, [auth]);
 
   return (
     <section>
@@ -134,9 +132,6 @@ const Home = () => {
               </div>
             </Card>
           </div>
-        </div>
-        <div className={styles.flexGrow}>
-          <button onClick={logout}>Sign Out</button>
         </div>
       </div>
       <Footer />

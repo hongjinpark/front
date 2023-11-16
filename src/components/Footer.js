@@ -1,6 +1,16 @@
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './Footer.module.css';
 
 export default function Footer() {
+  const navigate = useNavigate();
+  const Token = localStorage.getItem('login');
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('login');
+    alert('로그아웃 완료');
+    navigate('/');
+  };
   return (
     <div className={styles.footer}>
       <div className={styles.container}>
@@ -20,7 +30,19 @@ export default function Footer() {
           <li>주소 | 주소 </li>
         </ul>
         <div className={styles.icons}>
-          <div>로고 or 이미지</div>
+          <div>
+            {!Token && (
+              <button className={styles.login}>
+                <Link to="/Login">로그인</Link>
+              </button>
+            )}
+
+            {Token && (
+              <button onClick={handleLogin} className={styles.logout}>
+                로그아웃
+              </button>
+            )}
+          </div>
           <div className={styles.sns}>
             <div>페이스북</div>
             <div>트위터</div>

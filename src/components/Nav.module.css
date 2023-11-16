@@ -29,4 +29,5 @@ ul.menu {
 
 .menu > li {
   text-transform: uppercase;
+  font-size: 10px;
 }
