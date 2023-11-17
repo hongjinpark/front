@@ -1,7 +1,5 @@
 /* eslint-disable no-useless-catch */
 import styles from './Home.module.css';
-import Nav from '../components/Nav';
-import Footer from '../components/Footer';
 import useAuth from '../hooks/useAuth';
 import { useEffect, useState } from 'react';
 import { getApi } from '../api/axios';
@@ -33,7 +31,6 @@ const Home = () => {
 
   return (
     <section>
-      <Nav />
       <div className={styles.container}>
         <div className={styles.box1}>
           <h1>중고 상품</h1>
@@ -60,7 +57,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </section>
   );
 };
