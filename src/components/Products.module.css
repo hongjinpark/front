@@ -1,0 +1,45 @@
+ul.products {
+  display: flex;
+  align-items: center;
+  flex-direction: raw;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  overflow: hidden;
+}
+
+.menu > li:not(:last-child) {
+  margin-right: 30px;
+}
+
+.menu a:hover,
+.menu a:active {
+  text-decoration: underline;
+}
+
+.menu > li {
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+.card {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 2px;
+  text-align: center;
+}
+
+.card:hover {
+  cursor: pointer;
+}
+
+.info {
+  position: absolute;
+  width: 100%;
+  margin: 3px;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%);
+}

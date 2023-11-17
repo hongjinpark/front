@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  padding: 10px 600px;
+  background: pink;
 }
 
 .box1 {
@@ -11,15 +11,4 @@
 
 .items {
   display: flex;
-}
-
-.card {
-  width: 150px;
-  height: 150px;
-  margin-right: 10px;
-  text-align: center;
-}
-
-.card:hover {
-  cursor: pointer;
 }

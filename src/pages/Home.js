@@ -1,16 +1,34 @@
+/* eslint-disable no-useless-catch */
 import styles from './Home.module.css';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
-import Card from '../components/ItemCard';
 import useAuth from '../hooks/useAuth';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { getApi } from '../api/axios';
+import Products from '../components/Products';
 
 const Home = () => {
   // const { setAuth } = useContext(AuthContext);
   const { auth } = useAuth();
+  const [list, setList] = useState([]);
+
+  list.sort((a, b) => b['userId'] - a['userId']);
+
+  const productLists = async () => {
+    let path = `/product/lists`;
+    try {
+      const options = {
+        path: path,
+      };
+      const getData = await getApi(options);
+      setList(getData);
+    } catch (e) {
+      throw e;
+    }
+  };
 
   useEffect(() => {
-    // console.log(login);
+    productLists();
   }, [auth]);
 
   return (
@@ -20,117 +38,25 @@ const Home = () => {
         <div className={styles.box1}>
           <h1>중고 상품</h1>
           <div className={styles.items}>
-            <Card className={styles.card}>
-              <div>
-                <h2>상품명</h2>
-                <p>가격</p>
-              </div>
-            </Card>
-            <Card className={styles.card}>
-              <div>
-                <h2>상품명</h2>
-                <p>가격</p>
-              </div>
-            </Card>
-            <Card className={styles.card}>
-              <div>
-                <h2>상품명</h2>
-                <p>가격</p>
-              </div>
-            </Card>
-            <Card className={styles.card}>
-              <div>
-                <h2>상품명</h2>
-                <p>가격</p>
-              </div>
-            </Card>
+            <Products list={list} />
           </div>
         </div>
         <div className={styles.box1}>
-          <h1>중고 상품</h1>
+          <h1>중고 상품2</h1>
           <div className={styles.items}>
-            <Card className={styles.card}>
-              <div>
-                <h2>상품명</h2>
-                <p>가격</p>
-              </div>
-            </Card>
-            <Card className={styles.card}>
-              <div>
-                <h2>상품명</h2>
-                <p>가격</p>
-              </div>
-            </Card>
-            <Card className={styles.card}>
-              <div>
-                <h2>상품명</h2>
-                <p>가격</p>
-              </div>
-            </Card>
-            <Card className={styles.card}>
-              <div>
-                <h2>상품명</h2>
-                <p>가격</p>
-              </div>
-            </Card>
+            <Products list={list} />
           </div>
         </div>
         <div className={styles.box1}>
-          <h1>중고 상품</h1>
+          <h1>중고 상품3</h1>
           <div className={styles.items}>
-            <Card className={styles.card}>
-              <div>
-                <h2>상품명</h2>
-                <p>가격</p>
-              </div>
-            </Card>
-            <Card className={styles.card}>
-              <div>
-                <h2>상품명</h2>
-                <p>가격</p>
-              </div>
-            </Card>
-            <Card className={styles.card}>
-              <div>
-                <h2>상품명</h2>
-                <p>가격</p>
-              </div>
-            </Card>
-            <Card className={styles.card}>
-              <div>
-                <h2>상품명</h2>
-                <p>가격</p>
-              </div>
-            </Card>
+            <Products list={list} />
           </div>
         </div>
         <div className={styles.box1}>
-          <h1>중고 상품</h1>
+          <h1>중고 상품4</h1>
           <div className={styles.items}>
-            <Card className={styles.card}>
-              <div>
-                <h2>상품명</h2>
-                <p>가격</p>
-              </div>
-            </Card>
-            <Card className={styles.card}>
-              <div>
-                <h2>상품명</h2>
-                <p>가격</p>
-              </div>
-            </Card>
-            <Card className={styles.card}>
-              <div>
-                <h2>상품명</h2>
-                <p>가격</p>
-              </div>
-            </Card>
-            <Card className={styles.card}>
-              <div>
-                <h2>상품명</h2>
-                <p>가격</p>
-              </div>
-            </Card>
+            <Products list={list} />
           </div>
         </div>
       </div>
