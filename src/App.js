@@ -11,6 +11,7 @@ import LinkPage from './pages/LinkPage';
 import Admin from './pages/Admin';
 import Lounge from './pages/Lounge';
 import NotFoundPage from './pages/NotFoundPage';
+import ProductLists from './pages/ProductLists';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/admin" element={<Admin />} />
             <Route path="/lounge" element={<Lounge />} />
             <Route path="*" element={<NotFoundPage />} />
+            <Route path="/product" element={<ProductLists />} />
           </Route>
 
           <Route path="/test" element={<Test />} />

@@ -27,14 +27,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await login(user); // 성공
-      // console.log(JSON.stringify(response?.data));
-      // console.log(response);
-      console.log(response.data.role);
+      const response = await login(user);
+      const responseUser = response?.data;
       const accessToken = response?.data?.token;
       localStorage.setItem('login', response.data.token);
       const roles = response?.data?.role;
-      setAuth({ user, roles, accessToken });
+      setAuth({ responseUser, roles, accessToken });
       setUser('');
       navigate(from, { replace: true });
     } catch (err) {
