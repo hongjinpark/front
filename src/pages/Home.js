@@ -10,16 +10,14 @@ const Home = () => {
   const { auth } = useAuth();
   const [list, setList] = useState([]);
 
-  list.sort((a, b) => b['userId'] - a['userId']);
-
   const productLists = async () => {
-    let path = `/product/lists`;
+    let path = `/product/lists/all`;
     try {
       const options = {
         path: path,
       };
       const getData = await getApi(options);
-      setList(getData);
+      setList(getData.content);
     } catch (e) {
       throw e;
     }
