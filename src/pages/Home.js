@@ -11,7 +11,7 @@ const Home = () => {
   const [list, setList] = useState([]);
 
   const productLists = async () => {
-    let path = `/product/lists`;
+    let path = `/product/lists/all`;
     try {
       const options = {
         path: path,
