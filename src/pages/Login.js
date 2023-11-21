@@ -29,10 +29,9 @@ const Login = () => {
     try {
       const response = await login(user);
       const responseUser = response?.data;
-      const accessToken = response?.data?.token;
       localStorage.setItem('login', response.data.token);
-      const roles = response?.data?.role;
-      setAuth({ responseUser, roles, accessToken });
+      localStorage.setItem('user', JSON.stringify(responseUser));
+      setAuth(responseUser);
       setUser('');
       navigate(from, { replace: true });
     } catch (err) {
