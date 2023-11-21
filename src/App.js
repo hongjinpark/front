@@ -13,6 +13,7 @@ import Lounge from './pages/Lounge';
 import NotFoundPage from './pages/NotFoundPage';
 import ProductLists from './pages/ProductLists';
 import ProductDetail from './pages/ProductDetail';
+import Notice from './pages/Notice';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path=":pdCategory" element={<ProductDetail />} />
             <Route path="product" element={<ProductLists />} />
             <Route path="*" element={<NotFoundPage />} />
+            <Route path="notice" element={<Notice />} />
           </Route>
           {/* <Route path="/test" element={<Test />} /> */}
         </Routes>
