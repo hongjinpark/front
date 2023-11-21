@@ -23,6 +23,9 @@ export default function Nav() {
           <li>
             <Link to="/linkpage">Go to the link page</Link>
           </li>
+          <li>
+            <Link to="/notice">Go to the Notice</Link>
+          </li>
         </ul>
       </div>
     </div>
