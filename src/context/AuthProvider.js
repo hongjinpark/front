@@ -3,8 +3,7 @@ import { createContext, useState } from 'react';
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const storageAuth = JSON.parse(localStorage.getItem('user')) || null;
-  const [auth, setAuth] = useState(storageAuth);
+  const [auth, setAuth] = useState({});
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
