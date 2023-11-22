@@ -14,6 +14,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import ProductLists from './pages/ProductLists';
 import ProductDetail from './pages/ProductDetail';
 import Notice from './pages/Notice';
+import NoticeDetail from './pages/NoticeDetail';
 
 function App() {
   return (
@@ -30,7 +31,9 @@ function App() {
             <Route path=":pdCategory" element={<ProductDetail />} />
             <Route path="product" element={<ProductLists />} />
             <Route path="*" element={<NotFoundPage />} />
-            <Route path="notice" element={<Notice />} />
+            <Route path="notice" element={<Notice />}>
+              <Route path=":id" element={<NoticeDetail />} />
+            </Route>
           </Route>
           {/* <Route path="/test" element={<Test />} /> */}
         </Routes>
