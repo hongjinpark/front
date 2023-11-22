@@ -33,6 +33,7 @@ module.exports = {
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
   },
   settings: {
     react: { version: 'detect' },

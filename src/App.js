@@ -3,7 +3,6 @@ import './App.module.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // import Test from './components/Test';
 import Login from './pages/Login';
-import { AuthProvider } from './context/AuthProvider';
 // import Nav from './components/Nav';
 // import Footer from './components/Footer';
 import LinkPage from './pages/LinkPage';
@@ -15,11 +14,13 @@ import ProductDetail from './pages/ProductDetail';
 import MyPage from './pages/MyPage';
 import Header from './pages/Header';
 import Home from './pages/Home';
+import ModalProvider from './provider/ModalProvider';
+import ContextProvider from './provider/ContextProvider';
 
 function App() {
   return (
     <Router>
-      <AuthProvider>
+      <ContextProvider>
         <div className="flex flex-col min-h-screen">
           {/* <Nav /> */}
           <Header />
@@ -39,7 +40,8 @@ function App() {
           </Routes>
           {/* <Footer /> */}
         </div>
-      </AuthProvider>
+        <ModalProvider />
+      </ContextProvider>
     </Router>
   );
 }
