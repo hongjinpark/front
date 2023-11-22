@@ -7,11 +7,11 @@ export default function Products({ list }) {
     <ul className={styles.products}>
       {list.map((item) => {
         return (
-          <li key={item.id}>
-            <Link to={`${item.pdCategory}`}>
+          <li key={item.product_id}>
+            <Link to={`${item.pdTitle}`}>
               <Card className={styles.card}>
                 <img
-                  src={`data:image/jpeg;base64,${item.images[0].data}`}
+                  src={`/resources+${item.imgUrl}`}
                   alt="상품이미지"
                   className={styles.img}
                 />

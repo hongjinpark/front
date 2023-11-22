@@ -11,13 +11,13 @@ const Home = () => {
   const [list, setList] = useState([]);
 
   const productLists = async () => {
-    let path = `/product/lists/all`;
+    let path = `/product/list`;
     try {
       const options = {
         path: path,
       };
       const getData = await getApi(options);
-      setList(getData.content);
+      setList(getData);
     } catch (e) {
       throw e;
     }

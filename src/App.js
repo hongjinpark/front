@@ -26,7 +26,7 @@ function App() {
             <Route path="linkPage" element={<LinkPage />} />
             <Route path="admin" element={<Admin />} />
             <Route path="lounge" element={<Lounge />} />
-            <Route path=":pdCategory" element={<ProductDetail />} />
+            <Route path=":pdTitle" element={<ProductDetail />} />
             <Route path="product" element={<ProductLists />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>

@@ -8,6 +8,10 @@ export default function Nav() {
         <Link to="/">
           <h2>중고 나라 사이트</h2>
         </Link>
+        <form className={styles.form}>
+          <input name="keyword" placeholder="검색으로 과정 찾기" />
+          <button type="submit">검색</button>
+        </form>
         <ul className={styles.menu}>
           <li>
             <Link to="/editor" className={styles.link}>
