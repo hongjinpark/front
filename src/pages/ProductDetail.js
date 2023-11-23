@@ -58,7 +58,7 @@ export default function ProductDetail() {
               </span>
               원
             </p>
-            <p>카테고리 : {course.pdCategory && '카테고리 없음'} </p>
+            <p>카테고리 : {course.pdCategory} </p>
           </div>
         </div>
       )}
