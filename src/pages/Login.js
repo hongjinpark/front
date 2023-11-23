@@ -5,6 +5,7 @@ import { login } from '../api/user.api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Button, Container, Col, Row, Form } from 'react-bootstrap';
+import { httpApi } from './../api/axios';
 
 const Login = () => {
   const { setAuth } = useAuth();
@@ -27,9 +28,12 @@ const Login = () => {
       const response = await login(user);
       const responseUser = response?.data;
       const accessToken = response?.data?.token;
-      localStorage.setItem('login', response.data.token);
-      const roles = response?.data?.role;
-      setAuth({ responseUser, roles, accessToken });
+      localStorage.setItem('login', accessToken);
+      localStorage.setItem('user', JSON.stringify(response.data));
+      httpApi.defaults.headers.common['Authorization'] =
+        `Bearer ${accessToken}`;
+      // const roles = response?.data?.role;
+      setAuth(responseUser);
       setUser('');
       navigate(from, { replace: true });
     } catch (err) {

@@ -1,11 +1,18 @@
 import useAuth from './../hooks/useAuth';
 import PurchaseModalContext from '../context/PurchaseModalProvider';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import SaleModalContext from '../context/SaleModalProvider';
+import { getMyProductList } from '../api/product.api';
+import MyProductList from '../components/mypage/MyProductList';
 export default function MyPage() {
   const { auth } = useAuth();
   const { openModal: openPurchaseModal } = useContext(PurchaseModalContext);
   const { openModal: openSaleModal } = useContext(SaleModalContext);
+  const [myProducts, setMyProducts] = useState([]);
+
+  useEffect(() => {
+    getMyProductList().then((res) => setMyProducts(res.data));
+  }, []);
   return (
     <main className="relative flex-grow border-b-2">
       <div className="flex mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
@@ -112,6 +119,7 @@ export default function MyPage() {
             </div>
           </div>
           <div className="px-0 max-lg:mt-10">
+            {/* 상품 목록 헤더 */}
             <div className="items-center justify-between block mb-4 md:flex lg:mb-7">
               <div className="flex-shrink-0 mb-1 text-xs leading-4 text-body md:text-sm pe-4 md:me-6 lg:ps-2 lg:block">
                 0 개의 상품
@@ -167,9 +175,13 @@ export default function MyPage() {
                 </div>
               </div>
             </div>
-            <p className="py-12 text-center">
+            {/* 판매 상품  */}
+            {myProducts.map((product) => (
+              <MyProductList key={product.id} product={product} />
+            ))}
+            {/* <p className="py-12 text-center">
               선택된 조건에 해당하는 상품이 없습니다.
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

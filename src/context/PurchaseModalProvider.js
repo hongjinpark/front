@@ -5,11 +5,11 @@ const PurchaseModalContext = createContext({});
 export const PurchaseModalProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const openPurchseModal = () => {
+  const openPurchaseModal = () => {
     setIsOpen(true);
   };
 
-  const closePurchseModal = () => {
+  const closePurchaseModal = () => {
     setIsOpen(false);
   };
 
@@ -18,8 +18,8 @@ export const PurchaseModalProvider = ({ children }) => {
       value={{
         isOpen,
         setIsOpen,
-        openModal: openPurchseModal,
-        closeModal: closePurchseModal,
+        openModal: openPurchaseModal,
+        closeModal: closePurchaseModal,
       }}
     >
       {children}
