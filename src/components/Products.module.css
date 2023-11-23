@@ -42,7 +42,7 @@ ul.products {
   background-size: cover;
 }
 
-.info {
+/* .info {
   position: absolute;
   width: 100%;
   left: 50%;
@@ -54,4 +54,4 @@ ul.products {
   margin: 1px;
   text-align: center;
   background: #fff;
-}
+} */

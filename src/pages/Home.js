@@ -6,7 +6,6 @@ import { getApi } from '../api/axios';
 import Products from '../components/Products';
 
 const Home = () => {
-  // const { setAuth } = useContext(AuthContext);
   const { auth } = useAuth();
   const [list, setList] = useState([]);
 

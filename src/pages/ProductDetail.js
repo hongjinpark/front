@@ -16,6 +16,7 @@ export default function ProductDetail() {
         path: path,
       };
       const getData = await getApi(options);
+
       setList(getData);
     } catch (e) {
       throw e;
@@ -44,7 +45,7 @@ export default function ProductDetail() {
         <div className={styles.pdInfo}>
           <div className={styles.imgBox}>
             <img
-              src={`/resources/${course.imgUrl}.jpg`}
+              src={`data:image/webp;base64,../assets${course.imgUrl}.jpg`}
               alt="상품이미지"
               className={styles.img}
             />
