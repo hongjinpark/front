@@ -4,6 +4,7 @@ import useAuth from '../hooks/useAuth';
 import { useEffect, useState } from 'react';
 import { getApi } from '../api/axios';
 import Products from '../components/Products';
+import Container from '../components/Container';
 
 const Home = () => {
   const { auth } = useAuth();
@@ -27,34 +28,32 @@ const Home = () => {
   }, [auth]);
 
   return (
-    <section>
-      <div className={styles.container}>
-        <div className={styles.box1}>
-          <h1>중고 상품</h1>
-          <div className={styles.items}>
-            <Products list={list} />
-          </div>
-        </div>
-        <div className={styles.box1}>
-          <h1>중고 상품2</h1>
-          <div className={styles.items}>
-            <Products list={list} />
-          </div>
-        </div>
-        <div className={styles.box1}>
-          <h1>중고 상품3</h1>
-          <div className={styles.items}>
-            <Products list={list} />
-          </div>
-        </div>
-        <div className={styles.box1}>
-          <h1>중고 상품4</h1>
-          <div className={styles.items}>
-            <Products list={list} />
-          </div>
+    <Container>
+      <div className={styles.box1}>
+        <h1>중고 상품</h1>
+        <div className={styles.items}>
+          <Products list={list} />
         </div>
       </div>
-    </section>
+      <div className={styles.box1}>
+        <h1>중고 상품2</h1>
+        <div className={styles.items}>
+          <Products list={list} />
+        </div>
+      </div>
+      <div className={styles.box1}>
+        <h1>중고 상품3</h1>
+        <div className={styles.items}>
+          <Products list={list} />
+        </div>
+      </div>
+      <div className={styles.box1}>
+        <h1>중고 상품4</h1>
+        <div className={styles.items}>
+          <Products list={list} />
+        </div>
+      </div>
+    </Container>
   );
 };
 
