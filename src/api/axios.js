@@ -14,7 +14,8 @@ export const axiosPrivate = axios.create({
 export const httpApi = axios.create({
   baseURL: 'http://localhost:8090',
 });
-
+httpApi.defaults.headers.common['Authorization'] =
+  `Bearer ${localStorage.getItem('login')}`;
 const send = async ({
   method = '',
   path = '',

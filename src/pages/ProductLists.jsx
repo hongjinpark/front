@@ -62,7 +62,6 @@ export default function ProductLists() {
                       {product.pdTitle}
                     </a>
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500">{product.color}</p>
                 </div>
                 <p className="text-sm font-medium text-gray-900">
                   Price: {product.price}

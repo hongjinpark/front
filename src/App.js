@@ -15,29 +15,36 @@ import ProductLists from './pages/ProductLists';
 import ProductDetail from './pages/ProductDetail';
 import Notice from './pages/Notice';
 import NoticeDetail from './pages/NoticeDetail';
+import MyPage from './pages/MyPage';
+import ModalProvider from './provider/ModalProvider';
+import ContextProvider from './provider/ContextProvider';
 
 function App() {
   return (
     <Router>
       <AuthProvider>
-        <Nav />
-        <Routes>
-          <Route path="/">
-            <Route index element={<Home />} />
-            <Route path="login" element={<Login />} />
-            <Route path="linkPage" element={<LinkPage />} />
-            <Route path="admin" element={<Admin />} />
-            <Route path="lounge" element={<Lounge />} />
-            <Route path=":pdTitle" element={<ProductDetail />} />
-            <Route path="product" element={<ProductLists />} />
-            <Route path="*" element={<NotFoundPage />} />
-            <Route path="notice" element={<Notice />}>
-              <Route path=":id" element={<NoticeDetail />} />
+        <ContextProvider>
+          <Nav />
+          <Routes>
+            <Route path="/">
+              <Route index element={<Home />} />
+              <Route path="login" element={<Login />} />
+              <Route path="linkPage" element={<LinkPage />} />
+              <Route path="admin" element={<Admin />} />
+              <Route path="lounge" element={<Lounge />} />
+              <Route path=":pdTitle" element={<ProductDetail />} />
+              <Route path="product" element={<ProductLists />} />
+              <Route path="*" element={<NotFoundPage />} />
+              <Route path="notice" element={<Notice />}>
+                <Route path=":id" element={<NoticeDetail />} />
+              </Route>
+              <Route path="mypage" element={<MyPage />} />
             </Route>
-          </Route>
-          {/* <Route path="/test" element={<Test />} /> */}
-        </Routes>
-        <Footer />
+            {/* <Route path="/test" element={<Test />} /> */}
+          </Routes>
+          <Footer />
+          <ModalProvider />
+        </ContextProvider>
       </AuthProvider>
     </Router>
   );
