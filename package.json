@@ -52,7 +52,7 @@
     "autoprefixer": "^10.4.16",
     "babel-loader": "^9.1.3",
     "css-loader": "^6.8.1",
-    "eslint": "^8.53.0",
+    "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-jsx-a11y": "^6.8.0",
     "eslint-plugin-prettier": "^5.0.1",

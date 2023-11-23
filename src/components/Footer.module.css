@@ -1,11 +1,11 @@
 .footer {
-  padding: 20px 0 53px;
+  padding: 20px 10% 10px;
 }
 
 .container {
   width: 100%;
   max-width: 840px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 .links {
