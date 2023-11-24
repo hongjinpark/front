@@ -1,7 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './Nav.module.css';
 
 export default function Nav() {
+  const navigate = useNavigate();
+  const Token = localStorage.getItem('login');
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('login');
+    alert('로그아웃 완료');
+    navigate('/');
+  };
   return (
     <div className={styles.nav}>
       <div className={styles.container}>
@@ -25,7 +34,17 @@ export default function Nav() {
             <Link to="/lounge">Lounge</Link>
           </li>
           <li>
-            <Link to="/linkpage">link</Link>
+            {!Token && (
+              <button className={styles.login}>
+                <Link to="/Login">로그인</Link>
+              </button>
+            )}
+
+            {Token && (
+              <button onClick={handleLogin} className={styles.logout}>
+                로그아웃
+              </button>
+            )}
           </li>
           <li>
             <Link to="/notice">Notice</Link>

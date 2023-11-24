@@ -1,0 +1,36 @@
+.title {
+  cursor: pointer;
+}
+
+.hover {
+  text-decoration: underline;
+}
+.List {
+  padding: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+  min-height: 500px;
+}
+
+.list_tit {
+  border-bottom: solid 1px #ababab;
+  color: #ababab;
+}
+
+.list_grid {
+  display: grid;
+  grid-template-columns: 10% 75% 15%;
+}
+
+.list_data {
+  line-height: 40px;
+}
+
+.acenter {
+  text-align: center;
+}
+
+.body {
+  margin: 0 auto;
+  width: 1200px;
+}

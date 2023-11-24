@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { login } from '../api/user.api';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Button, Container, Col, Row, Form } from 'react-bootstrap';
 import { httpApi } from './../api/axios';

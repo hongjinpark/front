@@ -1,13 +1,15 @@
-import { Table, Button } from 'react-bootstrap/';
+import { Button } from 'react-bootstrap/';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './Notice.module.css';
+import styles from './Notice.module.css';
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 export default function Noitce() {
-  let navigator = useNavigate();
-  let [board, setBoard] = useState();
+  const navigator = useNavigate();
+  const [board, setBoard] = useState();
 
   useEffect(() => {
     axios.get('http://localhost:8090/notice/list').then((result) => {
@@ -18,41 +20,43 @@ export default function Noitce() {
   }, []);
 
   return (
-    <>
+    <div className={styles.body}>
       <Outlet />
       <Button variant="outline-primary">글쓰기</Button>{' '}
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>날짜</th>
-          </tr>
-        </thead>
-        <tbody>
-          {board
-            ? board.map(function (a, i) {
-                return <List i={i} key={i} />;
-              })
-            : null}
-        </tbody>
-      </Table>
-    </>
+      <div className={styles.list}>
+        <div className={`${styles.list_tit} ${styles.list_grid}`}>
+          <div> 번호 </div>
+          <div> 제목 </div>
+          <div className={styles.acenter}> 날짜 </div>
+        </div>
+
+        {board
+          ? board.map(function (a, i) {
+              return <List i={i} key={i} />;
+            })
+          : null}
+      </div>
+    </div>
   );
 
   function List(props) {
+    const [hover, setHover] = useState(false);
     return (
-      <tr>
-        <td>{board[props.i].notice_id}</td>
-        <td
+      <div className={`${styles.list_data} ${styles.list_grid}`}>
+        <div>{board[props.i].notice_id}</div>
+        <div
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
           onClick={() => {
             navigator('/notice/' + board[props.i].notice_id);
           }}
+          className={`${styles.title} ${hover == true ? styles.hover : ''}`}
+          role="presentation"
         >
           {board[props.i].notice_title}
-        </td>
-        <td>{board[props.i].reg_time}</td>
-      </tr>
+        </div>
+        <div className={styles.acenter}>{board[props.i].reg_time}</div>
+      </div>
     );
   }
 }

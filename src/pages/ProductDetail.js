@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import styles from './ProductDetail.module.css';
 import { useEffect, useState } from 'react';
 import { getApi } from '../api/axios';
+import Container from '../components/Container';
 
 export default function ProductDetail() {
   const { pdTitle } = useParams();
@@ -39,21 +40,25 @@ export default function ProductDetail() {
     console.log('course : ' + JSON.stringify(course.imgUrl));
   }
   return (
-    <div className={styles.container}>
-      <h1>Product Detail Page</h1>
+    <Container>
       {course && (
         <div className={styles.pdInfo}>
           <div className={styles.imgBox}>
             <img
-              src={`data:image/webp;base64,../assets${course.imgUrl}.jpg`}
+              src={require(`../assets${course.imgUrl}`)}
               alt="상품이미지"
               className={styles.img}
             />
           </div>
           <div className={styles.infoBox}>
-            <p>상품명 : {course.pdTitle}</p>
-            <p>카테고리 : {course.pdCategory && '카테고리 없음'} </p>
-            <p>가격 : {course.price}</p>
+            <h1 className={styles.pdTitle}>상품명 : {course.pdTitle}</h1>
+            <p>
+              <span className={styles.price}>
+                {course.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              </span>
+              원
+            </p>
+            <p>카테고리 : {course.pdCategory} </p>
           </div>
         </div>
       )}
@@ -63,6 +68,6 @@ export default function ProductDetail() {
           <p>{course.pdContents}</p>
         </div>
       )}
-    </div>
+    </Container>
   );
 }
