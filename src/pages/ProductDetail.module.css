@@ -1,5 +1,5 @@
 .container {
-  padding: 50px;
+  padding-top: 50px;
 }
 
 .pdInfo {
@@ -7,24 +7,97 @@
 }
 
 .imgBox {
-  padding-right: 50px;
+  background: #fff;
+  z-index: 9;
 }
 
-.img {
+.pdImg {
   width: 612px;
   height: 612px;
   background-size: cover;
-  background: pink;
+  transition: all 0.3s ease-out;
+  border-radius: 10px;
+}
+.pdImg:hover {
+  opacity: 0.9;
 }
 
 .infoBox {
   color: #333;
+  margin-left: 50px;
+}
+.category {
+  margin-bottom: 20px;
 }
 .pdTitle {
   font-size: 24px;
   font-weight: 800;
 }
 .price {
-  font-size: 32px;
+  font-size: 34px;
   font-weight: 800;
+}
+
+.plusInfo {
+  display: flex;
+  border-top: 1px solid #ccc;
+  padding: 30px 0 20px;
+}
+li {
+  list-style: none;
+}
+
+.info1,
+.info2 {
+  padding: 0 70px 0 10px;
+  border-right: 1px solid #ccc;
+}
+.info3 {
+  padding: 0 50px 0 10px;
+}
+
+.title {
+  font-size: 14px;
+  color: #4343438f;
+}
+.subTitle {
+  font-size: 20px;
+  font-weight: 800;
+  color: #333;
+}
+.option {
+  margin-bottom: 10px;
+}
+.option > p:first-child {
+  margin-bottom: 10px;
+}
+.option > p:nth-child(2) {
+  margin-bottom: 2px;
+}
+
+.subForm {
+  display: flex;
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.chatBtn {
+  margin: 0 30px 0 10px;
+  padding: 10px 90px;
+}
+.buyBtn {
+  background: #333;
+  color: #fff;
+  padding: 10px 90px;
+}
+
+.content {
+  margin-top: 50px;
+  padding-bottom: 50px;
+}
+
+.caution {
+  margin: 20px 0;
 }

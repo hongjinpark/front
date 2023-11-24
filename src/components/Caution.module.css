@@ -1,0 +1,24 @@
+.caution {
+  padding: 20px;
+  text-align: center;
+  background: #f9f9f9;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.content {
+  font-size: 14px;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.point {
+  text-decoration: underline;
+}
+.red {
+  text-decoration: underline;
+  color: red;
+}
