@@ -4,14 +4,35 @@ import { useContext, useEffect, useState } from 'react';
 import SaleModalContext from '../context/SaleModalProvider';
 import { getMyProductList } from '../api/product.api';
 import MyProductList from '../components/mypage/MyProductList';
+import MyPageOption from '../components/mypage/MyPageOption';
 export default function MyPage() {
   const { auth } = useAuth();
   const { openModal: openPurchaseModal } = useContext(PurchaseModalContext);
   const { openModal: openSaleModal } = useContext(SaleModalContext);
   const [myProducts, setMyProducts] = useState([]);
-
+  const [status, setStatus] = useState('');
+  const attributesData = [
+    {
+      name: '전체',
+      value: '',
+    },
+    {
+      name: '판매중',
+      value: 'Y',
+    },
+    {
+      name: '예약중',
+      value: 'R',
+    },
+    {
+      name: '판매완료',
+      value: 'C',
+    },
+  ];
   useEffect(() => {
-    getMyProductList().then((res) => setMyProducts(res.data));
+    getMyProductList().then((res) => {
+      setMyProducts(res.data);
+    });
   }, []);
   return (
     <main className="relative flex-grow border-b-2">
@@ -122,23 +143,19 @@ export default function MyPage() {
             {/* 상품 목록 헤더 */}
             <div className="items-center justify-between block mb-4 md:flex lg:mb-7">
               <div className="flex-shrink-0 mb-1 text-xs leading-4 text-body md:text-sm pe-4 md:me-6 lg:ps-2 lg:block">
-                0 개의 상품
+                {myProducts.length} 개의 상품
               </div>
               <div className="flex flex-wrap items-center justify-between">
                 <div className="mr-0 lg:mr-4">
                   <ul className="colors flex flex-nowrap -me-3">
-                    <li className="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
-                      전체
-                    </li>
-                    <li className="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
-                      판매중
-                    </li>
-                    <li className="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
-                      예약중
-                    </li>
-                    <li className="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
-                      판매완료
-                    </li>
+                    {attributesData.map((attribute) => (
+                      <MyPageOption
+                        key={attribute.id}
+                        attribute={attribute}
+                        setStatus={setStatus}
+                        status={status}
+                      />
+                    ))}
                   </ul>
                 </div>
                 <div className="relative my-2 sm:m-0 lg:ms-0 z-10 min-w-[160px]">
@@ -176,12 +193,23 @@ export default function MyPage() {
               </div>
             </div>
             {/* 판매 상품  */}
-            {myProducts.map((product) => (
-              <MyProductList key={product.id} product={product} />
-            ))}
-            {/* <p className="py-12 text-center">
-              선택된 조건에 해당하는 상품이 없습니다.
-            </p> */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-3 lg:gap-x-5 xl:gap-x-7 gap-y-3 xl:gap-y-5 2xl:gap-y-8 ">
+              {myProducts.map((product) => (
+                <>
+                  {(status === '' || product.pdStatus === status) && (
+                    <MyProductList key={product.id} product={product} />
+                  )}
+                </>
+              ))}
+            </div>
+            {status !== '' &&
+              myProducts.filter((product) => product.pdStatus === status)
+                .length === 0 && (
+                <p className="py-12 text-center">
+                  선택된 조건에 해당하는 상품이 없습니다.
+                </p>
+              )}
+            <div className="py-8 text-center xl:pt-14"></div>
           </div>
         </div>
       </div>
