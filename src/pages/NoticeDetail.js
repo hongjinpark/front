@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import styles from './NoticeDetail.module.css';
 
 export default function NoticeDetail() {
   let { id } = useParams();
@@ -15,16 +16,23 @@ export default function NoticeDetail() {
   return (
     <>
       {board ? (
-        <>
-          <h1>
-            {board[board.findIndex((v) => v.notice_id == id)].notice_title}
-          </h1>
-          <p>{board[board.findIndex((v) => v.notice_id == id)].reg_time}</p>
-          <hr></hr>
-          <p>
-            {board[board.findIndex((v) => v.notice_id == id)].notice_contents}
-          </p>
-        </>
+        <div className={styles.box}>
+          <div className={styles.top_title}>
+            <div className={styles.title_text}>
+              {board[board.findIndex((v) => v.notice_id == id)].notice_title}
+            </div>
+
+            <div className={styles.date_div}>
+              {board[board.findIndex((v) => v.notice_id == id)].reg_time}
+            </div>
+          </div>
+
+          <div>
+            <div className={styles.contents_text}>
+              {board[board.findIndex((v) => v.notice_id == id)].notice_contents}
+            </div>
+          </div>
+        </div>
       ) : null}
     </>
   );
