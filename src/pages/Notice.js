@@ -22,7 +22,7 @@ export default function Noitce() {
   return (
     <div className={styles.body}>
       <Outlet />
-      <Button variant="outline-dark">글쓰기</Button>
+
       <div className={styles.list}>
         <div className={`${styles.list_tit} ${styles.list_grid}`}>
           <div> 번호 </div>
@@ -36,6 +36,15 @@ export default function Noitce() {
             })
           : null}
       </div>
+      <Button
+        className={styles.button}
+        onClick={() => {
+          navigator('/notice/write');
+        }}
+        variant="outline-dark"
+      >
+        글쓰기
+      </Button>
     </div>
   );
 
