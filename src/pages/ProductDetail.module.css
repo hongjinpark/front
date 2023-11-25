@@ -8,7 +8,7 @@
 
 .imgBox {
   background: #fff;
-  z-index: 9;
+  /* z-index: 9; */
 }
 
 .pdImg {
@@ -91,6 +91,9 @@ li {
   background: #333;
   color: #fff;
   padding: 10px 90px;
+}
+.buyBtn:hover {
+  opacity: 0.9;
 }
 
 .content {

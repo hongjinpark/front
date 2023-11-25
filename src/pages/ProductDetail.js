@@ -36,11 +36,6 @@ export default function ProductDetail() {
     setCourse(foundCourse);
   }, [list, pdTitle]);
 
-  if (!course) {
-    return;
-  } else {
-    console.log('course : ' + JSON.stringify(course));
-  }
   return (
     <Container className={styles.container}>
       {course && (

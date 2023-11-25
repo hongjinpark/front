@@ -1,0 +1,67 @@
+.category {
+  display: flex;
+}
+
+.category > .btn {
+  margin-right: 10px;
+}
+.btn {
+  padding: 0 10px;
+  text-align: center;
+  border: none;
+  transition: all 0.2s ease;
+}
+.btn:hover {
+  box-shadow: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.categoryBox {
+  position: relative;
+  margin-right: 10px;
+}
+.cBtn {
+  padding: 10px;
+  background: #333;
+  border-radius: 7px;
+  color: #fff;
+}
+.text {
+  margin-left: 10px;
+}
+.categories {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 150px;
+  border-radius: 10px;
+  transform: translate(0, 47px);
+  transition: all 0.4s ease-out;
+  color: #999999;
+  background: #fff;
+  visibility: hidden;
+  opacity: 0;
+  overflow: hidden;
+}
+.link {
+  padding: 20px;
+}
+
+.categoryBox:hover .categories {
+  visibility: visible;
+  opacity: 1;
+}
+.categories:hover {
+  cursor: pointer;
+}
+
+.link:hover {
+  background: #b1b1b1;
+}
+
+.eBtn:hover,
+.sBtn:hover,
+.iBtn:hover {
+  border-bottom: 1px solid #333;
+}

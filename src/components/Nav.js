@@ -1,5 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Nav.module.css';
+import Category from './Category';
+import Container from './Container';
 
 export default function Nav() {
   const navigate = useNavigate();
@@ -51,6 +53,9 @@ export default function Nav() {
           </li>
         </ul>
       </div>
+      <Container>
+        <Category />
+      </Container>
     </div>
   );
 }

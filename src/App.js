@@ -18,6 +18,7 @@ import NoticeDetail from './pages/NoticeDetail';
 import MyPage from './pages/MyPage';
 import ModalProvider from './provider/ModalProvider';
 import ContextProvider from './provider/ContextProvider';
+import Search from './pages/Search';
 
 function App() {
   return (
@@ -34,13 +35,15 @@ function App() {
               <Route path="lounge" element={<Lounge />} />
               <Route path=":pdTitle" element={<ProductDetail />} />
               <Route path="product" element={<ProductLists />} />
-              <Route path="*" element={<NotFoundPage />} />
               <Route path="notice" element={<Notice />}>
                 <Route path=":id" element={<NoticeDetail />} />
               </Route>
               <Route path="mypage" element={<MyPage />} />
+              <Route path="search/" element={<Search />}>
+                <Route path=":pdCategory" element={<Search />} />
+              </Route>
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
-            {/* <Route path="/test" element={<Test />} /> */}
           </Routes>
           <Footer />
           <ModalProvider />

@@ -35,24 +35,6 @@ const Home = () => {
           <Products list={list} />
         </div>
       </div>
-      <div className={styles.box1}>
-        <h1>중고 상품2</h1>
-        <div className={styles.items}>
-          <Products list={list} />
-        </div>
-      </div>
-      <div className={styles.box1}>
-        <h1>중고 상품3</h1>
-        <div className={styles.items}>
-          <Products list={list} />
-        </div>
-      </div>
-      <div className={styles.box1}>
-        <h1>중고 상품4</h1>
-        <div className={styles.items}>
-          <Products list={list} />
-        </div>
-      </div>
     </Container>
   );
 };
