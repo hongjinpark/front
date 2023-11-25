@@ -51,6 +51,9 @@ export default function Nav() {
           <li>
             <Link to="/notice">Notice</Link>
           </li>
+          <li>
+            <Link to="/mypage">MyPage</Link>
+          </li>
         </ul>
       </div>
       <Container>

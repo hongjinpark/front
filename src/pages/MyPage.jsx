@@ -1,24 +1,46 @@
 import useAuth from './../hooks/useAuth';
 import PurchaseModalContext from '../context/PurchaseModalProvider';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, React } from 'react';
 import SaleModalContext from '../context/SaleModalProvider';
 import { getMyProductList } from '../api/product.api';
 import MyProductList from '../components/mypage/MyProductList';
+import MyPageProductHeader from '../components/mypage/MyPageProductHeader';
 export default function MyPage() {
   const { auth } = useAuth();
   const { openModal: openPurchaseModal } = useContext(PurchaseModalContext);
   const { openModal: openSaleModal } = useContext(SaleModalContext);
   const [myProducts, setMyProducts] = useState([]);
+  const [status, setStatus] = useState('A');
 
+  const attributesData = [
+    {
+      name: '전체',
+      value: 'A',
+    },
+    {
+      name: '판매중',
+      value: 'Y',
+    },
+    {
+      name: '예약중',
+      value: 'R',
+    },
+    {
+      name: '판매완료',
+      value: 'C',
+    },
+  ];
   useEffect(() => {
-    getMyProductList().then((res) => setMyProducts(res.data));
+    getMyProductList().then((res) => {
+      setMyProducts(res.data);
+    });
   }, []);
   return (
     <main className="relative flex-grow border-b-2">
-      <div className="flex mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
+      <div className="flex mx-auto max-w-[1600px] px-4 md:px-8 2xl:px-16 box-content">
         <div className="hidden lg:block mt-6 min-w-[150px] basis-[300px] flex-shrink [&_ul]:mb-4 [&_li]:w-fit [&_li]:cursor-pointer [&_li]:mb-2 [&_li]:text-gray-600">
-          <h2 className="mb-3 text-xl font-semibold">마이 페이지</h2>
-          <h3 className="mb-2 text-lg font-semibold">쇼핑 정보</h3>
+          <h2 className="mb-3 text-2xl font-semibold">마이 페이지</h2>
+          <h3 className="mb-2 text-xl font-semibold">쇼핑 정보</h3>
           <ul className="flex-col flex">
             <button onClick={() => openPurchaseModal()}>
               <li>구매내역</li>
@@ -28,7 +50,7 @@ export default function MyPage() {
             </button>
             <li>택배내역</li>
           </ul>
-          <h3 className="mb-2 text-lg font-semibold">내 정보</h3>
+          <h3 className="mb-2 text-xl font-semibold">내 정보</h3>
           <ul>
             <li>계좌 관리</li>
             <li>배송지 관리</li>
@@ -120,68 +142,30 @@ export default function MyPage() {
           </div>
           <div className="px-0 max-lg:mt-10">
             {/* 상품 목록 헤더 */}
-            <div className="items-center justify-between block mb-4 md:flex lg:mb-7">
-              <div className="flex-shrink-0 mb-1 text-xs leading-4 text-body md:text-sm pe-4 md:me-6 lg:ps-2 lg:block">
-                0 개의 상품
-              </div>
-              <div className="flex flex-wrap items-center justify-between">
-                <div className="mr-0 lg:mr-4">
-                  <ul className="colors flex flex-nowrap -me-3">
-                    <li className="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
-                      전체
-                    </li>
-                    <li className="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
-                      판매중
-                    </li>
-                    <li className="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
-                      예약중
-                    </li>
-                    <li className="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
-                      판매완료
-                    </li>
-                  </ul>
-                </div>
-                <div className="relative my-2 sm:m-0 lg:ms-0 z-10 min-w-[160px]">
-                  <button
-                    className="border border-gray-300 text-heading text-xs md:text-sm font-semibold relative w-full py-2 ps-3 pe-10 text-start bg-white rounded-lg shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm cursor-pointer"
-                    id="headlessui-listbox-button-:rg:"
-                    type="button"
-                    aria-haspopup="listbox"
-                    aria-expanded="false"
-                    data-headlessui-state=""
-                  >
-                    <span className="block truncate">최신순</span>
-                    <span className="absolute inset-y-0 end-0 flex items-center pe-2 pointer-events-none">
-                      <svg
-                        stroke="currentColor"
-                        fill="none"
-                        strokeWidth="0"
-                        viewBox="0 0 24 24"
-                        className="w-5 h-5 text-gray-400"
-                        aria-hidden="true"
-                        height="1em"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M8 9l4-4 4 4m0 6l-4 4-4-4"
-                        ></path>
-                      </svg>
-                    </span>
-                  </button>
-                </div>
-              </div>
-            </div>
+            <MyPageProductHeader
+              myProducts={myProducts}
+              attributesData={attributesData}
+              setStatus={setStatus}
+              status={status}
+            />
             {/* 판매 상품  */}
-            {myProducts.map((product) => (
-              <MyProductList key={product.id} product={product} />
-            ))}
-            {/* <p className="py-12 text-center">
-              선택된 조건에 해당하는 상품이 없습니다.
-            </p> */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-3 lg:gap-x-5 xl:gap-x-7 gap-y-3 xl:gap-y-5 2xl:gap-y-8 ">
+              {myProducts.map((product) => (
+                <div key={product.product_id}>
+                  {(status === 'A' || product.pdStatus === status) && (
+                    <MyProductList key={product.product_id} product={product} />
+                  )}
+                </div>
+              ))}
+            </div>
+            {status !== 'A' &&
+              myProducts.filter((product) => product.pdStatus === status)
+                .length === 0 && (
+                <p className="py-12 text-center">
+                  선택된 조건에 해당하는 상품이 없습니다.
+                </p>
+              )}
+            <div className="py-8 text-center xl:pt-14"></div>
           </div>
         </div>
       </div>
