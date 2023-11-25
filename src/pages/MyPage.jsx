@@ -1,6 +1,6 @@
 import useAuth from './../hooks/useAuth';
 import PurchaseModalContext from '../context/PurchaseModalProvider';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, React } from 'react';
 import SaleModalContext from '../context/SaleModalProvider';
 import { getMyProductList } from '../api/product.api';
 import MyProductList from '../components/mypage/MyProductList';
@@ -10,11 +10,12 @@ export default function MyPage() {
   const { openModal: openPurchaseModal } = useContext(PurchaseModalContext);
   const { openModal: openSaleModal } = useContext(SaleModalContext);
   const [myProducts, setMyProducts] = useState([]);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState('A');
+
   const attributesData = [
     {
       name: '전체',
-      value: '',
+      value: 'A',
     },
     {
       name: '판매중',
@@ -36,10 +37,10 @@ export default function MyPage() {
   }, []);
   return (
     <main className="relative flex-grow border-b-2">
-      <div className="flex mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
+      <div className="flex mx-auto max-w-[1600px] px-4 md:px-8 2xl:px-16 box-content">
         <div className="hidden lg:block mt-6 min-w-[150px] basis-[300px] flex-shrink [&_ul]:mb-4 [&_li]:w-fit [&_li]:cursor-pointer [&_li]:mb-2 [&_li]:text-gray-600">
-          <h2 className="mb-3 text-xl font-semibold">마이 페이지</h2>
-          <h3 className="mb-2 text-lg font-semibold">쇼핑 정보</h3>
+          <h2 className="mb-3 text-2xl font-semibold">마이 페이지</h2>
+          <h3 className="mb-2 text-xl font-semibold">쇼핑 정보</h3>
           <ul className="flex-col flex">
             <button onClick={() => openPurchaseModal()}>
               <li>구매내역</li>
@@ -49,7 +50,7 @@ export default function MyPage() {
             </button>
             <li>택배내역</li>
           </ul>
-          <h3 className="mb-2 text-lg font-semibold">내 정보</h3>
+          <h3 className="mb-2 text-xl font-semibold">내 정보</h3>
           <ul>
             <li>계좌 관리</li>
             <li>배송지 관리</li>
@@ -150,14 +151,14 @@ export default function MyPage() {
             {/* 판매 상품  */}
             <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-3 lg:gap-x-5 xl:gap-x-7 gap-y-3 xl:gap-y-5 2xl:gap-y-8 ">
               {myProducts.map((product) => (
-                <>
-                  {(status === '' || product.pdStatus === status) && (
-                    <MyProductList key={product.id} product={product} />
+                <div key={product.product_id}>
+                  {(status === 'A' || product.pdStatus === status) && (
+                    <MyProductList key={product.product_id} product={product} />
                   )}
-                </>
+                </div>
               ))}
             </div>
-            {status !== '' &&
+            {status !== 'A' &&
               myProducts.filter((product) => product.pdStatus === status)
                 .length === 0 && (
                 <p className="py-12 text-center">

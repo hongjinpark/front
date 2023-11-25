@@ -10,7 +10,7 @@ export default function MyPageProductMore({
   const attributesData = [
     {
       name: '전체',
-      value: '',
+      value: 'A',
     },
     {
       name: '판매중',
@@ -90,8 +90,11 @@ export default function MyPageProductMore({
         <ul className="[&>li]:py-3 [&>li]:cursor-pointer text-[rgb(20_19_19)]">
           {attributesData.map((data) => (
             <>
-              {data.value !== '' && product.pdStatus != data.value && (
-                <li className="py-[14px] [&>button]:w-full [&>button]:text-left">
+              {data.value !== 'A' && product.pdStatus != data.value && (
+                <li
+                  className="py-[14px] [&>button]:w-full [&>button]:text-left"
+                  key={product.product_id}
+                >
                   <button onClick={() => handleChangeStatus(data.value)}>
                     {data.name}
                   </button>

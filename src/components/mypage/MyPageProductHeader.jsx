@@ -16,7 +16,7 @@ export default function MyPageProductHeader({
           <ul className="colors flex flex-nowrap -me-3">
             {attributesData.map((attribute) => (
               <MyPageOption
-                key={attribute.id}
+                key={attribute.name}
                 attribute={attribute}
                 setStatus={setStatus}
                 status={status}

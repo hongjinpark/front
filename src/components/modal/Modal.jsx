@@ -1,8 +1,8 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 export default function Modal({ ModalContext, title }) {
   const { isOpen, closeModal } = useContext(ModalContext);
-
+  const [text, setText] = useState('');
   if (!isOpen) {
     return null;
   }
@@ -22,24 +22,24 @@ export default function Modal({ ModalContext, title }) {
     >
       <div className="relative  w-fullmd:w-4/6lg:w-3/6xl:w-2/5my-6mx-auto h-full lg:h-automd:h-auto z-50">
         <div
-          className="flex flex-col h-screen w-screen max-w-[750px] max-h-screen overflow-auto bg-white mx-auto my-0 pb-5;"
+          className="flex flex-col h-screen w-screen max-w-[600px] max-h-screen overflow-auto bg-white mx-auto my-0 pb-5;"
           id="modal"
         >
           <header className="sticky z-[99] top-0">
             <div className="static">
               <div className="relative flex justify-between items-center w-full h-11 z-[9] px-5 py-[11px]">
-                <h1 className="text-lg font-semibold leading-[25px] w-full absolute -translate-y-2/4 overflow-hidden text-ellipsis whitespace-nowrap text-center left-0 top-[22px]">
+                <h1 className="text-xl font-semibold leading-[25px] w-full absolute -translate-y-2/4 overflow-hidden text-ellipsis whitespace-nowrap text-center left-0 top-[22px]">
                   {title}
                 </h1>
-                <div className="w-7 h-6 flex justify-center items-center text-left z-[1]">
+                <div className="w-9 h-8 flex justify-center items-center text-left z-[1]">
                   <button
                     onClick={() => closeModal()}
                     className="w-full h-full font-normal text-base text-[rgb(20,19,19)] flex justify-center items-center"
                     name="뒤로가기"
                   >
                     <svg
-                      width="24"
-                      height="24"
+                      width="30"
+                      height="30"
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -64,8 +64,8 @@ export default function Modal({ ModalContext, title }) {
             id="container"
             className="flex-1 w-full h-full overflow-y-scroll pt-0"
           >
-            <div className="flex px-5 py-4">
-              <div className="flex-1 w-full h-11 relative text-sm font-medium leading-5 text-[rgb(51,51,51)] px-[15px] py-2.5 rounded-md">
+            <div className="flex px-3 py-2">
+              <div className="flex-1 w-full h-14 relative text-base font-medium leading-5 text-[rgb(51,51,51)] px-[15px] py-2.5 rounded-md bg-[rgb(241,244,246)]">
                 <button
                   type="submit"
                   className="flex items-center justify-center h-11 absolute appearance-none ml-[15px] rounded-none border-[none] left-0 inset-y-0"
@@ -73,7 +73,7 @@ export default function Modal({ ModalContext, title }) {
                   <svg
                     width="24"
                     height="24"
-                    viewBox="0 0 24 24"
+                    viewBox="0 0 20 20"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-5 h-auto rotate-0 text-[rgb(155,155,155)]"
@@ -95,22 +95,18 @@ export default function Modal({ ModalContext, title }) {
                   </svg>
                 </button>
                 <input
-                  style={{
-                    width: '100%',
-                    marginLeft: '30px',
-                    height: '100%',
-                    background: 'none',
-                  }}
+                  className="bg-inherit w-11/12 ml-[30px] h-full mr-[30px] focus:outline-none"
                   type="search"
                   id="searchWord"
                   placeholder="상품명을 입력해주세요."
                   autoComplete="off"
-                  value=""
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
                 ></input>
               </div>
               <button
                 type="submit"
-                className="flex items-center justify-center h-11 border rounded text-[rgb(51,51,51)] text-center text-sm leading-5 font-medium ml-2 px-4 py-2.5 border-solid border-[rgb(225,225,225)]"
+                className="flex items-center justify-center h-14 border rounded text-[rgb(51,51,51)] text-center text-base leading-5 font-medium ml-2 px-4 py-2.5 border-solid border-[rgb(225,225,225)]"
               >
                 <span className="pt-0.5">상세필터</span>
               </button>

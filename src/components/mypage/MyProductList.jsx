@@ -35,6 +35,19 @@ export default function MyProductList({ product }) {
                   color: 'transparent',
                 }}
               ></img>
+              {(product.pdStatus === 'C' || product.pdStatus === 'R') && (
+                <div className="absolute top-0 left-0 flex items-end w-full h-full bg-black bg-opacity-50">
+                  <div
+                    className={`w-full p-2 text-center text-white ${
+                      product.pdStatus === 'C' && 'bg-black'
+                    } ${
+                      product.pdStatus === 'R' && 'bg-green-400'
+                    } bg-opacity-50`}
+                  >
+                    {product.pdStatus === 'C' ? '판매완료' : '예약중'}
+                  </div>
+                </div>
+              )}
             </div>
             <div className="w-full overflow-hidden p-2 md:px-2.5 xl:px-4">
               <h2 className="line-clamp-2 text-sm md:text-base text-heading">
