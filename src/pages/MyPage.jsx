@@ -1,14 +1,12 @@
 import useAuth from './../hooks/useAuth';
-import PurchaseModalContext from '../context/PurchaseModalProvider';
-import { useContext, useEffect, useState, React } from 'react';
-import SaleModalContext from '../context/SaleModalProvider';
+import { useEffect, useState, React } from 'react';
 import { getMyProductList } from '../api/product.api';
 import MyProductList from '../components/mypage/MyProductList';
 import MyPageProductHeader from '../components/mypage/MyPageProductHeader';
+import MyPageMenu from '../components/mypage/MyPageMenu';
 export default function MyPage() {
   const { auth } = useAuth();
-  const { openModal: openPurchaseModal } = useContext(PurchaseModalContext);
-  const { openModal: openSaleModal } = useContext(SaleModalContext);
+
   const [myProducts, setMyProducts] = useState([]);
   const [status, setStatus] = useState('A');
 
@@ -38,34 +36,18 @@ export default function MyPage() {
   return (
     <main className="relative flex-grow border-b-2">
       <div className="flex mx-auto max-w-[1600px] px-4 md:px-8 2xl:px-16 box-content">
-        <div className="hidden lg:block mt-6 min-w-[150px] basis-[300px] flex-shrink [&_ul]:mb-4 [&_li]:w-fit [&_li]:cursor-pointer [&_li]:mb-2 [&_li]:text-gray-600">
-          <h2 className="mb-3 text-2xl font-semibold">마이 페이지</h2>
-          <h3 className="mb-2 text-xl font-semibold">쇼핑 정보</h3>
-          <ul className="flex-col flex">
-            <button onClick={() => openPurchaseModal()}>
-              <li>구매내역</li>
-            </button>
-            <button onClick={() => openSaleModal()}>
-              <li>판매내역</li>
-            </button>
-            <li>택배내역</li>
-          </ul>
-          <h3 className="mb-2 text-xl font-semibold">내 정보</h3>
-          <ul>
-            <li>계좌 관리</li>
-            <li>배송지 관리</li>
-            <li>이용 후기</li>
-          </ul>
-        </div>
+        <MyPageMenu />
+        {/* 유저정보 */}
         <div className="w-full flex-grow">
           <div className="block pb-4 lg:mt-6 ">
             <div className="lg:min-w-[800px] relative w-full h-full mb-4 col-span-2 text-black lg:flex lg:p-5 lg:border border-gray-300 rounded-lg">
               <div className="basis-1/2 flex flex-col justify-center mb-4 lg:mb-0 lg:pr-5 lg:border-r border-gray-300 lg:w-[50%]">
                 <div className="flex items-center mb-4">
                   <div className="flex items-center mr-3 translate-x-3">
-                    <image
-                      alt="profile-image"
-                      src="https://img2.joongna.com/common/Profile/Default/profile_m.png"
+                    <img
+                      className="rounded-full w-[48px] h-[48px] lg:w-[60px] lg:h-[60px] box-content border-4 border-white mr-3"
+                      alt="profile"
+                      src="profile.png"
                     />
                     <h1 className="mr-2 text-xl font-semibold cursor-pointer lg:text-2xl">
                       {auth.nickname}
