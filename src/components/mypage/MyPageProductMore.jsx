@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { updateProductStatus } from './../../api/product.api';
+import { deleteProduct, updateProductStatus } from './../../api/product.api';
 export default function MyPageProductMore({
   step,
   setStep,
@@ -25,6 +25,9 @@ export default function MyPageProductMore({
       value: 'C',
     },
   ];
+  const handleDelete = () => {
+    deleteProduct(product.product_id).then(() => navigate(0));
+  };
   const handleChangeStatus = (status) => {
     updateProductStatus(product.product_id, status).then(() => navigate(0));
   };
@@ -116,7 +119,7 @@ export default function MyPageProductMore({
       </div>
     );
   };
-  const deleteProduct = () => {
+  const deletes = () => {
     return (
       <div className="[&>p]:text-center text-[rgb(20_19_19)]">
         <p className="pb-4">
@@ -130,7 +133,10 @@ export default function MyPageProductMore({
           >
             취소
           </button>
-          <button className="text-[13px] w-[calc(50%-4px)] md:text-sm leading-4 items-center font-semibold font-body text-center justify-center border-0  bg-[rgb(20_19_19)] rounded-md bg-heading text-white md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:bg-gray-600">
+          <button
+            onClick={handleDelete}
+            className="text-[13px] w-[calc(50%-4px)] md:text-sm leading-4 items-center font-semibold font-body text-center justify-center border-0  bg-[rgb(20_19_19)] rounded-md bg-heading text-white md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:bg-gray-600"
+          >
             삭제
           </button>
         </div>
@@ -143,7 +149,7 @@ export default function MyPageProductMore({
       <div className="flex flex-col justify-center w-full h-full">
         {step === 'nomal' && nomal()}
         {step === 'change' && change()}
-        {step === 'delete' && deleteProduct()}
+        {step === 'delete' && deletes()}
       </div>
     </div>
   );

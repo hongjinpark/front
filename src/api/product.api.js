@@ -9,5 +9,8 @@ export const getMyProductList = () =>
   httpApi.get('/product/user').then((result) => {
     return result;
   });
+
 export const updateProductStatus = (id, status) =>
   httpApi.put(`/product/status/${id}/${status}`);
+
+export const deleteProduct = (id) => httpApi.delete(`/product/${id}`);

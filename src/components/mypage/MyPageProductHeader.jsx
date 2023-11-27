@@ -4,7 +4,6 @@ import MyPageOption from './MyPageOption';
 export default function MyPageProductHeader({
   myProducts,
   setMyProducts,
-  handleSort,
   attributesData,
   setStatus,
   status,
@@ -37,7 +36,7 @@ export default function MyPageProductHeader({
   useEffect(() => {
     console.log(sort());
     setMyProducts(sort());
-    handleSort((prev) => [...prev], sort());
+    setMyProducts((prev) => [...prev], sort());
   }, [state]);
   return (
     <div className="items-center justify-between block mb-4 md:flex lg:mb-7">
