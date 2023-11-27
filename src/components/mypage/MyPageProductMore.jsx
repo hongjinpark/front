@@ -26,8 +26,7 @@ export default function MyPageProductMore({
     },
   ];
   const handleChangeStatus = (status) => {
-    updateProductStatus(product.product_id, status);
-    navigate(0);
+    updateProductStatus(product.product_id, status).then(() => navigate(0));
   };
   const nomal = () => {
     return (
@@ -53,13 +52,24 @@ export default function MyPageProductMore({
           </svg>
         </button>
         <ul className="[&>li]:py-3 [&>li]:cursor-pointer text-[rgb(20_19_19)] pt-5">
-          <li>상품수정</li>
-          <li onClick={() => setStep('change')} role="presentation">
-            상태변경
-          </li>
-          <li onClick={() => setStep('delete')} role="presentation">
-            상품삭제
-          </li>
+          {product.pdStatus === 'C' ? (
+            <>
+              <li>같은 상품 다시팔기</li>
+              <li onClick={() => setStep('delete')} role="presentation">
+                상품삭제
+              </li>
+            </>
+          ) : (
+            <>
+              <li>상품수정</li>
+              <li onClick={() => setStep('change')} role="presentation">
+                상태변경
+              </li>
+              <li onClick={() => setStep('delete')} role="presentation">
+                상품삭제
+              </li>
+            </>
+          )}
         </ul>
       </div>
     );

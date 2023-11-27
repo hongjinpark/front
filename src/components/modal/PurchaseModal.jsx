@@ -3,6 +3,7 @@ import PurchaseModalContext from '../../context/PurchaseModalProvider';
 import Modal from './Modal';
 export default function PurchaseModal() {
   const [text, setText] = useState('');
+
   const headerContent = () => {
     return (
       <div className="flex px-3 py-2">

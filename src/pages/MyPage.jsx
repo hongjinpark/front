@@ -33,6 +33,9 @@ export default function MyPage() {
       setMyProducts(res.data);
     });
   }, []);
+  const handleSort = (sortedProduct) => {
+    setMyProducts(sortedProduct);
+  };
   return (
     <main className="relative flex-grow border-b-2">
       <div className="flex mx-auto max-w-[1600px] px-4 md:px-8 2xl:px-16 box-content">
@@ -126,27 +129,30 @@ export default function MyPage() {
             {/* 상품 목록 헤더 */}
             <MyPageProductHeader
               myProducts={myProducts}
+              setMyProducts={setMyProducts}
+              handleSort={handleSort}
               attributesData={attributesData}
               setStatus={setStatus}
               status={status}
             />
             {/* 판매 상품  */}
             <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-3 lg:gap-x-5 xl:gap-x-7 gap-y-3 xl:gap-y-5 2xl:gap-y-8 ">
-              {myProducts.map((product) => (
-                <div key={product.product_id}>
-                  {(status === 'A' || product.pdStatus === status) && (
-                    <MyProductList key={product.product_id} product={product} />
-                  )}
-                </div>
-              ))}
-            </div>
-            {status !== 'A' &&
-              myProducts.filter((product) => product.pdStatus === status)
-                .length === 0 && (
-                <p className="py-12 text-center">
-                  선택된 조건에 해당하는 상품이 없습니다.
-                </p>
+              {myProducts.map(
+                (product) =>
+                  (status === 'A' || product.pdStatus === status) && (
+                    <div key={product.product_id}>
+                      <MyProductList product={product} />
+                    </div>
+                  )
               )}
+            </div>
+            {myProducts.filter(
+              (product) => product.pdStatus === status || status === 'A'
+            ).length === 0 && (
+              <p className="py-12 text-center">
+                선택된 조건에 해당하는 상품이 없습니다.
+              </p>
+            )}
             <div className="py-8 text-center xl:pt-14"></div>
           </div>
         </div>
