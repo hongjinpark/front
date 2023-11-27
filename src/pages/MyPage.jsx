@@ -33,7 +33,6 @@ export default function MyPage() {
       setMyProducts(res.data);
     });
   }, []);
-
   return (
     <main className="relative flex-grow border-b-2">
       <div className="flex mx-auto max-w-[1600px] px-4 md:px-8 2xl:px-16 box-content">

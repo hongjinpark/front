@@ -35,7 +35,6 @@ export default function MyPageProductHeader({
 
   useEffect(() => {
     console.log(sort());
-    setMyProducts(sort());
     setMyProducts((prev) => [...prev], sort());
   }, [state]);
   return (
