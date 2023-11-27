@@ -1,11 +1,44 @@
+import { useEffect, useState } from 'react';
 import MyPageOption from './MyPageOption';
 
 export default function MyPageProductHeader({
   myProducts,
+  setMyProducts,
+  handleSort,
   attributesData,
   setStatus,
   status,
 }) {
+  const option = [
+    {
+      name: '최신순',
+      value: 'RECENT_SORT',
+    },
+    {
+      name: '낮은가격순',
+      value: 'PRICE_ASC_SORT',
+    },
+    {
+      name: '높은가격순',
+      value: 'PRICE_DESC_SORT',
+    },
+  ];
+  const [state, setState] = useState(option[0]);
+  const [isOpen, setIsOpen] = useState(false);
+  const sort = () => {
+    if (state.value === 'PRICE_ASC_SORT')
+      return myProducts.sort((a, b) => a.price - b.price);
+    if (state.value === 'PRICE_DESC_SORT')
+      return myProducts.sort((a, b) => b.price - a.price);
+    if (state.value === 'RECENT_SORT')
+      return myProducts.sort((a, b) => b.product_id - a.product_id);
+  };
+
+  useEffect(() => {
+    console.log(sort());
+    setMyProducts(sort());
+    handleSort((prev) => [...prev], sort());
+  }, [state]);
   return (
     <div className="items-center justify-between block mb-4 md:flex lg:mb-7">
       <div className="flex-shrink-0 mb-1 text-xs leading-4 text-body md:text-sm pe-4 md:me-6 lg:ps-2 lg:block">
@@ -26,14 +59,11 @@ export default function MyPageProductHeader({
         </div>
         <div className="relative my-2 sm:m-0 lg:ms-0 z-10 min-w-[160px]">
           <button
+            onClick={() => setIsOpen(!isOpen)}
             className="border border-gray-300 text-heading text-xs md:text-sm font-semibold relative w-full py-2 ps-3 pe-10 text-start bg-white rounded-lg shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm cursor-pointer"
-            id="headlessui-listbox-button-:rg:"
             type="button"
-            aria-haspopup="listbox"
-            aria-expanded="false"
-            data-headlessui-state=""
           >
-            <span className="block truncate">최신순</span>
+            <span className="block truncate">{state.name}</span>
             <span className="absolute inset-y-0 end-0 flex items-center pe-2 pointer-events-none">
               <svg
                 stroke="currentColor"
@@ -55,6 +85,31 @@ export default function MyPageProductHeader({
               </svg>
             </span>
           </button>
+          {isOpen && (
+            <ul
+              className="absolute w-full py-1 mt-1 overflow-auto bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none text-xs md:text-sm"
+              id="headlessui-listbox-options-:rn:"
+            >
+              {option.map((option) => (
+                <li
+                  key={option.value}
+                  onClick={() => {
+                    setIsOpen(false);
+                    setState(option);
+                  }}
+                  className="text-gray-900
+                            cursor-default select-none relative py-2 ps-10 pe-4"
+                  role="option"
+                  tabIndex="-1"
+                  aria-selected="false"
+                >
+                  <span className="font-normal block truncate">
+                    {option.name}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </div>
