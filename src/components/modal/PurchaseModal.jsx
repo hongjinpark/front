@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import PurchaseModalContext from '../../context/PurchaseModalProvider';
 import Modal from './Modal';
+import { getPurchaseHistory } from './../../api/history.api';
 export default function PurchaseModal() {
   const [text, setText] = useState('');
+  const [purchase, setPurchase] = useState([]);
 
   const headerContent = () => {
     return (
@@ -58,9 +60,73 @@ export default function PurchaseModal() {
 
   const bodyContent = () => {
     return (
-      <div className="text-center px-0 py-[250px]">
-        <p>최근 구매 내역이 없습니다.</p>
-        {/* <div className={styles.cssbekvk4}></div> */}
+      <div>
+        {purchase.length > 0 ? (
+          purchase.map((purchaseItem) => (
+            <div className="p-6" key={purchaseItem.id}>
+              <div className="flex items-center pb-3 border-b-gray-600 border-b">
+                <div className="flex-1 flex items-center">
+                  <span className="flex flex-1 items-center">
+                    {purchaseItem.regTime}
+                  </span>
+                  <div className="border-l-gray-200"></div>
+                  <span className="font-medium text-base text-gray-300"></span>
+                </div>
+                <div className="flex items-center">
+                  <button className="w-7 h-7 bg-none">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-5 h-auto"
+                    >
+                      <path
+                        d="M20 4L4 20"
+                        stroke="currentColor"
+                        strokeWidth="1.52"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                      <path
+                        d="M4 4L20 20"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <h2 className="text-2xl p-3 text-left font-semibold">구매완료</h2>
+              <a href="/product/pdid">
+                <div className="flex bg-transparent">
+                  <div className="w-20 h-20 inline-block pt-0 rounded relative overflow-hidden">
+                    <img
+                      className="top-1/2 left-1/2 w-full h-auto rounded-lg object-cover -translate-x-2/4 -translate-y-2/4 absolute"
+                      src={require(`../../assets${purchaseItem.imgUrl}`)}
+                      alt=""
+                    />
+                  </div>
+                  <div className="h-20 flex flex-col flex-1 ml-5 items-start">
+                    <p className="text-base font-normal overflow-hidden text-left mb-2">
+                      {purchaseItem.pdTitle}
+                    </p>
+                    <strong className="text-lg font-semibold">
+                      {purchaseItem.price}
+                    </strong>
+                  </div>
+                </div>
+              </a>
+            </div>
+          ))
+        ) : (
+          <div className="text-center px-0 py-[250px]">
+            <p>최근 구매 내역이 없습니다.</p>
+          </div>
+        )}
       </div>
     );
   };
@@ -71,6 +137,8 @@ export default function PurchaseModal() {
       title={'구매 내역'}
       headerContent={headerContent()}
       bodyContent={bodyContent()}
+      setApiObject={setPurchase}
+      apiMethod={getPurchaseHistory}
     />
   );
 }

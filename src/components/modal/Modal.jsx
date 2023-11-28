@@ -1,15 +1,26 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 export default function Modal({
   ModalContext,
   title,
   headerContent,
   bodyContent,
+  setApiObject,
+  apiMethod,
 }) {
   const { isOpen, closeModal } = useContext(ModalContext);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    apiMethod().then((res) => {
+      setApiObject(res.data);
+    });
+  }, [isOpen, apiMethod, setApiObject]);
+
   if (!isOpen) {
     return null;
   }
+
   const handleClose = (e) => {
     const modal = document.getElementById('modal');
     const target = e.target;
