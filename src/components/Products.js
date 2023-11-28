@@ -11,6 +11,9 @@ export default function Products({ list }) {
     return (
       <ul className={styles.products}>
         {list.map((item) => {
+          const price = item.price
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
           return (
             <li key={item.product_id}>
               {pdCategory ? (
@@ -24,7 +27,7 @@ export default function Products({ list }) {
                       />
                       <div className={styles.info}>
                         <p>상품명 : {item.pdTitle}</p>
-                        <p>가격 : {item.price}</p>
+                        <p>가격 : {price}</p>
                       </div>
                     </Card>
                   </div>
@@ -40,7 +43,7 @@ export default function Products({ list }) {
                       />
                       <div className={styles.info}>
                         <p>상품명 : {item.pdTitle}</p>
-                        <p>가격 : {item.price}</p>
+                        <p>가격 : {price}</p>
                       </div>
                     </Card>
                   </div>
@@ -52,6 +55,7 @@ export default function Products({ list }) {
       </ul>
     );
   } else {
+    const price = list.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return (
       <ul className={styles.products}>
         <li key={list.product_id}>
@@ -66,7 +70,7 @@ export default function Products({ list }) {
                   />
                   <div className={styles.info}>
                     <p>상품명 : {list.pdTitle}</p>
-                    <p>가격 : {list.price}</p>
+                    <p>가격 : {price}</p>
                   </div>
                 </Card>
               </div>
@@ -82,7 +86,7 @@ export default function Products({ list }) {
                   />
                   <div className={styles.info}>
                     <p>상품명 : {list.pdTitle}</p>
-                    <p>가격 : {list.price}</p>
+                    <p>가격 : {price}</p>
                   </div>
                 </Card>
               </div>
