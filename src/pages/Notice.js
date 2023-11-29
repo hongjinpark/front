@@ -46,6 +46,15 @@ export default function Noitce() {
       >
         글쓰기
       </Button>
+      <Button
+        className={styles.button}
+        onClick={() => {
+          navigator('/notice');
+        }}
+        variant="outline-dark"
+      >
+        목록
+      </Button>
     </div>
   );
 
