@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 
 export default function Products({ list }) {
   const { pdCategory } = useParams();
-  console.log('pdCategory:', pdCategory);
+  console.log('pdCategory : ', pdCategory);
   if (!list || list.length === 0) {
     return <h1>원하시는 상품이 없습니다.</h1>;
   } else if (Array.isArray(list)) {
@@ -17,7 +17,7 @@ export default function Products({ list }) {
           return (
             <li key={item.product_id}>
               {pdCategory ? (
-                <Link to="/">
+                <Link to={`../../${item.pdTitle}`}>
                   <div>
                     <Card className={styles.card}>
                       <img
@@ -33,7 +33,7 @@ export default function Products({ list }) {
                   </div>
                 </Link>
               ) : (
-                <Link to={`${item.pdTitle}`}>
+                <Link to={`../../${item.pdTitle}`}>
                   <div>
                     <Card className={styles.card}>
                       <img
@@ -76,7 +76,7 @@ export default function Products({ list }) {
               </div>
             </Link>
           ) : (
-            <Link to={`${list.pdTitle}`}>
+            <Link to={`../../${list.pdTitle}`}>
               <div>
                 <Card className={styles.card}>
                   <img

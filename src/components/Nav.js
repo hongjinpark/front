@@ -16,7 +16,7 @@ export default function Nav() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    navigate('/search');
+    navigate('/search/');
   };
 
   return (
