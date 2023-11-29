@@ -1,5 +1,5 @@
-import { useContext, useEffect } from 'react';
-
+import { useContext, useEffect, useState } from 'react';
+import styles from './modal.module.css';
 export default function Modal({
   ModalContext,
   title,
@@ -9,35 +9,51 @@ export default function Modal({
   apiMethod,
 }) {
   const { isOpen, closeModal } = useContext(ModalContext);
+  const [modalVisible, setModalVisible] = useState(isOpen);
 
   useEffect(() => {
-    if (!isOpen) return;
-    apiMethod().then((res) => {
-      setApiObject(res.data);
-    });
+    if (isOpen) {
+      setModalVisible(isOpen);
+      apiMethod().then((res) => {
+        setApiObject(res.data);
+      });
+    } else {
+      setModalVisible(false);
+    }
   }, [isOpen, apiMethod, setApiObject]);
 
   if (!isOpen) {
     return null;
   }
-
+  const handleButtonClose = () => {
+    setModalVisible(false);
+    setTimeout(() => {
+      closeModal();
+    }, 300);
+  };
   const handleClose = (e) => {
     const modal = document.getElementById('modal');
     const target = e.target;
     if (target === modal || modal.contains(target)) {
       return;
     }
-    closeModal();
+    setModalVisible(false);
+    setTimeout(() => {
+      closeModal();
+    }, 300);
   };
   return (
     <div
       onClick={(e) => handleClose(e)}
       role="presentation"
-      className="justify-end items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-40 outline-none focus:outline-none bg-neutral-800/70"
+      className={`${
+        styles.modal
+      } justify-end items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-40 outline-none focus:outline-none bg-neutral-800/70 
+      ${modalVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-100'}`}
     >
-      <div className="relative  w-fullmd:w-4/6lg:w-3/6xl:w-2/5my-6mx-auto h-full lg:h-automd:h-auto z-50">
+      <div className="relative  w-full md:w-[600px] h-full lg:h-auto z-50">
         <div
-          className="flex flex-col h-screen w-screen max-w-[600px] max-h-screen overflow-auto bg-white mx-auto my-0 pb-5;"
+          className="flex flex-col sm:h-screen sm:max-h-screen h-full max-h-full overflow-auto bg-white mx-auto my-0 pb-5"
           id="modal"
         >
           <header className="sticky z-[99] top-0">
@@ -48,7 +64,7 @@ export default function Modal({
                 </h1>
                 <div className="w-9 h-8 flex justify-center items-center text-left z-[1]">
                   <button
-                    onClick={() => closeModal()}
+                    onClick={() => handleButtonClose()}
                     className="w-full h-full font-normal text-base text-[rgb(20,19,19)] flex justify-center items-center"
                     name="뒤로가기"
                   >

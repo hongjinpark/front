@@ -2,9 +2,11 @@ import { getSaletHistory } from '../../api/history.api';
 import SaleModalContext from '../../context/SaleModalProvider';
 import Modal from './Modal';
 import { useState } from 'react';
+import { formattedNumber } from './../../utils/util';
 export default function SaleModal() {
   const [text, setText] = useState('');
   const [sale, setSale] = useState([]);
+
   const headerContent = () => {
     return (
       <div className="flex px-3 py-2">
@@ -65,13 +67,16 @@ export default function SaleModal() {
               <div className="flex items-center pb-3 border-b-gray-600 border-b">
                 <div className="flex-1 flex items-center">
                   <span className="flex flex-1 items-center">
-                    {saleItem.regTime}
+                    {saleItem.regTime.split('T')[0]}
                   </span>
                   <div className="border-l-gray-200"></div>
                   <span className="font-medium text-base text-gray-300"></span>
                 </div>
                 <div className="flex items-center">
-                  <button className="w-7 h-7 bg-none">
+                  <button
+                    className="w-7 h-7 bg-none"
+                    onClick={() => console.log('cl')}
+                  >
                     <svg
                       width="24"
                       height="24"
@@ -98,7 +103,9 @@ export default function SaleModal() {
                   </button>
                 </div>
               </div>
-              <h2 className="text-2xl p-3 text-left font-semibold">판매완료</h2>
+              <h2 className="text-2xl pt-4 pb-3 text-left font-semibold">
+                판매완료
+              </h2>
               <a href="/product/pdid">
                 <div className="flex bg-transparent">
                   <div className="w-20 h-20 inline-block pt-0 rounded relative overflow-hidden">
@@ -113,7 +120,7 @@ export default function SaleModal() {
                       {saleItem.pdTitle}
                     </p>
                     <strong className="text-lg font-semibold">
-                      {saleItem.price}
+                      {formattedNumber(saleItem.price)}
                     </strong>
                   </div>
                 </div>

@@ -2,10 +2,10 @@ import { useState } from 'react';
 import PurchaseModalContext from '../../context/PurchaseModalProvider';
 import Modal from './Modal';
 import { getPurchaseHistory } from './../../api/history.api';
+import { formattedNumber } from './../../utils/util';
 export default function PurchaseModal() {
   const [text, setText] = useState('');
   const [purchase, setPurchase] = useState([]);
-
   const headerContent = () => {
     return (
       <div className="flex px-3 py-2">
@@ -57,7 +57,6 @@ export default function PurchaseModal() {
       </div>
     );
   };
-
   const bodyContent = () => {
     return (
       <div>
@@ -73,7 +72,10 @@ export default function PurchaseModal() {
                   <span className="font-medium text-base text-gray-300"></span>
                 </div>
                 <div className="flex items-center">
-                  <button className="w-7 h-7 bg-none">
+                  <button
+                    className="w-7 h-7 bg-none"
+                    onClick={() => console.log('cl')}
+                  >
                     <svg
                       width="24"
                       height="24"
@@ -115,7 +117,7 @@ export default function PurchaseModal() {
                       {purchaseItem.pdTitle}
                     </p>
                     <strong className="text-lg font-semibold">
-                      {purchaseItem.price}
+                      {formattedNumber(purchaseItem.price)}
                     </strong>
                   </div>
                 </div>

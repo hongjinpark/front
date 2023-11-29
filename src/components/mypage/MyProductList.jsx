@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import MyPageProductMore from './MyPageProductMore';
+import { formattedNumber } from '../../utils/util';
 
 export default function MyProductList({ product }) {
   const [state, setState] = useState(false);
@@ -54,7 +55,7 @@ export default function MyProductList({ product }) {
                 {product.pdTitle}
               </h2>
               <div className="font-semibold space-s-2 mt-0.5 text-heading lg:text-lg lg:mt-1.5">
-                {product.price}원
+                {formattedNumber(product.price)}
               </div>
               <div className="my-1">
                 <span className="text-sm text-gray-400"></span>
