@@ -10,12 +10,13 @@ import { Outlet, useNavigate } from 'react-router-dom';
 export default function Noitce() {
   const navigator = useNavigate();
   const [board, setBoard] = useState();
+  const MoveToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     axios.get('http://localhost:8090/notice/list').then((result) => {
-      // console.log(result.data);
       setBoard(result.data);
-      // console.log(board);
     });
   }, []);
 
@@ -58,6 +59,7 @@ export default function Noitce() {
           onMouseLeave={() => setHover(false)}
           onClick={() => {
             navigator('/notice/' + board[props.i].notice_id);
+            MoveToTop();
           }}
           className={`${styles.title} ${hover == true ? styles.hover : ''}`}
           role="presentation"
