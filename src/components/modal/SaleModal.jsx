@@ -3,10 +3,21 @@ import SaleModalContext from '../../context/SaleModalProvider';
 import Modal from './Modal';
 import { useState } from 'react';
 import { formattedNumber } from './../../utils/util';
+import styles from './modal.module.css';
+import { deleteHistory } from './../../api/history.api';
+
 export default function SaleModal() {
   const [text, setText] = useState('');
   const [sale, setSale] = useState([]);
-
+  const [alterVisible, setAlterVisible] = useState({ is: false, id: '' });
+  const handleDelete = () => {
+    console.log(alterVisible);
+    deleteHistory(alterVisible.id).then(() => {
+      getSaletHistory().then((res) => setSale(res.data));
+      setAlterVisible({ is: false, id: '' });
+    });
+    console.log();
+  };
   const headerContent = () => {
     return (
       <div className="flex px-3 py-2">
@@ -47,6 +58,11 @@ export default function SaleModal() {
             autoComplete="off"
             value={text}
             onChange={(e) => setText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                console.log('submit');
+              }
+            }}
           ></input>
         </div>
         <button
@@ -75,7 +91,9 @@ export default function SaleModal() {
                 <div className="flex items-center">
                   <button
                     className="w-7 h-7 bg-none"
-                    onClick={() => console.log('cl')}
+                    onClick={() =>
+                      setAlterVisible({ is: true, id: saleItem.id })
+                    }
                   >
                     <svg
                       width="24"
@@ -135,6 +153,54 @@ export default function SaleModal() {
       </div>
     );
   };
+  const alter = () => {
+    return (
+      <div
+        className={`${
+          styles.modal
+        } justify-end items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-40 outline-none focus:outline-none bg-neutral-800/70 
+      ${
+        alterVisible.is
+          ? 'opacity-100 scale-100 w-full'
+          : 'opacity-0 scale-100 z-30'
+      }`}
+      >
+        <div
+          className="relative w-full md:w-[600px] h-full lg:h-auto z-50"
+          id="modal"
+        >
+          <div className="flex flex-col sm:h-screen sm:max-h-screen h-full max-h-full overflow-auto mx-auto my-0 pb-5">
+            <div className="w-full h-full opacity-100 transition-all duration-300 ease-[ease-out] delay-[0s] flex">
+              <div className="w-full overflow-hidden rounded-md bg-white max-w-md flex flex-col m-auto">
+                <div className="w-full h-full text-center leading-normal pt-7 pb-6 px-5">
+                  <p className="text-base leading-[22px] font-normal text-[rgb(20,19,19)]">
+                    판매내역 삭제 시 조회 및 복구할 수 없습니다.
+                  </p>
+                  <p className="text-base leading-[22px] font-normal text-[rgb(20,19,19)]">
+                    정말 삭제하시겠습니까?
+                  </p>
+                </div>
+                <div className="flex w-full justify-between px-4 pb-4">
+                  <button
+                    onClick={() => setAlterVisible({ is: false, id: '' })}
+                    className="inline-block w-full h-full min-h-[44px] text-[rgb(20,19,19)] text-center align-middle bg-white text-sm font-medium border rounded p-[13px] border-solid border-[rgb(194,198,206)]"
+                  >
+                    취소
+                  </button>
+                  <button
+                    onClick={() => handleDelete()}
+                    className="inline-block w-full h-full min-h-[44px] text-center align-middle text-sm font-medium rounded text-white border bg-[rgb(20,19,19)] p-[13px] border-solid border-[rgb(20,19,19)]"
+                  >
+                    확인
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
   return (
     <Modal
       ModalContext={SaleModalContext}
@@ -143,6 +209,7 @@ export default function SaleModal() {
       bodyContent={bodyContent()}
       setApiObject={setSale}
       apiMethod={getSaletHistory}
+      alterContent={alter()}
     />
   );
 }
