@@ -13,16 +13,20 @@ export default function SaleModal() {
   const handleDelete = () => {
     console.log(alterVisible);
     deleteHistory(alterVisible.id).then(() => {
-      getSaletHistory().then((res) => setSale(res.data));
+      getSaletHistory(text, 0).then((res) => setSale(res.data));
       setAlterVisible({ is: false, id: '' });
     });
     console.log();
+  };
+  const handleGet = () => {
+    getSaletHistory(text, 0).then((res) => setSale(res.data));
   };
   const headerContent = () => {
     return (
       <div className="flex px-3 py-2">
         <div className="flex-1 w-full h-14 relative text-base font-medium leading-5 text-[rgb(51,51,51)] px-[15px] py-2.5 rounded-md bg-[rgb(241,244,246)]">
           <button
+            onClick={handleGet}
             type="submit"
             className="flex items-center justify-center h-11 absolute appearance-none ml-[15px] rounded-none border-[none] left-0 inset-y-0"
           >
@@ -60,7 +64,7 @@ export default function SaleModal() {
             onChange={(e) => setText(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-                console.log('submit');
+                handleGet();
               }
             }}
           ></input>
@@ -158,7 +162,7 @@ export default function SaleModal() {
       <div
         className={`${
           styles.modal
-        } justify-end items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-40 outline-none focus:outline-none bg-neutral-800/70 
+        } justify-end items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-30 outline-none focus:outline-none bg-neutral-800/70 
       ${
         alterVisible.is
           ? 'opacity-100 scale-100 w-full'
