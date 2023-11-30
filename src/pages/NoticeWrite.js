@@ -2,21 +2,24 @@ import styles from './NoticeWrite.module.css';
 import { Button } from 'react-bootstrap/';
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function NoticeDetail() {
-  const token = localStorage.getItem('login');
+  // const token = localStorage.getItem('login');
+  const navigator = useNavigate();
 
   const [titleValue, setTitle] = useState('');
   const [contentsValue, setcontents] = useState('');
 
   const saveTitle = (event) => {
     setTitle(event.target.value);
-    console.log(event.target.value);
+    // console.log(titleValue);
   };
   const saveContent = (event) => {
     setcontents(event.target.value);
-    console.log(event.target.value);
+    // console.log(contentsValue);
   };
+  const role = localStorage.getItem('user');
   return (
     <div className={styles.body}>
       <div className={styles.box}>
@@ -24,27 +27,31 @@ export default function NoticeDetail() {
           <input
             className={styles.title_text}
             placeholder="제목"
-            value={titleValue}
+            defaultValue={titleValue}
+            onChange={saveTitle}
           ></input>
         </div>
 
         <textarea
           className={styles.contents_text}
           placeholder="내용"
-          value={contentsValue}
+          defaultValue={contentsValue}
+          onChange={saveContent}
         ></textarea>
       </div>
       <Button
         variant="outline-dark"
         onClick={() => {
-          axios.post(
-            'http://localhost:8090/notice/new',
-            {
-              noticeContents: { saveContent },
-              noticeTitle: { saveTitle },
-            },
-            { headers: { Authorization: token } }
-          );
+          axios
+            .post('http://localhost:8090/notice/new', {
+              noticeContents: contentsValue,
+              noticeTitle: titleValue,
+            })
+            .then(() => {
+              navigator('/notice');
+              alert('저장 완료.');
+            });
+          console.log(titleValue, contentsValue);
         }}
         className={styles.button}
       >
@@ -52,7 +59,8 @@ export default function NoticeDetail() {
       </Button>
       <button
         onClick={() => {
-          console.log(token);
+          console.log(role);
+          console.log(typeof role);
         }}
       >
         test

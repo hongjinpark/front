@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap/';
+import { Button, Pagination } from 'react-bootstrap/';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Notice.module.css';
 import styles from './Notice.module.css';
@@ -20,6 +20,16 @@ export default function Noitce() {
     });
   }, []);
 
+  let active = 2;
+  let items = [];
+  for (let number = 1; number <= 5; number++) {
+    items.push(
+      <Pagination.Item key={number} active={number === active}>
+        {number}
+      </Pagination.Item>
+    );
+  }
+
   return (
     <div className={styles.body}>
       <Outlet />
@@ -37,10 +47,12 @@ export default function Noitce() {
             })
           : null}
       </div>
+
       <Button
         className={styles.button}
         onClick={() => {
           navigator('/notice/write');
+          MoveToTop();
         }}
         variant="outline-dark"
       >
@@ -50,6 +62,7 @@ export default function Noitce() {
         className={styles.button}
         onClick={() => {
           navigator('/notice');
+          MoveToTop();
         }}
         variant="outline-dark"
       >
