@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-catch */
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styles from './ProductDetail.module.css';
 import { useEffect, useState } from 'react';
 import { getApi } from '../api/axios';
@@ -49,7 +49,9 @@ export default function ProductDetail() {
               ></img>
             </div>
             <div className={styles.infoBox}>
-              <p className={styles.category}>홈 &gt; {course.pdCategory}</p>
+              <p className={styles.category}>
+                <Link to="/">홈</Link> &gt; {course.pdCategory}
+              </p>
               <h1 className={styles.pdTitle}>{course.pdTitle}</h1>
               <p>
                 <span className={styles.price}>

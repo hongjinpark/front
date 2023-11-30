@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+}
+
+.filter {
+  padding: 30px 10px;
+  width: 30%;
+}
+.filterTitle {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 30px;
+}
+
+.product {
+  width: 100%;
+  padding: 30px 10px 30px 20px;
+}
+.category {
+  padding: 30px 0x;
+}
+
+.productTitle {
+  display: flex;
+  /* justify-content: space-around; */
+  padding: 30px 0;
+}
+.productTitle > h1 {
+  float: left;
+}
+
+.priceBox {
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid #333;
+  padding: 10px;
+}

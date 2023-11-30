@@ -4,17 +4,20 @@ import { Link, useParams } from 'react-router-dom';
 
 export default function Products({ list }) {
   const { pdCategory } = useParams();
-  console.log('pdCategory:', pdCategory);
+  console.log('pdCategory : ', pdCategory);
   if (!list || list.length === 0) {
     return <h1>원하시는 상품이 없습니다.</h1>;
   } else if (Array.isArray(list)) {
     return (
       <ul className={styles.products}>
         {list.map((item) => {
+          const price = item.price
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
           return (
             <li key={item.product_id}>
               {pdCategory ? (
-                <Link to="/">
+                <Link to={`../../${item.pdTitle}`}>
                   <div>
                     <Card className={styles.card}>
                       <img
@@ -24,13 +27,13 @@ export default function Products({ list }) {
                       />
                       <div className={styles.info}>
                         <p>상품명 : {item.pdTitle}</p>
-                        <p>가격 : {item.price}</p>
+                        <p>가격 : {price}</p>
                       </div>
                     </Card>
                   </div>
                 </Link>
               ) : (
-                <Link to={`${item.pdTitle}`}>
+                <Link to={`../../${item.pdTitle}`}>
                   <div>
                     <Card className={styles.card}>
                       <img
@@ -40,7 +43,7 @@ export default function Products({ list }) {
                       />
                       <div className={styles.info}>
                         <p>상품명 : {item.pdTitle}</p>
-                        <p>가격 : {item.price}</p>
+                        <p>가격 : {price}</p>
                       </div>
                     </Card>
                   </div>
@@ -52,6 +55,7 @@ export default function Products({ list }) {
       </ul>
     );
   } else {
+    const price = list.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return (
       <ul className={styles.products}>
         <li key={list.product_id}>
@@ -66,13 +70,13 @@ export default function Products({ list }) {
                   />
                   <div className={styles.info}>
                     <p>상품명 : {list.pdTitle}</p>
-                    <p>가격 : {list.price}</p>
+                    <p>가격 : {price}</p>
                   </div>
                 </Card>
               </div>
             </Link>
           ) : (
-            <Link to={`${list.pdTitle}`}>
+            <Link to={`../../${list.pdTitle}`}>
               <div>
                 <Card className={styles.card}>
                   <img
@@ -82,7 +86,7 @@ export default function Products({ list }) {
                   />
                   <div className={styles.info}>
                     <p>상품명 : {list.pdTitle}</p>
-                    <p>가격 : {list.price}</p>
+                    <p>가격 : {price}</p>
                   </div>
                 </Card>
               </div>

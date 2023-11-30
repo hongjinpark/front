@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap/';
+import { Button, Pagination } from 'react-bootstrap/';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Notice.module.css';
 import styles from './Notice.module.css';
@@ -10,14 +10,25 @@ import { Outlet, useNavigate } from 'react-router-dom';
 export default function Noitce() {
   const navigator = useNavigate();
   const [board, setBoard] = useState();
+  const MoveToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     axios.get('http://localhost:8090/notice/list').then((result) => {
-      // console.log(result.data);
       setBoard(result.data);
-      // console.log(board);
     });
   }, []);
+
+  let active = 2;
+  let items = [];
+  for (let number = 1; number <= 5; number++) {
+    items.push(
+      <Pagination.Item key={number} active={number === active}>
+        {number}
+      </Pagination.Item>
+    );
+  }
 
   return (
     <div className={styles.body}>
@@ -36,14 +47,26 @@ export default function Noitce() {
             })
           : null}
       </div>
+
       <Button
         className={styles.button}
         onClick={() => {
           navigator('/notice/write');
+          MoveToTop();
         }}
         variant="outline-dark"
       >
         글쓰기
+      </Button>
+      <Button
+        className={styles.button}
+        onClick={() => {
+          navigator('/notice');
+          MoveToTop();
+        }}
+        variant="outline-dark"
+      >
+        목록
       </Button>
     </div>
   );
@@ -58,6 +81,7 @@ export default function Noitce() {
           onMouseLeave={() => setHover(false)}
           onClick={() => {
             navigator('/notice/' + board[props.i].notice_id);
+            MoveToTop();
           }}
           className={`${styles.title} ${hover == true ? styles.hover : ''}`}
           role="presentation"
