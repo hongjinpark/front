@@ -8,6 +8,7 @@ export default function Modal({
   setApiObject,
   apiMethod,
   alterContent,
+  popupContent,
 }) {
   const { isOpen, closeModal } = useContext(ModalContext);
   const [modalVisible, setModalVisible] = useState(isOpen);
@@ -100,6 +101,7 @@ export default function Modal({
       </div>
       {/* alter */}
       {alterContent}
+      {popupContent}
     </>
   );
 }

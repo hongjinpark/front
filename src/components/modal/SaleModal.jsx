@@ -9,7 +9,16 @@ import { deleteHistory } from './../../api/history.api';
 export default function SaleModal() {
   const [text, setText] = useState('');
   const [sale, setSale] = useState([]);
+  const [period, setPeriod] = useState();
   const [alterVisible, setAlterVisible] = useState({ is: false, id: '' });
+  const [popupVisible, setPopupVisible] = useState(false);
+  const periodData = [
+    { key: '0', value: '최근 1년' },
+    { key: '1', value: '1주일' },
+    { key: '2', value: '1개월' },
+    { key: '3', value: '3개월' },
+    { key: '4', value: '6개월' },
+  ];
   const handleDelete = () => {
     console.log(alterVisible);
     deleteHistory(alterVisible.id).then(() => {
@@ -19,7 +28,7 @@ export default function SaleModal() {
     console.log();
   };
   const handleGet = () => {
-    getSaletHistory(text, 0).then((res) => setSale(res.data));
+    getSaletHistory(text, period).then((res) => setSale(res.data));
   };
   const headerContent = () => {
     return (
@@ -71,6 +80,7 @@ export default function SaleModal() {
         </div>
         <button
           type="submit"
+          onClick={() => setPopupVisible(true)}
           className="flex items-center justify-center h-14 border rounded text-[rgb(51,51,51)] text-center text-base leading-5 font-medium ml-2 px-4 py-2.5 border-solid border-[rgb(225,225,225)]"
         >
           <span className="pt-0.5">상세필터</span>
@@ -165,7 +175,7 @@ export default function SaleModal() {
         } justify-end items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-30 outline-none focus:outline-none bg-neutral-800/70 
       ${
         alterVisible.is
-          ? 'opacity-100 scale-100 w-full'
+          ? 'opacity-100 scale-100 w-full z-40'
           : 'opacity-0 scale-100 z-30'
       }`}
       >
@@ -205,6 +215,110 @@ export default function SaleModal() {
       </div>
     );
   };
+  const popup = () => {
+    return (
+      <div
+        className={`${
+          styles.modal
+        } justify-end items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-30 outline-none focus:outline-none bg-neutral-800/70 
+      ${
+        popupVisible
+          ? 'opacity-100 scale-100 w-full z-40'
+          : 'opacity-0 scale-100 z-30'
+      }`}
+      >
+        <div
+          className="relative w-full md:w-[600px] h-full lg:h-auto z-50 self-end"
+          id="modal"
+        >
+          <div className="relative flex items-center w-screen md:max-w-[600px] max-h-screen">
+            <div className="w-full">
+              <div className="bg-white pt-3 pb-4 rounded-t-3xl">
+                <header className="relative align-middle py-3 flex justify-center">
+                  <h1 className="font-medium text-xl">상세필터</h1>
+                  <button
+                    type="button"
+                    className="top-1/2 right-5 absolute w-6 h-6"
+                    onClick={() => setPopupVisible(false)}
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-6 h-auto"
+                    >
+                      <path
+                        d="M20 4L4 20"
+                        stroke="currentColor"
+                        strokeWidth="1.52"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                      <path
+                        d="M4 4L20 20"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                    </svg>
+                  </button>
+                </header>
+                <section className="mt-7 mb-8">
+                  <h2 className="font-medium text-base mx-4 mb-3">조회기간</h2>
+                  <div className="w-full mb-3">
+                    <ul className="flex px-4 list-none ">
+                      {periodData.map((data) => (
+                        <li
+                          className={`mr-2 rounded flex-1 border ${
+                            period === data.key &&
+                            'bg-[rgb(13,204,90)] text-white'
+                          }`}
+                          key={data.key}
+                          onClick={() => {
+                            console.log(data.value);
+                            setPeriod(data.key);
+                          }}
+                          role="presentation"
+                        >
+                          <label
+                            htmlFor="_최근 1년"
+                            className="relative flex rounded justify-center h-12 items-center font-medium text-sm px-3"
+                          >
+                            <input
+                              type="radio"
+                              id={data.key}
+                              name="period"
+                              value={data.key}
+                              className="hidden"
+                            />
+                            <p>{data.value}</p>
+                          </label>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <p className="font-normal text-base text-[rgb(156,163,175)] ml-6">
+                    ▪︎ 최근 1년 이내의 거래내역만 노출됩니다
+                  </p>
+                </section>
+                <div className="mx-6 bg-[rgb(20,19,19)] text-white rounded-lg">
+                  <button
+                    className="relative rounded flex justify-center w-full h-12 items-center"
+                    onClick={() => handleGet()}
+                  >
+                    조회하기
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
   return (
     <Modal
       ModalContext={SaleModalContext}
@@ -214,6 +328,7 @@ export default function SaleModal() {
       setApiObject={setSale}
       apiMethod={getSaletHistory}
       alterContent={alter()}
+      popupContent={popup()}
     />
   );
 }
