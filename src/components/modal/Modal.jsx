@@ -5,8 +5,8 @@ export default function Modal({
   title,
   headerContent,
   bodyContent,
-  setApiObject,
-  apiMethod,
+  // setApiObject,
+  // apiMethod,
   alterContent,
   popupContent,
 }) {
@@ -16,13 +16,13 @@ export default function Modal({
   useEffect(() => {
     if (isOpen) {
       setModalVisible(isOpen);
-      apiMethod().then((res) => {
-        setApiObject(res.data);
-      });
+      // apiMethod().then((res) => {
+      //   setApiObject(res.data);
+      // });
     } else {
       setModalVisible(false);
     }
-  }, [isOpen, apiMethod, setApiObject]);
+  }, [isOpen]);
 
   if (!isOpen) {
     return null;
@@ -92,7 +92,7 @@ export default function Modal({
                 </div>
               </div>
             </header>
-            <div className="flex flex-col flex-1 w-full h-full overflow-y-scroll pt-0">
+            <div className="flex flex-col flex-1 w-full h-full overflow-y-hidden pt-0">
               {headerContent}
               <div>{bodyContent}</div>
             </div>

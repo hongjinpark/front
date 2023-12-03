@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import PurchaseModalContext from '../../context/PurchaseModalProvider';
 import Modal from './Modal';
 import { getPurchaseHistory, deleteHistory } from './../../api/history.api';
@@ -6,6 +6,7 @@ import { formattedNumber } from './../../utils/util';
 import styles from './modal.module.css';
 
 export default function PurchaseModal() {
+  const { isOpen } = useContext(PurchaseModalContext);
   const [text, setText] = useState('');
   const [purchase, setPurchase] = useState([]);
   const [period, setPeriod] = useState();
@@ -18,6 +19,9 @@ export default function PurchaseModal() {
     { key: '3', value: '3개월' },
     { key: '4', value: '6개월' },
   ];
+  useEffect(() => {
+    if (isOpen) getPurchaseHistory().then((res) => setPurchase(res.data));
+  }, [isOpen]);
   const handleDelete = () => {
     console.log(alterVisible);
     deleteHistory(alterVisible.id).then(() => {
@@ -322,8 +326,6 @@ export default function PurchaseModal() {
       title={'구매 내역'}
       headerContent={headerContent()}
       bodyContent={bodyContent()}
-      setApiObject={setPurchase}
-      apiMethod={getPurchaseHistory}
       alterContent={alter()}
       popupContent={popup()}
     />

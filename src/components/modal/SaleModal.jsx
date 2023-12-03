@@ -1,12 +1,13 @@
 import { getSaletHistory } from '../../api/history.api';
 import SaleModalContext from '../../context/SaleModalProvider';
 import Modal from './Modal';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { formattedNumber } from './../../utils/util';
 import styles from './modal.module.css';
 import { deleteHistory } from './../../api/history.api';
 
 export default function SaleModal() {
+  const { isOpen } = useContext(SaleModalContext);
   const [text, setText] = useState('');
   const [sale, setSale] = useState([]);
   const [period, setPeriod] = useState();
@@ -19,6 +20,9 @@ export default function SaleModal() {
     { key: '3', value: '3개월' },
     { key: '4', value: '6개월' },
   ];
+  useEffect(() => {
+    if (isOpen) getSaletHistory().then((res) => setSale(res.data));
+  }, [isOpen]);
   const handleDelete = () => {
     console.log(alterVisible);
     deleteHistory(alterVisible.id).then(() => {
@@ -325,8 +329,6 @@ export default function SaleModal() {
       title={'판매 내역'}
       headerContent={headerContent()}
       bodyContent={bodyContent()}
-      setApiObject={setSale}
-      apiMethod={getSaletHistory}
       alterContent={alter()}
       popupContent={popup()}
     />

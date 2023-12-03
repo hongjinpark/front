@@ -47,7 +47,11 @@ export default function MyPage() {
                     <img
                       className="rounded-full w-[48px] h-[48px] lg:w-[60px] lg:h-[60px] box-content border-4 border-white mr-3"
                       alt="profile"
-                      src="profile.png"
+                      src={
+                        auth?.userInfo
+                          ? require(`../assets${auth.userInfo.imgUrl}`)
+                          : 'profile.png'
+                      }
                     />
                     <h1 className="mr-2 text-xl font-semibold cursor-pointer lg:text-2xl">
                       {auth.nickname}
