@@ -30,9 +30,8 @@ const Home = () => {
   return (
     <Container>
       <div className={styles.box1}>
-        <h1>중고 상품</h1>
         <div className={styles.items}>
-          <Products list={list} />
+          <Products list={list} className={styles.img} />
         </div>
       </div>
     </Container>

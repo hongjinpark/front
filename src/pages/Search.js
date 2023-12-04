@@ -5,6 +5,8 @@ import styles from './Search.module.css';
 import { useEffect, useState } from 'react';
 import { getApi } from '../api/axios';
 import Products from '../components/Products';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSort } from '@fortawesome/free-solid-svg-icons';
 
 export default function Search() {
   const { pdCategory } = useParams();
@@ -12,6 +14,7 @@ export default function Search() {
   const [course, setCourse] = useState(null);
   const [categories, SetCategories] = useState(null);
   const navigate = useNavigate();
+  let nowState = '';
 
   const productLists = async () => {
     let path = `/product/list`;
@@ -62,15 +65,10 @@ export default function Search() {
     }
     avg = avg / Number(list.length);
 
-    avg = String(avg)
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    max = String(max)
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    min = String(min)
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    avg = avg ? avg.toLocaleString() : 'N/A';
+    max = max ? max.toLocaleString() : 'N/A';
+    min = min ? min.toLocaleString() : 'N/A';
+
     return (
       <Container>
         <div className={styles.search}>
@@ -82,11 +80,14 @@ export default function Search() {
                 <button onClick={handleReset}>초기화</button>
               </div>
               <div className={styles.filterList}>
+                <p className={styles.fSubTitle}>카테고리</p>
                 <ul>
                   {list.map((e) => {
                     return (
                       <Link to={`${e.pdCategory}`} key={e.product_id}>
-                        <li key={e.product_id}>{e.pdCategory}</li>
+                        <li key={e.product_id} className={styles.fList}>
+                          {e.pdCategory}
+                        </li>
                       </Link>
                     );
                   })}
@@ -96,30 +97,51 @@ export default function Search() {
             {/* right box */}
             <div className={styles.product}>
               <p className={styles.category}>
-                <Link to="/">홈</Link> &gt; 검색 {list.pdCategory}
+                <span>
+                  <Link to="/">홈</Link> &gt;{' '}
+                </span>
+                <span>검색</span>
               </p>
               <div className={styles.productTitle}>
                 <h1>검색 결과 </h1>
-                <p>&nbsp; {list.length} 개의 상품</p>
-                <button>추천순</button>
+                <p className={styles.result}>&nbsp; {list.length} 개의 상품</p>
+                <button className={styles.buttonFilter}>
+                  추천순
+                  <span className={styles.bIcon}>
+                    <FontAwesomeIcon icon={faSort} />
+                  </span>
+                </button>
               </div>
-              <p>현재 페이지의 상품 가격을 비교해봤어요</p>
+              <p className={styles.compare}>
+                현재 페이지의 상품 가격을 비교해봤어요
+              </p>
               <div className={styles.priceBox}>
                 <div className={styles.pBox}>
-                  평균 가격이에요. <br />
-                  평균 <span>{avg}</span>원
+                  <span className={styles.avg}>
+                    평균 가격이에요. <br />
+                    평균{' '}
+                    <span className={`${styles.pPrice} ${styles.avg}`}>
+                      {avg}
+                    </span>
+                    원
+                  </span>
                 </div>
                 <div className={styles.pBox}>
                   가장 높은 가격이에요. <br />
-                  최고 <span>{max}</span> 원
+                  <span className={styles.max}>
+                    최고 <span className={styles.pPrice}>{max}</span> 원
+                  </span>
                 </div>
                 <div className={styles.pBox}>
                   가장 낮은 가격이에요. <br />
-                  최저 <span>{min}</span> 원
+                  <span className={styles.min}>
+                    최저 <span className={styles.pPrice}>{min}</span> 원
+                  </span>
                 </div>
               </div>
-
-              <Products list={list} />
+              <div className={styles.itemBox}>
+                <Products list={list} />
+              </div>
             </div>
           </div>
         </div>
@@ -144,11 +166,22 @@ export default function Search() {
                   <button onClick={handleReset}>초기화</button>
                 </div>
                 <div className={styles.filterList}>
+                  <p className={styles.fSubTitle}>카테고리</p>
                   <ul>
                     {list.map((e) => {
+                      if (e.pdCategory === pdCategory) nowState = true;
+                      else nowState = false;
                       return (
                         <Link to={`${e.pdCategory}`} key={e.product_id}>
-                          <li>{e.pdCategory}</li>
+                          {nowState ? (
+                            <li
+                              className={`${styles.fList} ${styles.fListSelect}`}
+                            >
+                              {e.pdCategory}
+                            </li>
+                          ) : (
+                            <li className={styles.fList}>{e.pdCategory}</li>
+                          )}
                         </Link>
                       );
                     })}
@@ -158,11 +191,15 @@ export default function Search() {
               {/* right box */}
               <div className={styles.product}>
                 <p className={styles.category}>
-                  <Link to="/">홈</Link> &gt; 검색 &gt; {course.pdCategory}
+                  <span>
+                    <Link to="/">홈</Link> &gt; <Link to="../Search">검색</Link>{' '}
+                    &gt;{' '}
+                  </span>{' '}
+                  <span>{course.pdCategory}</span>
                 </p>
                 <div className={styles.productTitle}>
                   <h1>검색 결과</h1>
-                  <p>
+                  <p className={styles.result}>
                     {course
                       ? `${
                           list.filter((e) => e.pdCategory === course.pdCategory)
@@ -170,9 +207,16 @@ export default function Search() {
                         } 개의 상품`
                       : `${list.length} 개의 상품`}
                   </p>
-                  <button>추천순</button>
+                  <button className={styles.buttonFilter}>
+                    추천순
+                    <span className={styles.bIcon}>
+                      <FontAwesomeIcon icon={faSort} />
+                    </span>
+                  </button>
                 </div>
-                <p>현재 페이지의 상품 가격을 비교해봤어요</p>
+                <p className={styles.compare}>
+                  현재 페이지의 상품 가격을 비교해봤어요
+                </p>
                 <div className={styles.priceBox}>
                   <div className={styles.pBox}>
                     평균 가격이에요. <br />
@@ -187,7 +231,9 @@ export default function Search() {
                     최저 <span>{sell}</span> 원
                   </div>
                 </div>
-                <Products list={course} />
+                <div className={styles.itemBox}>
+                  <Products list={course} />
+                </div>
               </div>
             </div>
           </div>

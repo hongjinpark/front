@@ -33,23 +33,32 @@ ul.products {
   cursor: pointer;
 }
 
-.img {
-  z-index: -1;
+.imgHome {
   width: 290px;
   height: 290px;
+  border-radius: 0 0 5px 5px;
+}
+.imgSearchList {
+  z-index: -1;
+  width: 285px;
+  height: 285px;
   background-size: cover;
+  border-radius: 0 0 5px 5px;
 }
 
-/* .info {
-  position: absolute;
-  width: 100%;
-  left: 50%;
-  bottom: 0;
-  transform: translate(-50%);
+.margin {
+  margin-right: 40px;
 }
 
-.info > p {
-  margin: 1px;
-  text-align: center;
-  background: #fff;
-} */
+.info {
+  padding: 20px 0;
+  text-align: left;
+  padding-left: 20px;
+}
+.info > p:nth-child(1) {
+  font-size: 20px;
+}
+.info > p:nth-child(2) {
+  font-size: 24px;
+  font-weight: 800;
+}

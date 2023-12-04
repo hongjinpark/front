@@ -2,10 +2,10 @@
   overflow: hidden;
   background-color: #fff;
   border-radius: 5px;
-  box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.05);
   transition: all 0.2s ease-out;
 }
 
 .card:hover {
   box-shadow: 3px 3px 5px 1px #ccccccc6;
+  transform: translateY(-5px);
 }

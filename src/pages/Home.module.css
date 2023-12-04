@@ -6,4 +6,10 @@
 
 .items {
   display: flex;
+  padding: 20px 0;
+}
+
+.img {
+  width: 290px;
+  height: 290px;
 }
