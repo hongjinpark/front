@@ -49,6 +49,7 @@ export default function NoticeDetail() {
             })
             .then(() => {
               navigator('/notice');
+              window.location.reload('/notice');
               alert('저장 완료.');
             });
           console.log(titleValue, contentsValue);

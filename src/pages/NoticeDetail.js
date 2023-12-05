@@ -1,11 +1,14 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap/';
 import axios from 'axios';
 import styles from './NoticeDetail.module.css';
 
 export default function NoticeDetail() {
-  let { id } = useParams();
-  let [board, setBoard] = useState();
+  const navigator = useNavigate();
+  const { id } = useParams();
+  const [board, setBoard] = useState();
+  const params = useParams();
 
   useEffect(() => {
     axios.get('http://localhost:8090/notice/list').then((result) => {
@@ -34,6 +37,18 @@ export default function NoticeDetail() {
           </div>
         </div>
       ) : null}
+      <Button
+        variant="outline-dark"
+        onClick={() => {
+          axios.delete('http://localhost:8090/notice/' + params.id).then(() => {
+            navigator('/notice');
+            window.location.reload('/notice');
+            alert('삭제 완료.');
+          });
+        }}
+      >
+        글삭제
+      </Button>
     </>
   );
 }
