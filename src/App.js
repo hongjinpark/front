@@ -20,6 +20,7 @@ import ModalProvider from './provider/ModalProvider';
 import ContextProvider from './provider/ContextProvider';
 import Search from './pages/Search';
 import NoticeWrite from './pages/NoticeWrite';
+import NoticeUpdate from './pages/NoticeUpdate';
 
 function App() {
   return (
@@ -40,6 +41,10 @@ function App() {
                 <Route path=":id" element={<NoticeDetail />} />
               </Route>
               <Route path="notice/write" element={<NoticeWrite />}></Route>
+              <Route
+                path="notice/update/:id"
+                element={<NoticeUpdate />}
+              ></Route>
               <Route path="mypage" element={<MyPage />} />
               <Route path="search/" element={<Search />}>
                 <Route path=":pdCategory" element={<Search />} />
