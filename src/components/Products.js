@@ -3,14 +3,13 @@ import Card from '../components/ItemCard';
 import { Link, useLocation, useParams } from 'react-router-dom';
 
 export default function Products({ list }) {
-  const { pdCategory } = useParams();
+  const { searchWord } = useParams();
   let location = useLocation().pathname;
   if (location === '/') {
     location = true;
   } else if (location === '/search/') {
     location = false;
   }
-  console.log('location : ', location);
   if (!list || list.length === 0) {
     return <h1>원하시는 상품이 없습니다.</h1>;
   } else if (Array.isArray(list)) {
@@ -20,7 +19,7 @@ export default function Products({ list }) {
           const price = Number(item.price).toLocaleString();
           return (
             <li key={item.product_id}>
-              {pdCategory ? (
+              {searchWord ? (
                 <></>
               ) : (
                 <Link to={`../../${item.pdTitle}`}>
@@ -57,7 +56,7 @@ export default function Products({ list }) {
     return (
       <ul className={styles.products}>
         <li key={list.product_id}>
-          {pdCategory ? (
+          {searchWord ? (
             <Link to={`../../${list.pdTitle}`}>
               <div>
                 <Card className={styles.card}>
