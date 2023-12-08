@@ -9,6 +9,18 @@ export default function NoticeUpdate() {
   const [data, setData] = useState();
   const navigator = useNavigate();
   const { id } = useParams();
+  const [title, setTitle] = useState();
+  const [contents, setContents] = useState();
+
+  //   const findIndex = data.findIndex((v) => v.notice_id == id);
+
+  const saveTitle = (event) => {
+    setTitle(event.target.value);
+  };
+
+  const saveContent = (event) => {
+    setContents(event.target.value);
+  };
 
   useEffect(() => {
     axios.get('http://localhost:8090/notice/list').then((result) => {
@@ -16,15 +28,6 @@ export default function NoticeUpdate() {
     });
   }, []);
 
-  const title = data
-    ? data[data.findIndex((v) => v.notice_id == id)].notice_title
-    : null;
-
-  const contents = data
-    ? data[data.findIndex((v) => v.notice_id == id)].notice_contents
-    : null;
-
-  //   const [contents, setContents] = useState();
   return (
     <div className={styles.body}>
       <div className={styles.box}>
@@ -32,14 +35,24 @@ export default function NoticeUpdate() {
           <input
             className={styles.title_text}
             placeholder="제목 수정"
-            defaultValue={title}
+            defaultValue={
+              data
+                ? data[data.findIndex((v) => v.notice_id == id)].notice_title
+                : null
+            }
+            onChange={saveTitle}
           ></input>
         </div>
 
         <textarea
           className={styles.contents_text}
           placeholder="내용 수정"
-          defaultValue={contents}
+          defaultValue={
+            data
+              ? data[data.findIndex((v) => v.notice_id == id)].notice_contents
+              : null
+          }
+          onChange={saveContent}
         ></textarea>
       </div>
       <Button
@@ -47,8 +60,8 @@ export default function NoticeUpdate() {
         onClick={() => {
           axios
             .put('http://localhost:8090/notice/update/' + id, {
-              noticeTitle: 'update!!',
-              noticeContents: 'update!!',
+              noticeTitle: title,
+              noticeContents: contents,
             })
             .then(() => {
               navigator('/notice');
