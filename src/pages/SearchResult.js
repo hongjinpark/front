@@ -1,15 +1,22 @@
 /* eslint-disable no-useless-catch */
-import { Link } from 'react-router-dom';
-import Container from '../components/Container';
 import styles from './Search.module.css';
-import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { getApi } from '../api/axios';
+import { useEffect, useState } from 'react';
 import Products from '../components/Products';
+import Container from '../components/Container';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort } from '@fortawesome/free-solid-svg-icons';
 
-export default function Search() {
-  const [list, setList] = useState();
+export default function SearchResult() {
+  const { searchWord } = useParams();
+  const [list, setList] = useState([]);
+  const [keyword, setKeyword] = useState('');
+  let nowState = false;
+  const [course, setCourse] = useState(null);
+  // const [categories, SetCategories] = useState(null);
+
+  console.log('searchWord : ', searchWord);
 
   const productLists = async () => {
     let path = `/product/list`;
@@ -28,11 +35,39 @@ export default function Search() {
     productLists();
   }, []);
 
+  useEffect(() => {
+    if (searchWord.indexOf('keyword') != -1) {
+      setKeyword(searchWord.replace('keyword=', ''));
+    } else {
+      setKeyword('');
+    }
+  }, [searchWord]);
+
+  useEffect(() => {
+    if (!list && !searchWord) return;
+
+    if (!searchWord.indexOf('keyword')) {
+      console.log('검색어 결과임');
+      const newSearch = searchWord.replace('keyword=', '');
+      const foundCourse = list.find((e) => e.pdTitle === newSearch);
+      setCourse(foundCourse);
+    } else {
+      console.log('카테고리 결과임');
+      const foundCourse = list.find((e) => e.pdCategory === searchWord);
+      setCourse(foundCourse);
+    }
+  }, [list, searchWord]);
+
+  const handleCategory = () => {
+    setKeyword('');
+  };
+
   let min,
     max,
     avg = 0;
 
   if (!list) return;
+  console.log('course : ', course);
   if (list.length > 1) {
     min = max = avg = Number(list[0].price);
     list.forEach((e) => {
@@ -61,6 +96,7 @@ export default function Search() {
           <div className={styles.filter}>
             <div className={styles.filterTitle}>
               <p>필터</p>
+              <h1>검색 결과 화면</h1>
               <button>초기화</button>
             </div>
             <div className={styles.filterList}>
@@ -68,11 +104,23 @@ export default function Search() {
               <ul>
                 {list &&
                   list.map((e) => {
+                    if (e.pdCategory === searchWord) nowState = true;
+                    else nowState = false;
                     return (
-                      <Link to={`${e.pdCategory}`} key={e.product_id}>
-                        <li key={e.product_id} className={styles.fList}>
-                          {e.pdCategory}
-                        </li>
+                      <Link
+                        to={`../${e.pdCategory}`}
+                        key={e.product_id}
+                        onClick={handleCategory}
+                      >
+                        {nowState ? (
+                          <li
+                            className={`${styles.fList} ${styles.fListSelect}`}
+                          >
+                            {e.pdCategory}
+                          </li>
+                        ) : (
+                          <li className={styles.fList}>{e.pdCategory}</li>
+                        )}
                       </Link>
                     );
                   })}
@@ -83,9 +131,9 @@ export default function Search() {
           <div className={styles.product}>
             <p className={styles.category}>
               <span>
-                <Link to="/">홈</Link> &gt;
+                <Link to="/">홈</Link> &gt; 검색 &gt;{' '}
               </span>
-              <span> 검색</span>
+              <span>{keyword ? keyword : searchWord}</span>
             </p>
             <div className={styles.productTitle}>
               <h1>검색 결과 </h1>
@@ -126,7 +174,7 @@ export default function Search() {
               </div>
             </div>
             <div className={styles.itemBox}>
-              <Products list={list} />
+              <Products list={course} />
             </div>
           </div>
         </div>

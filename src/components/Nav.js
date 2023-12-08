@@ -1,11 +1,34 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import styles from './Nav.module.css';
 import Category from './Category';
 import Container from './Container';
+import { useEffect, useState } from 'react';
 
 export default function Nav() {
-  const navigate = useNavigate();
   const Token = localStorage.getItem('login');
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initKeyword = searchParams.get('keyword');
+
+  const nowUrl = decodeURI(window.location.pathname);
+  let nowKeyword = '';
+  if (nowUrl.indexOf('keyword')) {
+    nowKeyword = nowUrl.replace('/search/keyword=', '');
+  }
+
+  const navigate = useNavigate();
+  const [keyword, setKeyword] = useState(initKeyword || '');
+
+  useEffect(() => {
+    const newKeyword = searchParams.get('keyword');
+    setKeyword(newKeyword || '');
+
+    if (nowKeyword !== keyword) {
+      setKeyword('');
+    } else {
+      setKeyword(keyword);
+    }
+  }, [searchParams, nowKeyword]);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -16,7 +39,19 @@ export default function Nav() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    navigate('/search/');
+    if (!keyword) {
+      return false;
+    } else {
+      setSearchParams(
+        keyword ? { keyword, search: 'search' } : { search: 'search' }
+      );
+      let newKeyword = `keyword=${keyword}`;
+      navigate(`search/${newKeyword}`);
+    }
+  };
+
+  const handleKeywordChange = (e) => {
+    setKeyword(e.target.value.toLowerCase());
   };
 
   return (
@@ -28,7 +63,8 @@ export default function Nav() {
         <form className={styles.form} onSubmit={handleSearch}>
           <input
             name="keyword"
-            value="search"
+            value={keyword}
+            onChange={handleKeywordChange}
             placeholder="검색으로 과정 찾기"
           />
           <button type="submit">검색</button>
