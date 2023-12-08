@@ -7,32 +7,36 @@ import styles from './NoticeDetail.module.css';
 export default function NoticeDetail() {
   const navigator = useNavigate();
   const { id } = useParams();
-  const [board, setBoard] = useState();
+  const [data, setData] = useState();
   const params = useParams();
 
   useEffect(() => {
     axios.get('http://localhost:8090/notice/list').then((result) => {
-      setBoard(result.data);
+      setData(result.data);
     });
   }, []);
 
+  const MoveToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <>
-      {board ? (
+      {data ? (
         <div className={styles.box}>
           <div className={styles.top_title}>
             <div className={styles.title_text}>
-              {board[board.findIndex((v) => v.notice_id == id)].notice_title}
+              {data[data.findIndex((v) => v.notice_id == id)].notice_title}
             </div>
 
             <div className={styles.date_div}>
-              {board[board.findIndex((v) => v.notice_id == id)].reg_time}
+              {data[data.findIndex((v) => v.notice_id == id)].reg_time}
             </div>
           </div>
 
           <div>
             <div className={styles.contents_text}>
-              {board[board.findIndex((v) => v.notice_id == id)].notice_contents}
+              {data[data.findIndex((v) => v.notice_id == id)].notice_contents}
             </div>
           </div>
         </div>
@@ -48,6 +52,15 @@ export default function NoticeDetail() {
         }}
       >
         글삭제
+      </Button>
+      <Button
+        variant="outline-dark"
+        onClick={() => {
+          navigator('/notice/update/' + params.id);
+          MoveToTop();
+        }}
+      >
+        글수정
       </Button>
     </>
   );

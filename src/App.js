@@ -20,6 +20,7 @@ import ModalProvider from './provider/ModalProvider';
 import ContextProvider from './provider/ContextProvider';
 import Search from './pages/Search';
 import NoticeWrite from './pages/NoticeWrite';
+<<<<<<< HEAD
 import React from 'react';
 import SearchResult from './pages/SearchResult';
 
@@ -47,6 +48,9 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
+=======
+import NoticeUpdate from './pages/NoticeUpdate';
+>>>>>>> 4f1a560f0679bbd3e33edaf51e8a158311846bf3
 
 function App() {
   return (
@@ -71,9 +75,20 @@ function App() {
                 <Route path="mypage" element={<MyPage />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Route>
+<<<<<<< HEAD
               <Route path="search">
                 <Route index element={<Search />} />
                 <Route path=":searchWord" element={<SearchResult />} />
+=======
+              <Route path="notice/write" element={<NoticeWrite />}></Route>
+              <Route
+                path="notice/update/:id"
+                element={<NoticeUpdate />}
+              ></Route>
+              <Route path="mypage" element={<MyPage />} />
+              <Route path="search/" element={<Search />}>
+                <Route path=":pdCategory" element={<Search />} />
+>>>>>>> 4f1a560f0679bbd3e33edaf51e8a158311846bf3
               </Route>
             </Routes>
             <Footer />

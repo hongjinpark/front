@@ -13,11 +13,9 @@ export default function NoticeDetail() {
 
   const saveTitle = (event) => {
     setTitle(event.target.value);
-    // console.log(titleValue);
   };
   const saveContent = (event) => {
     setcontents(event.target.value);
-    // console.log(contentsValue);
   };
   const role = localStorage.getItem('user');
   return (
@@ -52,7 +50,6 @@ export default function NoticeDetail() {
               window.location.reload('/notice');
               alert('저장 완료.');
             });
-          console.log(titleValue, contentsValue);
         }}
         className={styles.button}
       >
