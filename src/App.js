@@ -69,6 +69,10 @@ function App() {
                   <Route path=":id" element={<NoticeDetail />} />
                 </Route>
                 <Route path="notice/write" element={<NoticeWrite />}></Route>
+                <Route
+                  path="notice/update/:id"
+                  element={<NoticeUpdate />}
+                ></Route>
                 <Route path="mypage" element={<MyPage />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Route>
@@ -76,10 +80,7 @@ function App() {
                 <Route index element={<Search />} />
                 <Route path=":searchWord" element={<SearchResult />} />
                 <Route path="notice/write" element={<NoticeWrite />}></Route>
-                <Route
-                  path="notice/update/:id"
-                  element={<NoticeUpdate />}
-                ></Route>
+
                 <Route path="mypage" element={<MyPage />} />
               </Route>
               <Route path="search">

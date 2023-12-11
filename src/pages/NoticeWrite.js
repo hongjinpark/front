@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function NoticeDetail() {
-  // const token = localStorage.getItem('login');
   const navigator = useNavigate();
 
   const [titleValue, setTitle] = useState('');
@@ -17,9 +16,11 @@ export default function NoticeDetail() {
   const saveContent = (event) => {
     setcontents(event.target.value);
   };
-  const role = localStorage.getItem('user');
+  const role = localStorage.getItem('role');
+
   return (
     <div className={styles.body}>
+      {role == 'ADMIN' ? 'test' : null}
       <div className={styles.box}>
         <div className={styles.top_title}>
           <input

@@ -9,6 +9,7 @@ export default function NoticeDetail() {
   const { id } = useParams();
   const [data, setData] = useState();
   const params = useParams();
+  const role = localStorage.getItem('role');
 
   useEffect(() => {
     axios.get('http://localhost:8090/notice/list').then((result) => {
@@ -41,27 +42,37 @@ export default function NoticeDetail() {
           </div>
         </div>
       ) : null}
-      <Button
-        variant="outline-dark"
-        onClick={() => {
-          axios.delete('http://localhost:8090/notice/' + params.id).then(() => {
-            navigator('/notice');
-            window.location.reload('/notice');
-            alert('삭제 완료.');
-          });
-        }}
-      >
-        글삭제
-      </Button>
-      <Button
-        variant="outline-dark"
-        onClick={() => {
-          navigator('/notice/update/' + params.id);
-          MoveToTop();
-        }}
-      >
-        글수정
-      </Button>
+      {role == 'ADMIN' ? (
+        <Button
+          variant="outline-dark"
+          onClick={() => {
+            if (window.confirm('삭제하시겠습니까?')) {
+              axios
+                .delete('http://localhost:8090/notice/' + params.id)
+                .then(() => {
+                  navigator('/notice');
+                  window.location.reload('/notice');
+                  alert('삭제 완료');
+                });
+            } else {
+              alert('취소했습니다');
+            }
+          }}
+        >
+          글삭제
+        </Button>
+      ) : null}
+      {role == 'ADMIN' ? (
+        <Button
+          variant="outline-dark"
+          onClick={() => {
+            navigator('/notice/update/' + params.id);
+            MoveToTop();
+          }}
+        >
+          글수정
+        </Button>
+      ) : null}
     </>
   );
 }

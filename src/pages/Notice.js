@@ -2,6 +2,7 @@ import { Button } from 'react-bootstrap/';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Notice.module.css';
 import styles from './Notice.module.css';
+// import { Pagination } from '@mui/material';
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -13,12 +14,20 @@ export default function Noitce() {
   const MoveToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+  const role = localStorage.getItem('role');
 
   useEffect(() => {
     axios.get('http://localhost:8090/notice/list').then((result) => {
       setBoard(result.data);
     });
   }, []);
+
+  //Pagination
+  // const lastPage = board
+  //   ? board.length % 10
+  //     ? parseInt(board.length / 5)
+  //     : parseInt(board.length / 5) + 1
+  //   : null;
 
   return (
     <div className={styles.body}>
@@ -38,16 +47,13 @@ export default function Noitce() {
           : null}
       </div>
 
-      <Button
-        className={styles.button}
-        onClick={() => {
-          navigator('/notice/write');
-          MoveToTop();
-        }}
-        variant="outline-dark"
-      >
-        글쓰기
-      </Button>
+      {/* <Pagination
+        className={styles.pagination}
+        page={5}
+        count={lastPage}
+        defaultpage={1}
+      /> */}
+
       <Button
         className={styles.button}
         onClick={() => {
@@ -58,6 +64,18 @@ export default function Noitce() {
       >
         목록
       </Button>
+      {role == 'ADMIN' ? (
+        <Button
+          className={styles.button}
+          onClick={() => {
+            navigator('/notice/write');
+            MoveToTop();
+          }}
+          variant="outline-dark"
+        >
+          글쓰기
+        </Button>
+      ) : null}
     </div>
   );
 
