@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function NoticeDetail() {
   const navigator = useNavigate();
+  // const role = localStorage.getItem('role');
 
   const [titleValue, setTitle] = useState('');
   const [contentsValue, setcontents] = useState('');
@@ -16,11 +17,9 @@ export default function NoticeDetail() {
   const saveContent = (event) => {
     setcontents(event.target.value);
   };
-  const role = localStorage.getItem('role');
 
   return (
     <div className={styles.body}>
-      {role == 'ADMIN' ? 'test' : null}
       <div className={styles.box}>
         <div className={styles.top_title}>
           <input
@@ -56,14 +55,6 @@ export default function NoticeDetail() {
       >
         저장
       </Button>
-      <button
-        onClick={() => {
-          console.log(role);
-          console.log(typeof role);
-        }}
-      >
-        test
-      </button>
     </div>
   );
 }

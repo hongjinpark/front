@@ -33,7 +33,6 @@ export default function Nav() {
   const handleLogin = (e) => {
     e.preventDefault();
     localStorage.removeItem('login');
-    localStorage.removeItem('role');
     alert('로그아웃 완료');
     navigate('/');
   };

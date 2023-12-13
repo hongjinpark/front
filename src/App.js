@@ -23,6 +23,7 @@ import NoticeWrite from './pages/NoticeWrite';
 import NoticeUpdate from './pages/NoticeUpdate';
 import React from 'react';
 import SearchResult from './pages/SearchResult';
+import AdminRoute from './components/route/AdminRoute';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -68,11 +69,14 @@ function App() {
                 <Route path="notice" element={<Notice />}>
                   <Route path=":id" element={<NoticeDetail />} />
                 </Route>
-                <Route path="notice/write" element={<NoticeWrite />}></Route>
-                <Route
-                  path="notice/update/:id"
-                  element={<NoticeUpdate />}
-                ></Route>
+                <Route element={<AdminRoute />}>
+                  <Route path="notice/write" element={<NoticeWrite />}></Route>
+                  <Route
+                    path="notice/update/:id"
+                    element={<NoticeUpdate />}
+                  ></Route>
+                </Route>
+
                 <Route path="mypage" element={<MyPage />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Route>

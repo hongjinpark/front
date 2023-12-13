@@ -12,8 +12,6 @@ export default function NoticeUpdate() {
   const [title, setTitle] = useState();
   const [contents, setContents] = useState();
 
-  //   const findIndex = data.findIndex((v) => v.notice_id == id);
-
   const saveTitle = (event) => {
     setTitle(event.target.value);
   };

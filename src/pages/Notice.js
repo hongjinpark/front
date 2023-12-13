@@ -14,20 +14,26 @@ export default function Noitce() {
   const MoveToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-  const role = localStorage.getItem('role');
+  const [role, setRole] = useState('');
 
   useEffect(() => {
     axios.get('http://localhost:8090/notice/list').then((result) => {
       setBoard(result.data);
     });
+    //role 정보 담기
+    const token = localStorage.getItem('login');
+    token
+      ? axios
+          .get('http://localhost:8090/user/info/role', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((result) => {
+            setRole(result.data);
+          })
+      : null;
   }, []);
-
-  //Pagination
-  // const lastPage = board
-  //   ? board.length % 10
-  //     ? parseInt(board.length / 5)
-  //     : parseInt(board.length / 5) + 1
-  //   : null;
 
   return (
     <div className={styles.body}>

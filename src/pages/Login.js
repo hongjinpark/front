@@ -27,10 +27,8 @@ const Login = () => {
       const response = await login(user);
       const responseUser = response?.data;
       const accessToken = response?.data?.token;
-      const roles = response?.data?.role;
       localStorage.setItem('login', accessToken);
       localStorage.setItem('user', JSON.stringify(response.data));
-      localStorage.setItem('role', roles);
       httpApi.defaults.headers.common['Authorization'] =
         `Bearer ${accessToken}`;
       setAuth(responseUser);

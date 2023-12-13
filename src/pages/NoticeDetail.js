@@ -9,12 +9,25 @@ export default function NoticeDetail() {
   const { id } = useParams();
   const [data, setData] = useState();
   const params = useParams();
-  const role = localStorage.getItem('role');
+  const [role, setRole] = useState('');
 
   useEffect(() => {
     axios.get('http://localhost:8090/notice/list').then((result) => {
       setData(result.data);
     });
+    //role 정보 담기
+    const token = localStorage.getItem('login');
+    token
+      ? axios
+          .get('http://localhost:8090/user/info/role', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((result) => {
+            setRole(result.data);
+          })
+      : null;
   }, []);
 
   const MoveToTop = () => {
