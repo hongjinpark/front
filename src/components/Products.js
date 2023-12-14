@@ -4,14 +4,27 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 
 export default function Products({ list }) {
   const { searchWord } = useParams();
+  let newSearchWord = '';
+
   let location = useLocation().pathname;
   if (location === '/') {
     location = true;
   } else if (location === '/search/') {
     location = false;
   }
+
+  if (!searchWord) {
+    newSearchWord = searchWord;
+  } else if (searchWord.includes('keyword')) {
+    newSearchWord = searchWord.replace('keyword=', '');
+  }
+
   if (!list || list.length === 0) {
-    return <h1>원하시는 상품이 없습니다.</h1>;
+    return (
+      <div className={styles.poductResult}>
+        <h1>상품 검색 결과가 없습니다.</h1>
+      </div>
+    );
   } else if (Array.isArray(list)) {
     return (
       <ul className={styles.products}>
@@ -19,8 +32,32 @@ export default function Products({ list }) {
           const price = Number(item.price).toLocaleString();
           return (
             <li key={item.product_id}>
-              {searchWord ? (
-                <></>
+              {newSearchWord ? (
+                <>
+                  <Link to={`../../${item.pdTitle}`}>
+                    <div>
+                      <Card className={styles.card}>
+                        {location ? (
+                          <img
+                            src={require(`../assets${item.imgUrl}`)}
+                            alt="상품이미지"
+                            className={styles.imgHome}
+                          />
+                        ) : (
+                          <img
+                            src={require(`../assets${item.imgUrl}`)}
+                            alt="상품이미지"
+                            className={styles.imgSearchList}
+                          />
+                        )}
+                        <div className={styles.info}>
+                          <p>{item.pdTitle}</p>
+                          <p>{price}원</p>
+                        </div>
+                      </Card>
+                    </div>
+                  </Link>
+                </>
               ) : (
                 <Link to={`../../${item.pdTitle}`}>
                   <div>
@@ -56,7 +93,7 @@ export default function Products({ list }) {
     return (
       <ul className={styles.products}>
         <li key={list.product_id}>
-          {searchWord ? (
+          {newSearchWord ? (
             <Link to={`../../${list.pdTitle}`}>
               <div>
                 <Card className={styles.card}>
@@ -73,7 +110,21 @@ export default function Products({ list }) {
               </div>
             </Link>
           ) : (
-            <></>
+            <Link to={`../../${list.pdTitle}`}>
+              <div>
+                <Card className={styles.card}>
+                  <img
+                    src={require(`../assets${list.imgUrl}`)}
+                    alt="상품이미지"
+                    className={styles.imgSearchList}
+                  />
+                  <div className={styles.info}>
+                    <p>{list.pdTitle}</p>
+                    <p>{price}원</p>
+                  </div>
+                </Card>
+              </div>
+            </Link>
           )}
         </li>
       </ul>

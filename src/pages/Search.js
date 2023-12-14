@@ -5,11 +5,30 @@ import styles from './Search.module.css';
 import { useEffect, useState } from 'react';
 import { getApi } from '../api/axios';
 import Products from '../components/Products';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSort } from '@fortawesome/free-solid-svg-icons';
 
 export default function Search() {
-  const [list, setList] = useState();
+  const [list, setList] = useState([]);
+  const [origin, setOrigin] = useState([]);
+  const [order, setOrder] = useState('price');
+  const [btnClick, setBtnClick] = useState('recommen');
+
+  const newList = list.sort((a, b) => a[order] - b[order]);
+  const handlerecommenBtn = () => {
+    setOrder('price');
+    setBtnClick('recommen');
+  };
+  const handleLeastBtn = () => {
+    setOrder('rating');
+    setBtnClick('least');
+  };
+  const handleLowerBtn = () => {
+    setOrder('price');
+    setBtnClick('lower');
+  };
+  const handleHighBtn = () => {
+    setOrder('-price');
+    setBtnClick('high');
+  };
 
   const productLists = async () => {
     let path = `/product/list`;
@@ -26,7 +45,11 @@ export default function Search() {
 
   useEffect(() => {
     productLists();
-  }, []);
+  }, [order]);
+
+  useEffect(() => {
+    setOrigin(list);
+  }, [list]);
 
   let min,
     max,
@@ -66,8 +89,8 @@ export default function Search() {
             <div className={styles.filterList}>
               <p className={styles.fSubTitle}>카테고리</p>
               <ul>
-                {list &&
-                  list.map((e) => {
+                {origin &&
+                  origin.map((e) => {
                     return (
                       <Link to={`${e.pdCategory}`} key={e.product_id}>
                         <li key={e.product_id} className={styles.fList}>
@@ -89,15 +112,38 @@ export default function Search() {
             </p>
             <div className={styles.productTitle}>
               <h1>검색 결과 </h1>
-              <p className={styles.result}>
-                &nbsp; {list && list.length} 개의 상품
+              <p className={styles.result2}>
+                &nbsp; {newList && newList.length} 개의 상품
               </p>
-              <button className={styles.buttonFilter}>
-                추천순
-                <span className={styles.bIcon}>
-                  <FontAwesomeIcon icon={faSort} />
-                </span>
-              </button>
+              <div className={styles.buttonBox}>
+                <button
+                  onClick={handlerecommenBtn}
+                  className={btnClick === 'recommen' ? styles.btnEmphasis : ''}
+                >
+                  추천순&nbsp;
+                </button>
+                <span className={styles.slash}>|</span>
+                <button
+                  onClick={handleLeastBtn}
+                  className={btnClick === 'least' ? styles.btnEmphasis : ''}
+                >
+                  &nbsp;최신순&nbsp;
+                </button>
+                <span className={styles.slash}>|</span>
+                <button
+                  onClick={handleLowerBtn}
+                  className={btnClick === 'lower' ? styles.btnEmphasis : ''}
+                >
+                  &nbsp;낮은가격순&nbsp;
+                </button>
+                <span className={styles.slash}>|</span>
+                <button
+                  onClick={handleHighBtn}
+                  className={btnClick === 'high' ? styles.btnEmphasis : ''}
+                >
+                  &nbsp;높은가격순&nbsp;
+                </button>
+              </div>
             </div>
             <p className={styles.compare}>
               현재 페이지의 상품 가격을 비교해봤어요
@@ -126,7 +172,7 @@ export default function Search() {
               </div>
             </div>
             <div className={styles.itemBox}>
-              <Products list={list} />
+              <Products list={newList} />
             </div>
           </div>
         </div>

@@ -1,3 +1,9 @@
+.poductResult {
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 50px;
+}
+
 ul.products {
   display: flex;
   align-items: center;

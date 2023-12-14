@@ -11,15 +11,39 @@
   justify-content: space-between;
   padding-bottom: 30px;
   margin-bottom: 20px;
-  border-bottom: 1px solid #ccc;
 }
 .filterTitle > p {
   font-size: 24px;
   font-weight: 800;
 }
+.filterItem {
+  display: flex;
+  padding: 10px;
+  margin-bottom: 40px;
+  border: 1px solid #d6d6d6;
+  border-radius: 10px;
+  background: #f7f7f7;
+  transition: all 0.2s ease;
+}
+.filterItem > span:nth-child(1) {
+  margin-left: 20px;
+  text-align: center;
+}
+.filterItem > span:nth-child(2) {
+  padding: 0 20px;
+}
+.filterItem:hover {
+  border: 1px solid #333;
+}
+
+.delete {
+  text-align: right;
+}
 .fSubTitle {
   margin-bottom: 20px;
+  padding-top: 30px;
   font-weight: 600;
+  border-top: 1px solid #ccc;
 }
 .fList {
   margin-bottom: 5px;
@@ -45,6 +69,7 @@
 
 .productTitle {
   display: flex;
+  justify-content: space-between;
   user-select: none;
 }
 .productTitle > h1 {
@@ -56,17 +81,39 @@
 
 .result {
   line-height: 100px;
-  margin-left: 400px;
+  /* margin-left: 400px; */
   color: #616161;
 }
+.result2 {
+  line-height: 100px;
+  margin-left: -300px;
+  color: #616161;
+}
+.Emphasis {
+  color: #0dcc5a;
+  font-weight: 900;
+}
+.buttonBox {
+  display: flex;
+}
+.btnEmphasis {
+  font-weight: 800;
+  color: #333;
+}
+.slash {
+  line-height: 100px;
+}
+
 .buttonFilter {
-  width: 200px;
-  height: 50px;
-  margin: 20px 0 0 80px;
+  width: 100%;
+  height: 100%;
   border: 1px solid #ccc;
   border-radius: 10px;
   text-align: left;
   padding-left: 15px;
+}
+.buttonFilter.active {
+  border: 1px solid #333;
 }
 .bIcon {
   float: right;
