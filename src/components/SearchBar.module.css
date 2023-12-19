@@ -1,0 +1,34 @@
+.recentTitle {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 20px;
+}
+.recentTitle > h1 {
+  font-weight: bold;
+}
+.recentDelete {
+  text-decoration: underline;
+}
+.recentList {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  padding: 0 20px 20px;
+  overflow: scroll;
+  -ms-overflow-style: none;
+}
+.recentList ::-webkit-scrollbar,
+.recentSearch ::-webkit-scrollbar {
+  display: none;
+}
+.recentWord {
+  padding: 5px 10px;
+  margin-right: 5px;
+  height: 50px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+}
+.xmark {
+  font-size: 12px;
+}

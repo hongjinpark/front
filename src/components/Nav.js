@@ -5,7 +5,7 @@ import Container from './Container';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import SearchBar from './SearchBar';
 
 export default function Nav() {
   const Token = localStorage.getItem('login');
@@ -78,78 +78,7 @@ export default function Nav() {
               placeholder="어떤 상품을 찾으시나요?"
             />
           </form>
-          <div className={styles.recentSearch}>
-            <div className={styles.recentTitle}>
-              <h1>최근 검색어</h1>
-              <button>
-                <p className={styles.recentDelete}>전체 삭제</p>
-              </button>
-            </div>
-            <div className={styles.recentList}>
-              <ul className={styles.recentList}>
-                <li>
-                  <button className={styles.recentWord}>
-                    맥북 프로{' '}
-                    <FontAwesomeIcon icon={faXmark} className={styles.xmark} />
-                  </button>
-                </li>
-                <li>
-                  <button className={styles.recentWord}>
-                    ASUS 노트북{' '}
-                    <FontAwesomeIcon icon={faXmark} className={styles.xmark} />
-                  </button>
-                </li>
-                <li>
-                  <button className={styles.recentWord}>
-                    ASUS 노트북{' '}
-                    <FontAwesomeIcon icon={faXmark} className={styles.xmark} />
-                  </button>
-                </li>
-                <li>
-                  <button className={styles.recentWord}>
-                    ASUS 노트북{' '}
-                    <FontAwesomeIcon icon={faXmark} className={styles.xmark} />
-                  </button>
-                </li>
-                <li>
-                  <button className={styles.recentWord}>
-                    ASUS 노트북{' '}
-                    <FontAwesomeIcon icon={faXmark} className={styles.xmark} />
-                  </button>
-                </li>
-                <li>
-                  <button className={styles.recentWord}>
-                    ASUS 노트북{' '}
-                    <FontAwesomeIcon icon={faXmark} className={styles.xmark} />
-                  </button>
-                </li>
-                <li>
-                  <button className={styles.recentWord}>
-                    ASUS 노트북{' '}
-                    <FontAwesomeIcon icon={faXmark} className={styles.xmark} />
-                  </button>
-                </li>
-                <li>
-                  <button className={styles.recentWord}>
-                    ASUS 노트북{' '}
-                    <FontAwesomeIcon icon={faXmark} className={styles.xmark} />
-                  </button>
-                </li>
-                <li>
-                  <button className={styles.recentWord}>
-                    ASUS 노트북{' '}
-                    <FontAwesomeIcon icon={faXmark} className={styles.xmark} />
-                  </button>
-                </li>
-                <li>
-                  <button className={styles.recentWord}>
-                    ASUS 노트북{' '}
-                    <FontAwesomeIcon icon={faXmark} className={styles.xmark} />
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <SearchBar className={styles.recentSearch} keyword={keyword} />
         </div>
 
         <ul className={styles.menu}>
