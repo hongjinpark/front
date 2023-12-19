@@ -2,6 +2,7 @@ import { AuthProvider } from '../context/AuthProvider';
 import { ProfileModalProvider } from '../context/ProfileModalProvider';
 import { PurchaseModalProvider } from '../context/PurchaseModalProvider';
 import { SaleModalProvider } from '../context/SaleModalProvider';
+import { SelectedModalProvider } from '../context/SelectedModalProvider';
 
 export default function ContextProvider({ children }) {
   return (
@@ -9,7 +10,9 @@ export default function ContextProvider({ children }) {
       <AuthProvider>
         <PurchaseModalProvider>
           <SaleModalProvider>
-            <ProfileModalProvider>{children}</ProfileModalProvider>
+            <ProfileModalProvider>
+              <SelectedModalProvider>{children}</SelectedModalProvider>
+            </ProfileModalProvider>
           </SaleModalProvider>
         </PurchaseModalProvider>
       </AuthProvider>
