@@ -1,13 +1,14 @@
 import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Outlet, Navigate } from 'react-router-dom';
 import secureLocalStorage from 'react-secure-storage';
 
 const AdminRoute = () => {
   const role = secureLocalStorage.getItem('role');
 
-  return (
-    role == 'ADMIN' ? <Outlet /> : alert('권한이 필요합니다'),
-    (<Navigate to="/" />)
-  );
+  if (role != 'ADMIN') {
+    alert('권한이 없습니다.');
+  }
+
+  return role == 'ADMIN' ? <Outlet /> : <Navigate to="/" />;
 };
 export default AdminRoute;
