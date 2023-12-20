@@ -3,7 +3,10 @@ import { useContext, useEffect, useState } from 'react';
 import { formattedNumber } from './../../utils/util';
 import styles from './modal.module.css';
 import SelectedModalContext from '../../context/SelectedModalProvider';
-import { getSelectProduct } from './../../api/selecProduct.api';
+import {
+  deleteSelectProduct,
+  getSelectProduct,
+} from './../../api/selectProduct.api';
 
 export default function SelectedModal() {
   const { isOpen } = useContext(SelectedModalContext);
@@ -24,10 +27,10 @@ export default function SelectedModal() {
   }, [isOpen]);
 
   const handleDelete = () => {
-    // deleteHistory(alterVisible.id).then(() => {
-    //   getSelectProduct(text, 0).then((res) => setSelectProduct(res.data));
-    //   setAlterVisible({ is: false, id: '' });
-    // });
+    deleteSelectProduct(alterVisible.id).then(() => {
+      getSelectProduct(text, 0).then((res) => setSelectProduct(res.data));
+      setAlterVisible({ is: false, id: '' });
+    });
   };
 
   const handleGet = () => {
