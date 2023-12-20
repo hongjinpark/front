@@ -10,10 +10,8 @@
   text-decoration: underline;
 }
 .recentList {
-  display: flex;
-  flex-flow: row nowrap;
   width: 100%;
-  padding: 0 20px 20px;
+  padding: 0 20px 50px;
   overflow: scroll;
   -ms-overflow-style: none;
 }
@@ -21,7 +19,15 @@
 .recentSearch ::-webkit-scrollbar {
   display: none;
 }
+
+.recentLists {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
 .recentWord {
+  white-space: nowrap;
+  word-break: keep-all;
   padding: 5px 10px;
   margin-right: 5px;
   height: 50px;
@@ -31,4 +37,5 @@
 }
 .xmark {
   font-size: 12px;
+  margin-left: 10px;
 }

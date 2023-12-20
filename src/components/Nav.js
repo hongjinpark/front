@@ -10,6 +10,8 @@ import SearchBar from './SearchBar';
 export default function Nav() {
   const Token = localStorage.getItem('login');
 
+  const [isDropMenu, setIsDropMenu] = useState(false);
+
   const [searchParams, setSearchParams] = useSearchParams();
   const initKeyword = searchParams.get('keyword');
 
@@ -45,6 +47,12 @@ export default function Nav() {
     if (!keyword) {
       return false;
     } else {
+      let searchKeyword = keyword;
+      let existingKeywords = JSON.parse(localStorage.getItem('keyword')) || [];
+      existingKeywords.push(searchKeyword);
+
+      localStorage.setItem('keyword', JSON.stringify(existingKeywords));
+
       setSearchParams(
         keyword ? { keyword, search: 'search' } : { search: 'search' }
       );
@@ -53,12 +61,21 @@ export default function Nav() {
     }
   };
 
+  const toggleDropMenu = (e) => {
+    e.stopPropagation();
+    setIsDropMenu((prevState) => !prevState);
+  };
+
   const handleKeywordChange = (e) => {
     setKeyword(e.target.value.toLowerCase());
   };
 
   return (
-    <div className={styles.nav}>
+    <div
+      className={styles.nav}
+      onClick={() => setIsDropMenu(false)}
+      role="presentation"
+    >
       <div className={styles.container}>
         <Link to="/">
           <h2 className={styles.logo}>중고 나라</h2>
@@ -73,12 +90,15 @@ export default function Nav() {
               name="keyword"
               value={keyword}
               onChange={handleKeywordChange}
+              onClick={toggleDropMenu}
               className={styles.searchInput}
               autoComplete="off"
               placeholder="어떤 상품을 찾으시나요?"
             />
           </form>
-          <SearchBar className={styles.recentSearch} keyword={keyword} />
+          {isDropMenu && (
+            <SearchBar className={styles.recentSearch} keyword={keyword} />
+          )}
         </div>
 
         <ul className={styles.menu}>

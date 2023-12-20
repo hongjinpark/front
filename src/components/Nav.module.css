@@ -27,7 +27,12 @@
   background: #f7f7f7;
   border-radius: 5px;
 }
+.form.actvie {
+  display: block;
+  opacity: 1;
+}
 .searchInput {
+  width: 80%;
   background: transparent;
   outline: none;
 }
