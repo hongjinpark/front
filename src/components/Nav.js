@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from './SearchBar';
+import secureLocalStorage from 'react-secure-storage';
 
 export default function Nav() {
   const Token = localStorage.getItem('login');
@@ -36,6 +37,7 @@ export default function Nav() {
   const handleLogin = (e) => {
     e.preventDefault();
     localStorage.removeItem('login');
+    secureLocalStorage.removeItem('role');
     alert('로그아웃 완료');
     navigate('/');
   };
