@@ -1,16 +1,14 @@
-import { getSaletHistory } from '../../api/history.api';
-import SaleModalContext from '../../context/SaleModalProvider';
 import Modal from './Modal';
 import { useContext, useEffect, useState } from 'react';
 import { formattedNumber } from './../../utils/util';
 import styles from './modal.module.css';
-import { deleteHistory } from './../../api/history.api';
 import SelectedModalContext from '../../context/SelectedModalProvider';
+import { getSelectProduct } from './../../api/selecProduct.api';
 
 export default function SelectedModal() {
-  const { isOpen } = useContext(SaleModalContext);
+  const { isOpen } = useContext(SelectedModalContext);
   const [text, setText] = useState('');
-  const [sale, setSale] = useState([]);
+  const [selectProduct, setSelectProduct] = useState([]);
   const [period, setPeriod] = useState();
   const [alterVisible, setAlterVisible] = useState({ is: false, id: '' });
   const [popupVisible, setPopupVisible] = useState(false);
@@ -22,19 +20,20 @@ export default function SelectedModal() {
     { key: '4', value: '6개월' },
   ];
   useEffect(() => {
-    if (isOpen) getSaletHistory().then((res) => setSale(res.data));
+    if (isOpen) getSelectProduct().then((res) => setSelectProduct(res.data));
   }, [isOpen]);
+
   const handleDelete = () => {
-    console.log(alterVisible);
-    deleteHistory(alterVisible.id).then(() => {
-      getSaletHistory(text, 0).then((res) => setSale(res.data));
-      setAlterVisible({ is: false, id: '' });
-    });
-    console.log();
+    // deleteHistory(alterVisible.id).then(() => {
+    //   getSelectProduct(text, 0).then((res) => setSelectProduct(res.data));
+    //   setAlterVisible({ is: false, id: '' });
+    // });
   };
+
   const handleGet = () => {
-    getSaletHistory(text, period).then((res) => setSale(res.data));
+    getSelectProduct(text, period).then((res) => setSelectProduct(res.data));
   };
+
   const headerContent = () => {
     return (
       <div className="flex px-3 py-2">
@@ -96,13 +95,13 @@ export default function SelectedModal() {
   const bodyContent = () => {
     return (
       <div>
-        {sale.length > 0 ? (
-          sale.map((saleItem) => (
-            <div className="p-6" key={saleItem.id}>
+        {selectProduct.length > 0 ? (
+          selectProduct.map((selectItem) => (
+            <div className="p-6" key={selectItem.id}>
               <div className="flex items-center pb-3 border-b-gray-600 border-b">
                 <div className="flex-1 flex items-center">
                   <span className="flex flex-1 items-center">
-                    {saleItem.regTime.split('T')[0]}
+                    {selectItem.regTime.split('T')[0]}
                   </span>
                   <div className="border-l-gray-200"></div>
                   <span className="font-medium text-base text-gray-300"></span>
@@ -111,7 +110,7 @@ export default function SelectedModal() {
                   <button
                     className="w-7 h-7 bg-none"
                     onClick={() =>
-                      setAlterVisible({ is: true, id: saleItem.id })
+                      setAlterVisible({ is: true, id: selectItem.id })
                     }
                   >
                     <svg
@@ -140,24 +139,23 @@ export default function SelectedModal() {
                   </button>
                 </div>
               </div>
-              <h2 className="text-2xl pt-4 pb-3 text-left font-semibold">
-                판매완료
-              </h2>
+              {/* <h2 className="text-2xl pt-4 pb-3 text-left font-semibold">sd</h2> */}
+              <div className="text-2xl pt-4 pb-3 text-left font-semibold"></div>
               <a href="/product/pdid">
                 <div className="flex bg-transparent">
                   <div className="w-20 h-20 inline-block pt-0 rounded relative overflow-hidden">
                     <img
-                      className="top-1/2 left-1/2 w-full h-auto rounded-lg object-cover -translate-x-2/4 -translate-y-2/4 absolute"
-                      src={require(`../../assets${saleItem.imgUrl}`)}
+                      className="top-1/2 left-1/2 w-full h-auto rounded-lg object-cover -translate-x-2/4 -translate-y-2/4 absolute min-h-full"
+                      src={require(`../../assets${selectItem.imgUrl}`)}
                       alt=""
                     />
                   </div>
                   <div className="h-20 flex flex-col flex-1 ml-5 items-start">
                     <p className="text-base font-normal overflow-hidden text-left mb-2">
-                      {saleItem.pdTitle}
+                      {selectItem.pdTitle}
                     </p>
                     <strong className="text-lg font-semibold">
-                      {formattedNumber(saleItem.price)}
+                      {formattedNumber(selectItem.price)}
                     </strong>
                   </div>
                 </div>
