@@ -13,6 +13,7 @@
 .title_text {
   font-weight: bold;
   font-size: 20px;
+  position: absolute;
 }
 .contents_text {
   margin: 10px 0px;

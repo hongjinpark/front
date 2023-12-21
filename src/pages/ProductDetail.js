@@ -6,11 +6,18 @@ import { getApi } from '../api/axios';
 import Container from '../components/Container';
 import Button from '../components/Button';
 import Caution from '../components/Caution';
+import LikeButton from '../components/LikeButton';
 
 export default function ProductDetail() {
   const { pdTitle } = useParams();
   const [list, setList] = useState([]);
   const [course, setCourse] = useState(null);
+
+  const [like, setLike] = useState(false);
+
+  const toggleLike = () => {
+    setLike(!like);
+  };
 
   const productLists = async () => {
     let path = `/product/list`;
@@ -49,6 +56,7 @@ export default function ProductDetail() {
               ></img>
             </div>
             <div className={styles.infoBox}>
+              <LikeButton like={like} onClick={toggleLike} />
               <p className={styles.category}>
                 <Link to="/">홈</Link> &gt; {course.pdCategory}
               </p>

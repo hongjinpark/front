@@ -1,0 +1,15 @@
+.icons {
+  width: auto;
+}
+.red {
+  color: red;
+}
+.button {
+  cursor: pointer;
+  transition: transform 300ms ease;
+  font-size: 30px;
+  float: right;
+}
+.button:hover {
+  transform: scale(1.1);
+}
