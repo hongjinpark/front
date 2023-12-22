@@ -5,8 +5,6 @@ export default function Modal({
   title,
   headerContent,
   bodyContent,
-  // setApiObject,
-  // apiMethod,
   alterContent,
   popupContent,
 }) {
@@ -16,9 +14,6 @@ export default function Modal({
   useEffect(() => {
     if (isOpen) {
       setModalVisible(isOpen);
-      // apiMethod().then((res) => {
-      //   setApiObject(res.data);
-      // });
     } else {
       setModalVisible(false);
     }

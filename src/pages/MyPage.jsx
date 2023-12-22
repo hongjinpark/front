@@ -29,9 +29,11 @@ export default function MyPage() {
     },
   ];
   useEffect(() => {
-    getMyProductList().then((res) => {
-      setMyProducts(res.data);
-    });
+    getMyProductList()
+      .then((res) => {
+        setMyProducts(res.data);
+      })
+      .catch((error) => console.log(error));
   }, []);
   return (
     <main className="relative flex-grow border-b-2">

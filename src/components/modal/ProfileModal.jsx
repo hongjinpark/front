@@ -8,7 +8,7 @@ export default function ProfileModal() {
   const { auth, setAuth } = useAuth();
   const [profileImg, setProfileImg] = useState(auth?.userInfo?.url);
   const [usrNickName, setUsrNickName] = useState(
-    auth?.userInfo?.nickname || auth.nickname
+    auth?.userInfo?.nickname || auth?.nickname
   );
   const handleSaveUserInfo = () => {
     const user = JSON.parse(localStorage.getItem('user'));

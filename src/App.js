@@ -1,17 +1,15 @@
 import './App.module.css';
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 // import Test from './components/Test';
 import Login from './pages/Login';
-import { AuthProvider } from './context/AuthProvider';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import LinkPage from './pages/LinkPage';
 import Admin from './pages/Admin';
 import Lounge from './pages/Lounge';
 import NotFoundPage from './pages/NotFoundPage';
-import ProductLists from './pages/ProductLists';
 import ProductDetail from './pages/ProductDetail';
 import Notice from './pages/Notice';
 import NoticeDetail from './pages/NoticeDetail';
@@ -24,6 +22,9 @@ import NoticeUpdate from './pages/NoticeUpdate';
 import React from 'react';
 import SearchResult from './pages/SearchResult';
 import AdminRoute from './components/route/AdminRoute';
+import { CustomRouter } from './utils/CustomRouter';
+import history from './utils/history';
+import RequireAuth from './utils/ReqireAuth';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -53,50 +54,54 @@ class ErrorBoundary extends React.Component {
 function App() {
   return (
     <ErrorBoundary>
-      <Router>
-        <AuthProvider>
-          <ContextProvider>
-            <Nav />
-            <Routes>
-              <Route path="/">
-                <Route index element={<Home />} />
-                <Route path="login" element={<Login />} />
-                <Route path="linkPage" element={<LinkPage />} />
-                <Route path="admin" element={<Admin />} />
-                <Route path="lounge" element={<Lounge />} />
-                <Route path=":pdTitle" element={<ProductDetail />} />
-                <Route path="product" element={<ProductLists />} />
-                <Route path="notice" element={<Notice />}>
-                  <Route path=":id" element={<NoticeDetail />} />
-                </Route>
-                <Route element={<AdminRoute />}>
-                  <Route path="notice/write" element={<NoticeWrite />}></Route>
-                  <Route
-                    path="notice/update/:id"
-                    element={<NoticeUpdate />}
-                  ></Route>
-                </Route>
-
-                <Route path="mypage" element={<MyPage />} />
-                <Route path="*" element={<NotFoundPage />} />
+      <CustomRouter history={history}>
+        <ContextProvider>
+          <Nav />
+          <Routes>
+            <Route path="/">
+              <Route index element={<Home />} />
+              <Route path="login" element={<Login />} />
+              <Route path="linkPage" element={<LinkPage />} />
+              <Route path="admin" element={<Admin />} />
+              <Route path="lounge" element={<Lounge />} />
+              <Route path=":pdTitle" element={<ProductDetail />} />
+              <Route path="notice" element={<Notice />}>
+                <Route path=":id" element={<NoticeDetail />} />
               </Route>
-              <Route path="search">
-                <Route index element={<Search />} />
-                <Route path=":searchWord" element={<SearchResult />} />
+              <Route
+                path="mypage"
+                element={
+                  <RequireAuth>
+                    <MyPage />
+                  </RequireAuth>
+                }
+              />
+              <Route element={<AdminRoute />}>
                 <Route path="notice/write" element={<NoticeWrite />}></Route>
+                <Route
+                  path="notice/update/:id"
+                  element={<NoticeUpdate />}
+                ></Route>
+              </Route>
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+            <Route path="search">
+              <Route index element={<Search />} />
+              <Route path=":searchWord" element={<SearchResult />} />
+              <Route path="notice/write" element={<NoticeWrite />}></Route>
 
-                <Route path="mypage" element={<MyPage />} />
-              </Route>
-              <Route path="search">
-                <Route index element={<Search />} />
-                <Route path=":searchWord" element={<SearchResult />} />
-              </Route>
-            </Routes>
-            <Footer />
-            <ModalProvider />
-          </ContextProvider>
-        </AuthProvider>
-      </Router>
+              <Route path="mypage" element={<MyPage />} />
+            </Route>
+            <Route path="search">
+              <Route index element={<Search />} />
+              <Route path=":searchWord" element={<SearchResult />} />
+            </Route>
+          </Routes>
+
+          <Footer />
+          <ModalProvider />
+        </ContextProvider>
+      </CustomRouter>
       /
     </ErrorBoundary>
   );

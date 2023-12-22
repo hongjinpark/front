@@ -1,5 +1,7 @@
 /* eslint-disable no-useless-catch */
 import axios from 'axios';
+// import history from '../utils/history';
+// import useAuth from '../hooks/useAuth';
 const BASE_URL = 'http://localhost:8090';
 
 export default axios.create({
@@ -57,5 +59,23 @@ const postApi = ({ path = '', data = {}, access_token = '' } = {}) => {
 const delApi = ({ path = '', data = {}, access_token = '' } = {}) => {
   return send({ method: 'DELETE', path, data, access_token });
 };
+httpApi.defaults.withCredentials = true;
+// httpApi.interceptors.response.use(
+//   (response) => {
+//     return response;
+//   },
+//   (error) => {
+//     if (error.response.status === 401) {
+//       const { setAuth } = useAuth();
+//       //place your reentry code
+//       setAuth(null);
+//       localStorage.removeItem('user');
+//       localStorage.removeItem('login');
+//       history.push('/login');
+//       // history.replace('/login');
+//       return Promise.reject(error);
+//     }
+//   }
+// );
 
 export { getApi, putApi, postApi, delApi };
