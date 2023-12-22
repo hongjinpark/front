@@ -1,31 +1,13 @@
 import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { Outlet, Navigate } from 'react-router-dom';
+import secureLocalStorage from 'react-secure-storage';
 
 const AdminRoute = () => {
-  const [role, setRole] = useState();
+  const role = secureLocalStorage.getItem('role');
 
-  useEffect(() => {
-    //role 정보 담기
-    const token = localStorage.getItem('login');
-    token
-      ? axios
-          .get('http://localhost:8090/user/info/role', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((result) => {
-            setRole(result.data);
-          })
-      : null;
-  }, []);
-
-  //   if (role !== 'ADMIN') {
-  //     alert('권한이 필요합니다');
-  //     console.log(role);
-  //   }
+  if (role != 'ADMIN') {
+    alert('권한이 없습니다.');
+  }
 
   return role == 'ADMIN' ? <Outlet /> : <Navigate to="/" />;
 };

@@ -2,7 +2,6 @@ import { Button } from 'react-bootstrap/';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Notice.module.css';
 import styles from './Notice.module.css';
-// import { Pagination } from '@mui/material';
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -37,13 +36,13 @@ export default function Noitce() {
 
   return (
     <div className={styles.body}>
+      <h2 className={styles.logo}> 공지사항 </h2>
       <Outlet />
 
       <div className={styles.list}>
         <div className={`${styles.list_tit} ${styles.list_grid}`}>
-          <div> 번호 </div>
           <div> 제목 </div>
-          <div className={styles.acenter}> 날짜 </div>
+          <div className={styles.acenter}> 작성일 </div>
         </div>
 
         {board
@@ -52,13 +51,6 @@ export default function Noitce() {
             })
           : null}
       </div>
-
-      {/* <Pagination
-        className={styles.pagination}
-        page={5}
-        count={lastPage}
-        defaultpage={1}
-      /> */}
 
       <Button
         className={styles.button}
@@ -89,7 +81,6 @@ export default function Noitce() {
     const [hover, setHover] = useState(false);
     return (
       <div className={`${styles.list_data} ${styles.list_grid}`}>
-        <div>{board[props.i].notice_id}</div>
         <div
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}

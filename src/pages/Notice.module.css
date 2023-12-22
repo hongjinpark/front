@@ -17,7 +17,8 @@
 
 .list_grid {
   display: grid;
-  grid-template-columns: 10% 75% 15%;
+  grid-template-columns: 85% 15%;
+  padding-left: 30px;
 }
 
 .list_data {
@@ -39,4 +40,13 @@
 
 .pagination {
   text-align: center;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: 600;
+  margin-top: 20px;
+  margin-left: 20px;
+  text-decoration: underline;
+  text-underline-position: under;
 }
