@@ -38,6 +38,7 @@ export default function Nav() {
     e.preventDefault();
     localStorage.removeItem('login');
     secureLocalStorage.removeItem('role');
+    localStorage.removeItem('user');
     alert('로그아웃 완료');
     navigate('/');
   };

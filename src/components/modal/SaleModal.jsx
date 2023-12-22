@@ -7,7 +7,7 @@ import styles from './modal.module.css';
 import { deleteHistory } from './../../api/history.api';
 
 export default function SaleModal() {
-  const { isOpen } = useContext(SaleModalContext);
+  const { isOpen, setIsOpen } = useContext(SaleModalContext);
   const [text, setText] = useState('');
   const [sale, setSale] = useState([]);
   const [period, setPeriod] = useState();
@@ -21,7 +21,10 @@ export default function SaleModal() {
     { key: '4', value: '6개월' },
   ];
   useEffect(() => {
-    if (isOpen) getSaletHistory().then((res) => setSale(res.data));
+    if (isOpen)
+      getSaletHistory()
+        .then((res) => setSale(res.data))
+        .catch(() => setIsOpen(false));
   }, [isOpen]);
   const handleDelete = () => {
     console.log(alterVisible);
@@ -32,7 +35,10 @@ export default function SaleModal() {
     console.log();
   };
   const handleGet = () => {
-    getSaletHistory(text, period).then((res) => setSale(res.data));
+    getSaletHistory(text, period).then((res) => {
+      setSale(res.data);
+      setPopupVisible(false);
+    });
   };
   const headerContent = () => {
     return (

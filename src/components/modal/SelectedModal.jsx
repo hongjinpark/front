@@ -9,7 +9,7 @@ import {
 } from './../../api/selectProduct.api';
 
 export default function SelectedModal() {
-  const { isOpen } = useContext(SelectedModalContext);
+  const { isOpen, setIsOpen } = useContext(SelectedModalContext);
   const [text, setText] = useState('');
   const [selectProduct, setSelectProduct] = useState([]);
   const [period, setPeriod] = useState();
@@ -23,7 +23,10 @@ export default function SelectedModal() {
     { key: '4', value: '6개월' },
   ];
   useEffect(() => {
-    if (isOpen) getSelectProduct().then((res) => setSelectProduct(res.data));
+    if (isOpen)
+      getSelectProduct()
+        .then((res) => setSelectProduct(res.data))
+        .catch(() => setIsOpen(false));
   }, [isOpen]);
 
   const handleDelete = () => {
@@ -34,7 +37,10 @@ export default function SelectedModal() {
   };
 
   const handleGet = () => {
-    getSelectProduct(text, period).then((res) => setSelectProduct(res.data));
+    getSelectProduct(text, period).then((res) => {
+      setSelectProduct(res.data);
+      setPopupVisible(false);
+    });
   };
 
   const headerContent = () => {

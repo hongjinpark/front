@@ -6,7 +6,7 @@ import { formattedNumber } from './../../utils/util';
 import styles from './modal.module.css';
 
 export default function PurchaseModal() {
-  const { isOpen } = useContext(PurchaseModalContext);
+  const { isOpen, setIsOpen } = useContext(PurchaseModalContext);
   const [text, setText] = useState('');
   const [purchase, setPurchase] = useState([]);
   const [period, setPeriod] = useState();
@@ -20,7 +20,10 @@ export default function PurchaseModal() {
     { key: '4', value: '6개월' },
   ];
   useEffect(() => {
-    if (isOpen) getPurchaseHistory().then((res) => setPurchase(res.data));
+    if (isOpen)
+      getPurchaseHistory()
+        .then((res) => setPurchase(res.data))
+        .catch(() => setIsOpen(false));
   }, [isOpen]);
   const handleDelete = () => {
     console.log(alterVisible);
@@ -31,7 +34,10 @@ export default function PurchaseModal() {
     console.log();
   };
   const handleGet = () => {
-    getPurchaseHistory(text, period).then((res) => setPurchase(res.data));
+    getPurchaseHistory(text, period).then((res) => {
+      setPurchase(res.data);
+      setPopupVisible(false);
+    });
   };
   const headerContent = () => {
     return (

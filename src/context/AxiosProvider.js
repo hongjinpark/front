@@ -13,7 +13,6 @@ export const AxiosProvider = ({ children }) => {
       async (error) => {
         if (error.response.status === 401) {
           //place your reentry code
-          console.log('401');
           setAuth(null);
           localStorage.removeItem('user');
           localStorage.removeItem('login');
