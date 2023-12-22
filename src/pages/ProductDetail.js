@@ -7,17 +7,35 @@ import Container from '../components/Container';
 import Button from '../components/Button';
 import Caution from '../components/Caution';
 import LikeButton from '../components/LikeButton';
+import axios from 'axios';
 
 export default function ProductDetail() {
   const { pdTitle } = useParams();
   const [list, setList] = useState([]);
   const [course, setCourse] = useState(null);
+  const token = localStorage.getItem('login');
 
+  //관심물품
   const [like, setLike] = useState(false);
-
   const toggleLike = () => {
     setLike(!like);
   };
+
+  const likeData = async () => {
+    if (token) {
+      const res = await axios.get('http://localhost:8090/attention/lists', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // const pdList = await axios.get('http://localhost:8090/product/list');
+      // const pdId = pdList.filter(i => i.product_);
+      console.log(res);
+      // console.log(pdId);
+      console.log();
+    }
+  };
+  //
 
   const productLists = async () => {
     let path = `/product/list`;
@@ -35,6 +53,7 @@ export default function ProductDetail() {
 
   useEffect(() => {
     productLists();
+    likeData();
   }, []);
 
   useEffect(() => {
@@ -56,7 +75,7 @@ export default function ProductDetail() {
               ></img>
             </div>
             <div className={styles.infoBox}>
-              <LikeButton like={like} onClick={toggleLike} />
+              {token ? <LikeButton like={like} onClick={toggleLike} /> : null}
               <p className={styles.category}>
                 <Link to="/">홈</Link> &gt; {course.pdCategory}
               </p>
