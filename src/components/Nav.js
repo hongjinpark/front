@@ -42,6 +42,11 @@ export default function Nav() {
     navigate('/');
   };
 
+  const handleKeywordChange = (e) => {
+    e.preventDefault();
+    setKeyword(e.target.value.toLowerCase());
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (!keyword) {
@@ -62,18 +67,19 @@ export default function Nav() {
   };
 
   const toggleDropMenu = (e) => {
-    e.stopPropagation();
+    console.log('e : ', e);
+    // setIsDropMenu(e);
     setIsDropMenu((prevState) => !prevState);
   };
 
-  const handleKeywordChange = (e) => {
-    setKeyword(e.target.value.toLowerCase());
-  };
+  console.log('isDropMenu : ', isDropMenu);
 
   return (
     <div
       className={styles.nav}
-      onClick={() => setIsDropMenu(false)}
+      onClick={() => {
+        if (isDropMenu === true) setIsDropMenu(false);
+      }}
       role="presentation"
     >
       <div className={styles.container}>
@@ -90,14 +96,21 @@ export default function Nav() {
               name="keyword"
               value={keyword}
               onChange={handleKeywordChange}
-              onClick={toggleDropMenu}
+              onClick={() => {
+                toggleDropMenu(true);
+                console.log(isDropMenu);
+              }}
               className={styles.searchInput}
               autoComplete="off"
               placeholder="어떤 상품을 찾으시나요?"
             />
           </form>
           {isDropMenu && (
-            <SearchBar className={styles.recentSearch} keyword={keyword} />
+            <SearchBar
+              className={styles.recentSearch}
+              keyword={keyword}
+              onClick={() => setIsDropMenu(true)}
+            />
           )}
         </div>
 

@@ -10,6 +10,8 @@
   text-decoration: underline;
 }
 .recentList {
+  display: flex;
+  flex-flow: row nowrap;
   width: 100%;
   padding: 0 20px 50px;
   overflow: scroll;
@@ -18,11 +20,6 @@
 .recentList ::-webkit-scrollbar,
 .recentSearch ::-webkit-scrollbar {
   display: none;
-}
-
-.recentLists {
-  display: flex;
-  flex-flow: row nowrap;
 }
 
 .recentWord {
