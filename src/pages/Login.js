@@ -57,7 +57,7 @@ const Login = () => {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        height: '100vh',
+        height: '50vh',
       }}
     >
       <p
@@ -67,7 +67,7 @@ const Login = () => {
       >
         {errMsg}
       </p>
-      <Container className="panel">
+      <Container className="main-right">
         <Form onSubmit={handleSubmit}>
           <Form.Group as={Row} ClassName="mb-3" controlId="formBasicEmail">
             <Col sm>
@@ -106,10 +106,9 @@ const Login = () => {
               로그인
             </Button>
           </div>
-
           <div style={{ marginTop: 20 }} className="d-grid gap-1">
             <Button variant="secondary" type="submit">
-              <Link to="/register">회원가입</Link>
+              <Link to="/regist">회원가입</Link>
             </Button>
           </div>
         </Form>
