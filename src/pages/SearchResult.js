@@ -124,7 +124,7 @@ export default function SearchResult() {
               <button onClick={handleReset}>초기화</button>
             </div>
             <button onClick={handleDelete} className={styles.filterItem}>
-              <span>{keyword ? keyword : searchWord}</span>
+              <span>{keyword ? keyword : ` `}</span>
               <span>X</span>
             </button>
 
@@ -162,7 +162,7 @@ export default function SearchResult() {
               <span>
                 <Link to="/">홈</Link> &gt; 검색 &gt;{' '}
               </span>
-              <span>{keyword ? keyword : searchWord}</span>
+              <span>{keyword ? keyword : `' '`}</span>
             </p>
             <div className={styles.productTitle}>
               {searchWord.indexOf('keyword=') ? (
@@ -176,7 +176,7 @@ export default function SearchResult() {
                 <>
                   <p className={styles.result}>
                     <span className={styles.Emphasis}>
-                      &lsquo;{keyword ? keyword : searchWord}&rsquo;
+                      &lsquo;{keyword ? keyword : `' '`}&rsquo;
                     </span>{' '}
                     의 검색 결과 &nbsp;{' '}
                     {Array.isArray(course) ? course.length : 1} 개의 상품
