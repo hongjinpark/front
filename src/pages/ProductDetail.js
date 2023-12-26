@@ -77,7 +77,13 @@ export default function ProductDetail() {
             <div className={styles.infoBox}>
               {token ? <LikeButton like={like} onClick={toggleLike} /> : null}
               <p className={styles.category}>
-                <Link to="/">홈</Link> &gt; {course.pdCategory}
+                <Link
+                  to="/"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  홈
+                </Link>{' '}
+                &gt; {course.pdCategory}
               </p>
               <h1 className={styles.pdTitle}>{course.pdTitle}</h1>
               <p>

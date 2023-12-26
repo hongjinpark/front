@@ -106,7 +106,13 @@ export default function Search() {
           <div className={styles.product}>
             <p className={styles.category}>
               <span>
-                <Link to="/">홈</Link> &gt;
+                <Link
+                  to="/"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  홈
+                </Link>{' '}
+                &gt;
               </span>
               <span> 검색</span>
             </p>
@@ -118,7 +124,7 @@ export default function Search() {
               <div className={styles.buttonBox}>
                 <button
                   onClick={handlerecommenBtn}
-                  className={btnClick === 'recommen' ? styles.btnEmphasis : ''}
+                  className={btnClick === 'recommend' ? styles.btnEmphasis : ''}
                 >
                   추천순&nbsp;
                 </button>

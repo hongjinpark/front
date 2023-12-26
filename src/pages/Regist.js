@@ -9,12 +9,6 @@ const Regist = () => {
   const errRef = useRef();
   const navigate = useNavigate();
 
-  const handleRegist = (e) => {
-    e.preventDefault();
-    alert('회원가입 완료');
-    navigate('/login');
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     let path = '/user/new';
@@ -31,15 +25,18 @@ const Regist = () => {
       };
       const getData = await postApi(options);
       setUser(getData);
+
+      alert('회원가입 완료');
+      navigate('/login', { replace: true });
     } catch (err) {
       if (!err?.response) {
-        setErrMsg('No Server Response');
+        alert('No Server Response');
       } else if (err.response?.status === 400) {
-        setErrMsg('Missing Username or Password');
+        alert('Missing Username or Password');
       } else if (err.response?.status === 401) {
-        setErrMsg('Unauthorized');
+        alert('Unauthorized');
       } else {
-        setErrMsg('Login Failed');
+        alert('Login Failed');
       }
       errRef.current.focus();
     }
@@ -75,6 +72,7 @@ const Regist = () => {
                 id="email"
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
                 value={user.email}
+                required
                 requiredplaceholder="Email"
                 placeholder="Email"
               />
@@ -88,6 +86,7 @@ const Regist = () => {
                 id="password"
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
                 value={user.password}
+                required
                 requiredplaceholder="Password"
                 placeholder="Password"
               />
@@ -101,13 +100,14 @@ const Regist = () => {
                 id="nickname"
                 onChange={(e) => setUser({ ...user, nickname: e.target.value })}
                 value={user.nickname}
+                required
                 requiredplaceholder="Nickname"
                 placeholder="Nickname"
               />
             </Col>
           </Form.Group>
           <div style={{ marginTop: 20 }} className="d-grid gap-1">
-            <Button variant="secondary" onClick={handleRegist} type="submit">
+            <Button variant="secondary" type="submit">
               회원가입
             </Button>
           </div>

@@ -35,16 +35,17 @@ const Login = () => {
         `Bearer ${accessToken}`;
       setAuth(responseUser);
       setUser('');
+      alert('로그인 완료');
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
-        setErrMsg('No Server Response');
+        alert('No Server Response');
       } else if (err.response?.status === 400) {
-        setErrMsg('Missing Username or Password');
+        alert('Missing Username or Password');
       } else if (err.response?.status === 401) {
-        setErrMsg('Unauthorized');
+        alert('Unauthorized');
       } else {
-        setErrMsg('Login Failed');
+        alert('Login Failed');
       }
       errRef.current.focus();
     }
@@ -96,6 +97,7 @@ const Login = () => {
                 autoComplete="off"
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
                 value={user.password}
+                required
                 requiredplaceholder="Password"
                 placeholder="Password"
               />
@@ -108,7 +110,12 @@ const Login = () => {
           </div>
           <div style={{ marginTop: 20 }} className="d-grid gap-1">
             <Button variant="secondary" type="submit">
-              <Link to="/regist">회원가입</Link>
+              <Link
+                to="/regist"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                회원가입
+              </Link>
             </Button>
           </div>
         </Form>

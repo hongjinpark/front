@@ -38,7 +38,11 @@ export default function Category({ className }) {
           <ul>
             {list.map((e) => {
               return (
-                <Link to={`search/${e.pdCategory}`} key={e.product_id}>
+                <Link
+                  to={`search/${e.pdCategory}`}
+                  key={e.product_id}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
                   <li className={styles.link}>{e.pdCategory}</li>
                 </Link>
               );
