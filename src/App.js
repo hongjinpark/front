@@ -26,6 +26,7 @@ import { CustomRouter } from './utils/CustomRouter';
 import history from './utils/history';
 import RequireAuth from './utils/ReqireAuth';
 import Regist from './pages/Regist';
+import Product from './pages/Product';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -63,6 +64,7 @@ function App() {
               <Route index element={<Home />} />
               <Route path="login" element={<Login />} />
               <Route path="regist" element={<Regist />} />
+              <Route path="product" element={<Product />} />
               <Route path="linkPage" element={<LinkPage />} />
               <Route path="admin" element={<Admin />} />
               <Route path="lounge" element={<Lounge />} />

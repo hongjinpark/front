@@ -39,7 +39,7 @@ const Login = () => {
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
-        alert('No Server Response');
+        alert('이메일 또는 비밀번호를 확인해주세요.');
       } else if (err.response?.status === 400) {
         alert('Missing Username or Password');
       } else if (err.response?.status === 401) {

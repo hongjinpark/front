@@ -119,11 +119,11 @@ export default function Nav() {
         <ul className={styles.menu}>
           <li>
             <Link
-              to="/editor"
+              to="/product"
               className={styles.link}
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
-              Editor
+              판매하기
             </Link>
           </li>
           <li>
