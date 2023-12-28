@@ -23,16 +23,29 @@ export default function ProductDetail() {
 
   const likeData = async () => {
     if (token) {
-      const res = await axios.get('http://localhost:8090/attention/lists', {
+      const att = await axios.get('http://localhost:8090/attention/lists', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      // const pdList = await axios.get('http://localhost:8090/product/list');
+      const pdList = await axios.get('http://localhost:8090/product/list');
+      // const test = pdList.data;
       // const pdId = pdList.filter(i => i.product_);
-      console.log(res);
-      // console.log(pdId);
-      console.log();
+      // console.log(res.data[res.data.findIdex((i) => i)]);
+      // console.log(
+      //   pdList.data[pdList.findIndex((i) => i.pdTitle == pdTitle)].product_id
+      // );
+
+      const pdId =
+        pdList.data[pdList.data.findIndex((i) => i.pdTitle == pdTitle)]
+          .product_id;
+      const attStatus =
+        att.data.findIndex((i) => i.productId == pdId) != -1
+          ? att.data[att.data.findIndex((i) => i.productId == pdId)].status
+          : null;
+      if (attStatus == 'Y') {
+        setLike(!like);
+      }
     }
   };
   //
