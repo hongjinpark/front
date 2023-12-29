@@ -107,6 +107,24 @@ li {
 
 .chatSection {
   position: fixed;
+  visibility: visible;
+  opacity: 1;
+  right: 0;
+  top: 0;
+  width: 700px;
+  height: 100%;
+  background: #fff;
+  z-index: 999;
+  transition: all 0.4s ease;
+  transform: translateX(0);
+}
+.chatSection.active {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+}
+/* .chatSection {
+  position: fixed;
   visibility: hidden;
   opacity: 0;
   right: 0;
@@ -117,12 +135,12 @@ li {
   z-index: 999;
   transition: all 0.4s ease;
   transform: translateX(700px);
-}
-.chatSection.active {
+} */
+/* .chatSection.active {
   visibility: visible;
   opacity: 1;
   transform: translateX(0);
-}
+} */
 
 .chatHead {
   display: flex;
@@ -152,4 +170,8 @@ li {
 .chattingBtn {
   display: flex;
   justify-content: space-between;
+}
+
+.chat {
+  color: #333;
 }
