@@ -34,7 +34,10 @@ export default function Products({ list }) {
             <li key={item.product_id}>
               {newSearchWord ? (
                 <>
-                  <Link to={`../../${item.pdTitle}`}>
+                  <Link
+                    to={`../../${item.pdTitle}`}
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                  >
                     <div>
                       <Card className={styles.card}>
                         {location ? (
@@ -59,7 +62,10 @@ export default function Products({ list }) {
                   </Link>
                 </>
               ) : (
-                <Link to={`../../${item.pdTitle}`}>
+                <Link
+                  to={`../../${item.pdTitle}`}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
                   <div>
                     <Card className={styles.card}>
                       {location ? (
@@ -94,7 +100,10 @@ export default function Products({ list }) {
       <ul className={styles.products}>
         <li key={list.product_id}>
           {newSearchWord ? (
-            <Link to={`../../${list.pdTitle}`}>
+            <Link
+              to={`../../${list.pdTitle}`}
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
               <div>
                 <Card className={styles.card}>
                   <img
@@ -110,7 +119,10 @@ export default function Products({ list }) {
               </div>
             </Link>
           ) : (
-            <Link to={`../../${list.pdTitle}`}>
+            <Link
+              to={`../../${list.pdTitle}`}
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
               <div>
                 <Card className={styles.card}>
                   <img

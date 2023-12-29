@@ -82,7 +82,7 @@ export default function Nav() {
       role="presentation"
     >
       <div className={styles.container}>
-        <Link to="/">
+        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
           <h2 className={styles.logo}>중고 나라</h2>
         </Link>
         <div className={styles.searchForm}>
@@ -113,20 +113,39 @@ export default function Nav() {
         </div>
         <ul className={styles.menu}>
           <li>
-            <Link to="/editor" className={styles.link}>
-              Editor
+            <Link
+              to="/product"
+              className={styles.link}
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              판매하기
             </Link>
           </li>
           <li>
-            <Link to="/admin">Admin</Link>
+            <Link
+              to="/admin"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              Admin
+            </Link>
           </li>
           <li>
-            <Link to="/lounge">Lounge</Link>
+            <Link
+              to="/lounge"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              Lounge
+            </Link>
           </li>
           <li>
             {!Token && (
               <button className={styles.login}>
-                <Link to="/Login">로그인</Link>
+                <Link
+                  to="/Login"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  로그인
+                </Link>
               </button>
             )}
 
@@ -137,10 +156,20 @@ export default function Nav() {
             )}
           </li>
           <li>
-            <Link to="/notice">Notice</Link>
+            <Link
+              to="/notice"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              Notice
+            </Link>
           </li>
           <li>
-            <Link to="/mypage">MyPage</Link>
+            <Link
+              to="/mypage"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              MyPage
+            </Link>
           </li>
         </ul>
       </div>

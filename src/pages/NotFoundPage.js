@@ -9,7 +9,7 @@ export default function NotFoundPage() {
           <h2>존재하지 않는 페이지입니다.</h2>
           <p>올바른 주소가 맞는지 다시 한 번 확인해주세요.</p>
           <div className={styles.link}>
-            <Link to="/">
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
               <button>홈으로 가기</button>
             </Link>
           </div>

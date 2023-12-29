@@ -32,16 +32,29 @@ export default function ProductDetail() {
 
   const likeData = async () => {
     if (token) {
-      const res = await axios.get('http://localhost:8090/attention/lists', {
+      const att = await axios.get('http://localhost:8090/attention/lists', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      // const pdList = await axios.get('http://localhost:8090/product/list');
+      const pdList = await axios.get('http://localhost:8090/product/list');
+      // const test = pdList.data;
       // const pdId = pdList.filter(i => i.product_);
-      console.log(res);
-      // console.log(pdId);
-      console.log();
+      // console.log(res.data[res.data.findIdex((i) => i)]);
+      // console.log(
+      //   pdList.data[pdList.findIndex((i) => i.pdTitle == pdTitle)].product_id
+      // );
+
+      const pdId =
+        pdList.data[pdList.data.findIndex((i) => i.pdTitle == pdTitle)]
+          .product_id;
+      const attStatus =
+        att.data.findIndex((i) => i.productId == pdId) != -1
+          ? att.data[att.data.findIndex((i) => i.productId == pdId)].status
+          : null;
+      if (attStatus == 'Y') {
+        setLike(!like);
+      }
     }
   };
   //
@@ -77,51 +90,41 @@ export default function ProductDetail() {
   }, [list, pdTitle]);
 
   return (
-    <div
-      onClick={() => {
-        if (chattingBox === true) setChattingBox(false);
-        console.log('채팅 제외 선택');
-      }}
-      role="presentation"
-    >
-      <Container className={styles.container}>
-        {course && (
-          <>
-            <div className={styles.pdInfo}>
-              <div className={styles.imgBox}>
-                <img
-                  src={require(`../assets${course.imgUrl}`)}
-                  alt="상품이미지"
-                  className={styles.pdImg}
-                ></img>
-              </div>
-              <div className={styles.infoBox}>
-                {token ? <LikeButton like={like} onClick={toggleLike} /> : null}
-                <p className={styles.category}>
-                  <Link to="/">홈</Link> &gt; {course.pdCategory}
-                </p>
-                <h1 className={styles.pdTitle}>{course.pdTitle}</h1>
-                <p>
-                  <span className={styles.price}>
-                    {course.price
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  </span>
-                  원
-                </p>
-                <div className={styles.plusInfo}>
-                  <div className={styles.info1}>
-                    <li className={styles.title}>배송비</li>
-                    <li className={styles.subTitle}>배송비 별도</li>
-                  </div>
-                  <div className={styles.info2}>
-                    <li className={styles.title}>중고나라 페이</li>
-                    <li className={styles.subTitle}>미사용</li>
-                  </div>
-                  <div className={styles.info3}>
-                    <li className={styles.title}>제품 상태</li>
-                    <li className={styles.subTitle}>새상품</li>
-                  </div>
+    <Container className={styles.container}>
+      {course && (
+        <>
+          <div className={styles.pdInfo}>
+            <div className={styles.imgBox}>
+              <img
+                src={require(`../assets${course.imgUrl}`)}
+                alt="상품이미지"
+                className={styles.pdImg}
+              ></img>
+            </div>
+            <div className={styles.infoBox}>
+              {token ? <LikeButton like={like} onClick={toggleLike} /> : null}
+              <p className={styles.category}>
+                <Link
+                  to="/"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  홈
+                </Link>{' '}
+                &gt; {course.pdCategory}
+              </p>
+              <h1 className={styles.pdTitle}>{course.pdTitle}</h1>
+              <p>
+                <span className={styles.price}>
+                  {course.price
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                </span>
+                원
+              </p>
+              <div className={styles.plusInfo}>
+                <div className={styles.info1}>
+                  <li className={styles.title}>배송비</li>
+                  <li className={styles.subTitle}>배송비 별도</li>
                 </div>
                 <div className={styles.option}>
                   <p>중고나라 거래 혜택</p>

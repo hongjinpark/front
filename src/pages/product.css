@@ -1,0 +1,7 @@
+.btn {
+    "bg-jnGray-200 font-bold h-10 p-3"
+
+    &.active {
+        "false h-10 p-3"
+    }
+}

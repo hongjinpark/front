@@ -160,7 +160,13 @@ export default function SearchResult() {
           <div className={styles.product}>
             <p className={styles.category}>
               <span>
-                <Link to="/">홈</Link> &gt; 검색 &gt;{' '}
+                <Link
+                  to="/"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  홈
+                </Link>{' '}
+                &gt; 검색 &gt;{' '}
               </span>
               <span>{keyword ? keyword : `' '`}</span>
             </p>
