@@ -69,13 +69,9 @@ export default function Nav() {
     }
   };
 
-  const toggleDropMenu = (e) => {
-    console.log('e : ', e);
-    // setIsDropMenu(e);
+  const toggleDropMenu = () => {
     setIsDropMenu((prevState) => !prevState);
   };
-
-  console.log('isDropMenu : ', isDropMenu);
 
   return (
     <div
@@ -101,7 +97,6 @@ export default function Nav() {
               onChange={handleKeywordChange}
               onClick={() => {
                 toggleDropMenu(true);
-                console.log(isDropMenu);
               }}
               className={styles.searchInput}
               autoComplete="off"

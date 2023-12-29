@@ -104,3 +104,52 @@ li {
 .caution {
   margin: 20px 0;
 }
+
+.chatSection {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  right: 0;
+  top: 0;
+  width: 700px;
+  height: 100%;
+  background: #fff;
+  z-index: 999;
+  transition: all 0.4s ease;
+  transform: translateX(700px);
+}
+.chatSection.active {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.chatHead {
+  display: flex;
+  height: 10%;
+  justify-content: space-between;
+}
+
+.chatBody {
+  height: 80%;
+  padding: 30px;
+  box-sizing: border-box;
+  background: #e9edef;
+}
+.chatfirst {
+  height: 100%;
+  text-align: center;
+  padding-top: 50%;
+}
+
+.chatting {
+  height: 10%;
+  padding: 20px;
+}
+.chattingForm {
+  width: 100%;
+}
+.chattingBtn {
+  display: flex;
+  justify-content: space-between;
+}
