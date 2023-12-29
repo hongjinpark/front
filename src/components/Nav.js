@@ -69,18 +69,24 @@ export default function Nav() {
     }
   };
 
+  const handleSearchBar = (e) => {
+    let newClassName = e.target.className;
+
+    if (newClassName instanceof SVGAnimatedString) {
+      setIsDropMenu(false);
+    } else if (newClassName.includes('SearchBar_searchBar__1Vvic')) {
+      setIsDropMenu(true);
+    } else if (isDropMenu === true) {
+      setIsDropMenu(false);
+    }
+  };
+
   const toggleDropMenu = () => {
     setIsDropMenu((prevState) => !prevState);
   };
 
   return (
-    <div
-      className={styles.nav}
-      onClick={() => {
-        if (isDropMenu === true) setIsDropMenu(false);
-      }}
-      role="presentation"
-    >
+    <div className={styles.nav} onClick={handleSearchBar} role="presentation">
       <div className={styles.container}>
         <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
           <h2 className={styles.logo}>중고 나라</h2>

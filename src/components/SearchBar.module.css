@@ -3,7 +3,7 @@
   justify-content: space-between;
   padding: 20px 20px;
 }
-.recentTitle > h1 {
+.recentTtitle {
   font-weight: bold;
 }
 .recentDelete {
@@ -35,4 +35,8 @@
 .xmark {
   font-size: 12px;
   margin-left: 10px;
+}
+
+.styles.searchBar {
+  border: none;
 }

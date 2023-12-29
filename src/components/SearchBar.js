@@ -18,7 +18,6 @@ export default function SearchBar({ className }) {
 
   const handleRemoveKeyword = (index) => {
     let newKeywords = updateKeyword.reverse();
-    // console.log('newKeywords : ', newKeywords[index]);
     newKeywords.splice(index, 1);
     localStorage.setItem('keyword', JSON.stringify(newKeywords));
     setKeywordList(newKeywords);
@@ -37,22 +36,29 @@ export default function SearchBar({ className }) {
   }, []);
 
   return (
-    <div className={`${styles.recentSearch} ${className}`}>
-      <div className={styles.recentTitle}>
-        <h1>최근 검색어</h1>
-        <button onClick={handleClearKeyword}>
-          <p className={styles.recentDelete}>전체 삭제</p>
+    <div className={`${styles.searchBar} ${styles.recentSearch} ${className}`}>
+      <div className={`${styles.searchBar} ${styles.recentTitle}`}>
+        <h3 className={`${styles.searchBar} ${styles.recentTtitle}`}>
+          최근 검색어
+        </h3>
+        <button onClick={handleClearKeyword} className={styles.searchBar}>
+          <p className={`${styles.searchBar} ${styles.recentDelete}`}>
+            전체 삭제
+          </p>
         </button>
       </div>
-      <div className={styles.recentList}>
+      <div className={`${styles.searchBar} ${styles.recentList}`}>
         {keywordList.reverse().map((e, index) => {
           return (
-            <ul key={index}>
+            <ul key={index} className={styles.searchBar}>
               {keywordList ? (
-                <li>
-                  <button className={styles.recentWord}>
+                <li className={styles.searchBar}>
+                  <button
+                    className={`${styles.searchBar} ${styles.recentWord}`}
+                  >
                     <span
                       value={e}
+                      className={styles.searchBar}
                       onClick={() => handleMovePage({ e })}
                       role="presentation"
                     >
@@ -60,13 +66,13 @@ export default function SearchBar({ className }) {
                     </span>
                     <FontAwesomeIcon
                       icon={faXmark}
-                      className={styles.xmark}
+                      className={`${styles.xmark}`}
                       onClick={() => handleRemoveKeyword(index)}
                     />
                   </button>
                 </li>
               ) : (
-                <li>검색어 내역이 없습니다.</li>
+                <li className={styles.searchBar}>검색어 내역이 없습니다.</li>
               )}
             </ul>
           );

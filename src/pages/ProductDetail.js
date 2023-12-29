@@ -65,7 +65,6 @@ export default function ProductDetail() {
   };
 
   const handleChatt = () => {
-    console.log('채팅 선택');
     setChattingBox(true);
   };
 
