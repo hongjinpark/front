@@ -2,7 +2,6 @@
   position: relative;
   padding: 20px 10% 0px;
   z-index: 1;
-  border-bottom: 1px solid #ccc;
 }
 
 .container {
@@ -76,6 +75,37 @@ ul.menu {
 }
 
 .Link {
-  textDecoration: 'none';
+  textdecoration: 'none';
   color: #000000;
+}
+
+.mypage {
+  cursor: pointer;
+}
+
+.menuSell {
+  font-size: 16px;
+  margin-right: 5px;
+}
+
+.navMyPage {
+  position: relative;
+}
+.myPageBox {
+  position: absolute;
+  top: 15px;
+  left: -40px;
+  width: 80px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+}
+.myPageBox > ul {
+  padding: 0 10px;
+}
+.myPageBox > ul > li {
+  padding: 10px 0;
+  text-align: center;
+}
+.myPageBox > ul > li:first-child {
+  border-bottom: 1px solid rgba(156, 163, 175, 0.6);
 }

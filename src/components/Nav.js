@@ -5,25 +5,25 @@ import Container from './Container';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { faFilePen } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from './SearchBar';
 import secureLocalStorage from 'react-secure-storage';
 
 export default function Nav() {
   const Token = localStorage.getItem('login');
-
   const [isDropMenu, setIsDropMenu] = useState(false);
-
   const [searchParams, setSearchParams] = useSearchParams();
   const initKeyword = searchParams.get('keyword');
-
   const nowUrl = decodeURI(window.location.pathname);
+  const navigate = useNavigate();
+  const [keyword, setKeyword] = useState(initKeyword || '');
+  const [show, setOff] = useState(false);
   let nowKeyword = '';
+
   if (nowUrl.indexOf('keyword')) {
     nowKeyword = nowUrl.replace('/search/keyword=', '');
   }
-
-  const navigate = useNavigate();
-  const [keyword, setKeyword] = useState(initKeyword || '');
 
   useEffect(() => {
     const newKeyword = searchParams.get('keyword');
@@ -79,10 +79,19 @@ export default function Nav() {
     } else if (isDropMenu === true) {
       setIsDropMenu(false);
     }
+
+    if (show === true) {
+      setOff(false);
+    }
   };
 
   const toggleDropMenu = () => {
     setIsDropMenu((prevState) => !prevState);
+  };
+
+  const handlemyPageClick = () => {
+    console.log('선택');
+    setOff((prevState) => !prevState);
   };
 
   return (
@@ -124,6 +133,7 @@ export default function Nav() {
               className={styles.link}
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
+              <FontAwesomeIcon icon={faFilePen} className={styles.menuSell} />
               판매하기
             </Link>
           </li>
@@ -143,24 +153,7 @@ export default function Nav() {
               Lounge
             </Link>
           </li>
-          <li>
-            {!Token && (
-              <button className={styles.login}>
-                <Link
-                  to="/Login"
-                  style={{ textDecoration: 'none', color: 'inherit' }}
-                >
-                  로그인
-                </Link>
-              </button>
-            )}
 
-            {Token && (
-              <button onClick={handleLogin} className={styles.logout}>
-                로그아웃
-              </button>
-            )}
-          </li>
           <li>
             <Link
               to="/notice"
@@ -169,14 +162,45 @@ export default function Nav() {
               Notice
             </Link>
           </li>
-          <li>
-            <Link
-              to="/mypage"
-              style={{ textDecoration: 'none', color: 'inherit' }}
+          {Token ? (
+            <li
+              className={styles.navMyPage}
+              onClick={handlemyPageClick}
+              role="presentation"
             >
-              MyPage
-            </Link>
-          </li>
+              <FontAwesomeIcon icon={faUser} className={styles.mypage} />
+              {show && (
+                <div className={styles.myPageBox}>
+                  <ul>
+                    <li>
+                      <Link
+                        to="/mypage"
+                        style={{ textDecoration: 'none', color: 'inherit' }}
+                      >
+                        마이페이지
+                      </Link>
+                    </li>
+                    {Token && (
+                      <li>
+                        <button onClick={handleLogin} className={styles.logout}>
+                          로그아웃
+                        </button>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              )}
+            </li>
+          ) : (
+            <li>
+              <Link
+                to="/login"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <FontAwesomeIcon icon={faUser} />
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
       <Container>
