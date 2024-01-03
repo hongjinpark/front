@@ -8,6 +8,7 @@ import Button from '../components/Button';
 import Caution from '../components/Caution';
 import LikeButton from '../components/LikeButton';
 import axios from 'axios';
+import ToastPopup from '../components/ToastPopup';
 
 export default function ProductDetail() {
   const { pdTitle } = useParams();
@@ -18,6 +19,7 @@ export default function ProductDetail() {
 
   //관심물품
   const [like, setLike] = useState(false);
+  const [toast, setToast] = useState(false);
   const toggleLike = async () => {
     const pdList = await axios.get('http://localhost:8090/product/list');
     const pdId =
@@ -34,6 +36,7 @@ export default function ProductDetail() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      setToast(true);
       setLike(true);
     } else {
       axios.post(
@@ -216,6 +219,9 @@ export default function ProductDetail() {
             </div>
           </div>
         </div>
+        {toast && (
+          <ToastPopup setToast={setToast} text="관심 상품이 추가되었습니다." />
+        )}
       </Container>
     </div>
   );
