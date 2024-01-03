@@ -27,7 +27,7 @@ export default function ProductDetail() {
       axios.post(
         'http://localhost:8090/attention',
         {
-          status: 'N',
+          status: 'Y',
           productId: pdId,
         },
         {
@@ -39,7 +39,7 @@ export default function ProductDetail() {
       axios.post(
         'http://localhost:8090/attention',
         {
-          status: 'Y',
+          status: 'N',
           productId: pdId,
         },
         {
