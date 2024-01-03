@@ -18,8 +18,36 @@ export default function ProductDetail() {
 
   //관심물품
   const [like, setLike] = useState(false);
-  const toggleLike = () => {
-    setLike(!like);
+  const toggleLike = async () => {
+    const pdList = await axios.get('http://localhost:8090/product/list');
+    const pdId =
+      pdList.data[pdList.data.findIndex((i) => i.pdTitle == pdTitle)]
+        .product_id;
+    if (like == false) {
+      axios.post(
+        'http://localhost:8090/attention',
+        {
+          status: 'N',
+          productId: pdId,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setLike(true);
+    } else {
+      axios.post(
+        'http://localhost:8090/attention',
+        {
+          status: 'Y',
+          productId: pdId,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setLike(false);
+    }
   };
 
   const likeData = async () => {
@@ -30,13 +58,6 @@ export default function ProductDetail() {
         },
       });
       const pdList = await axios.get('http://localhost:8090/product/list');
-      // const test = pdList.data;
-      // const pdId = pdList.filter(i => i.product_);
-      // console.log(res.data[res.data.findIdex((i) => i)]);
-      // console.log(
-      //   pdList.data[pdList.findIndex((i) => i.pdTitle == pdTitle)].product_id
-      // );
-
       const pdId =
         pdList.data[pdList.data.findIndex((i) => i.pdTitle == pdTitle)]
           .product_id;
@@ -45,10 +66,13 @@ export default function ProductDetail() {
           ? att.data[att.data.findIndex((i) => i.productId == pdId)].status
           : null;
       if (attStatus == 'Y') {
-        setLike(!like);
+        setLike(true);
+      } else if (attStatus == 'N') {
+        setLike(false);
       }
     }
   };
+  //
 
   const productLists = async () => {
     let path = `/product/list`;
@@ -68,14 +92,14 @@ export default function ProductDetail() {
     setChattingBox(true);
   };
 
-  const handleExceptioin = (e) => {
-    let newclassName = e.target.className;
-    if (newclassName.includes('ProductDetail_chat__V1pwk')) {
-      setChattingBox(true);
-    } else if (chattingBox === true) {
-      setChattingBox(false);
-    }
-  };
+  // const handleExceptioin = (e) => {
+  //   let newclassName = e.target.className;
+  //   if (newclassName.includes('ProductDetail_chat__V1pwk')) {
+  //     setChattingBox(true);
+  //   } else if (chattingBox === true) {
+  //     setChattingBox(false);
+  //   }
+  // };
 
   useEffect(() => {
     productLists();
@@ -89,7 +113,7 @@ export default function ProductDetail() {
   }, [list, pdTitle]);
 
   return (
-    <div onClick={handleExceptioin} role="presentation">
+    <div /*onClick={handleExceptioin}*/ role="presentation">
       <Container className={styles.container}>
         {course && (
           <>

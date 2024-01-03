@@ -6,7 +6,7 @@ import styles from './LikeButton.module.css';
 export default function LikeButton({ like, onClick }) {
   return (
     <div role="presentation" className={styles.icons}>
-      {like ? (
+      {like === true ? (
         <HeartFilled
           className={`${styles.button} ${styles.red}`}
           onClick={onClick}
@@ -16,4 +16,6 @@ export default function LikeButton({ like, onClick }) {
       )}
     </div>
   );
+
+  ///비로그인 시 미표시 구현 필요
 }
