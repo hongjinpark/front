@@ -47,7 +47,6 @@ export default function Category({ className }) {
                 </Link>
               );
             })}
-            ;
           </ul>
         </div>
       </div>

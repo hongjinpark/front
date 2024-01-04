@@ -1,0 +1,19 @@
+.pageWrapper {
+  display: flex;
+  justify-content: center;
+  user-select: none;
+}
+
+.pageBtn {
+  margin: 0 10px;
+}
+
+.pagination {
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination.active {
+  font-weight: 800;
+  color: red;
+}

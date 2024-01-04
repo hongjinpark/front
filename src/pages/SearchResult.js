@@ -5,6 +5,7 @@ import { getApi } from '../api/axios';
 import { useEffect, useState } from 'react';
 import Products from '../components/Products';
 import Container from '../components/Container';
+import Pagination from './Pagination';
 
 export default function SearchResult() {
   const { searchWord } = useParams();
@@ -15,6 +16,10 @@ export default function SearchResult() {
   const [course, setCourse] = useState([]);
   const navigate = useNavigate();
   const [order, setOrder] = useState('price');
+
+  const [limit, setLimit] = useState(3);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
 
   const newList = list.sort((a, b) => a[order] - b[order]);
   const handlerecommenBtn = () => {
@@ -49,6 +54,7 @@ export default function SearchResult() {
 
   useEffect(() => {
     productLists();
+    setLimit(20);
   }, [order, searchWord]);
 
   useEffect(() => {
@@ -65,7 +71,7 @@ export default function SearchResult() {
     if (!searchWord.indexOf('keyword')) {
       const newSearch = searchWord.replace('keyword=', '');
       const foundCourse = newList.filter((e) => e.pdTitle.includes(newSearch));
-      setCourse(foundCourse);
+      setCourse(foundCourse.slice(offset, offset + limit));
     } else {
       const foundCourse = newList.find((e) => e.pdCategory === searchWord);
       setCourse(foundCourse);
@@ -256,6 +262,12 @@ export default function SearchResult() {
             <div className={styles.itemBox}>
               <Products list={course} />
             </div>
+            <Pagination
+              total={course ? course.length : null}
+              limit={limit}
+              page={page}
+              setPage={setPage}
+            />
           </div>
         </div>
       </div>

@@ -5,12 +5,16 @@ import styles from './Search.module.css';
 import { useEffect, useState } from 'react';
 import { getApi } from '../api/axios';
 import Products from '../components/Products';
+import Pagination from './Pagination';
 
 export default function Search() {
   const [list, setList] = useState([]);
   const [origin, setOrigin] = useState([]);
   const [order, setOrder] = useState('price');
   const [btnClick, setBtnClick] = useState('recommen');
+  const [limit, setLimit] = useState(3);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
 
   const newList = list.sort((a, b) => a[order] - b[order]);
   const handlerecommenBtn = () => {
@@ -45,6 +49,7 @@ export default function Search() {
 
   useEffect(() => {
     productLists();
+    setLimit(20);
   }, [order]);
 
   useEffect(() => {
@@ -178,8 +183,14 @@ export default function Search() {
               </div>
             </div>
             <div className={styles.itemBox}>
-              <Products list={newList} />
+              <Products list={newList.slice(offset, offset + limit)} />
             </div>
+            <Pagination
+              total={list.length}
+              limit={limit}
+              page={page}
+              setPage={setPage}
+            />
           </div>
         </div>
       </div>
