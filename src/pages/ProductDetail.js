@@ -11,7 +11,7 @@ import axios from 'axios';
 import ToastPopup from '../components/ToastPopup';
 
 export default function ProductDetail() {
-  const { pdTitle } = useParams();
+  const { product_id } = useParams();
   const [list, setList] = useState([]);
   const [course, setCourse] = useState(null);
   const token = localStorage.getItem('login');
@@ -23,7 +23,7 @@ export default function ProductDetail() {
   const toggleLike = async () => {
     const pdList = await axios.get('http://localhost:8090/product/list');
     const pdId =
-      pdList.data[pdList.data.findIndex((i) => i.pdTitle == pdTitle)]
+      pdList.data[pdList.data.findIndex((i) => i.product_id == product_id)]
         .product_id;
     if (like == false) {
       axios.post(
@@ -62,7 +62,7 @@ export default function ProductDetail() {
       });
       const pdList = await axios.get('http://localhost:8090/product/list');
       const pdId =
-        pdList.data[pdList.data.findIndex((i) => i.pdTitle == pdTitle)]
+        pdList.data[pdList.data.findIndex((i) => i.product_id == product_id)]
           .product_id;
       const attStatus =
         att.data.findIndex((i) => i.productId == pdId) != -1
@@ -111,9 +111,12 @@ export default function ProductDetail() {
 
   useEffect(() => {
     if (!list) return;
-    const foundCourse = list.find((e) => e.pdTitle === pdTitle);
+    // att.data.findIndex((i) => i.productId == pdId)
+    const foundCourse = list.find(
+      (e) => Number(e.product_id) == Number(product_id)
+    );
     setCourse(foundCourse);
-  }, [list, pdTitle]);
+  }, [list, product_id]);
 
   return (
     <div /*onClick={handleExceptioin}*/ role="presentation">

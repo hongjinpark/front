@@ -35,7 +35,7 @@ export default function Products({ list }) {
               {newSearchWord ? (
                 <>
                   <Link
-                    to={`../../${item.pdTitle}`}
+                    to={`../../${item.product_id}`}
                     style={{ textDecoration: 'none', color: 'inherit' }}
                   >
                     <div>
@@ -63,7 +63,7 @@ export default function Products({ list }) {
                 </>
               ) : (
                 <Link
-                  to={`../../${item.pdTitle}`}
+                  to={`../../${item.product_id}`}
                   style={{ textDecoration: 'none', color: 'inherit' }}
                 >
                   <div>
@@ -101,7 +101,7 @@ export default function Products({ list }) {
         <li key={list.product_id}>
           {newSearchWord ? (
             <Link
-              to={`../../${list.pdTitle}`}
+              to={`../../${list.product_id}`}
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
               <div>
@@ -120,7 +120,7 @@ export default function Products({ list }) {
             </Link>
           ) : (
             <Link
-              to={`../../${list.pdTitle}`}
+              to={`../../${list.product_id}`}
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
               <div>

@@ -68,7 +68,7 @@ function App() {
               <Route path="linkPage" element={<LinkPage />} />
               <Route path="admin" element={<Admin />} />
               <Route path="lounge" element={<Lounge />} />
-              <Route path=":pdTitle" element={<ProductDetail />} />
+              <Route path=":product_id" element={<ProductDetail />} />
               <Route path="notice" element={<Notice />}>
                 <Route path=":id" element={<NoticeDetail />} />
               </Route>
