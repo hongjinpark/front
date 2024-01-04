@@ -104,12 +104,20 @@ const Login = () => {
             </Col>
           </Form.Group>
           <div style={{ marginTop: 20 }} className="d-grid gap-1">
-            <Button variant="secondary" type="submit">
+            <Button
+              variant="secondary"
+              type="submit"
+              className="bg-[rgb(108,117,125)]"
+            >
               로그인
             </Button>
           </div>
           <div style={{ marginTop: 20 }} className="d-grid gap-1">
-            <Button variant="secondary" type="submit">
+            <Button
+              variant="secondary"
+              type="submit"
+              className="bg-[rgb(108,117,125)]"
+            >
               <Link
                 to="/regist"
                 style={{ textDecoration: 'none', color: 'inherit' }}
