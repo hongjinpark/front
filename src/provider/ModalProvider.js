@@ -2,6 +2,7 @@ import ProfileModal from '../components/modal/ProfileModal';
 import PurchaseModal from '../components/modal/PurchaseModal';
 import SelectedModal from '../components/modal/SelectedModal';
 import SaleModal from './../components/modal/SaleModal';
+import AttentionModal from '../components/modal/AttentionModal';
 
 export default function ModalProvider() {
   return (
@@ -10,6 +11,7 @@ export default function ModalProvider() {
       <SaleModal />
       <ProfileModal />
       <SelectedModal />
+      <AttentionModal />
     </>
   );
 }
