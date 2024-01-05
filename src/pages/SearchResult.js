@@ -147,7 +147,12 @@ export default function SearchResult() {
                     if (e === searchWord) nowState = true;
                     else nowState = false;
                     return (
-                      <Link to={`../${e}`} key={value} onClick={handleCategory}>
+                      <Link
+                        to={`../${e}`}
+                        key={value}
+                        onClick={handleCategory}
+                        style={{ textDecoration: 'none', color: 'inherit' }}
+                      >
                         {nowState ? (
                           <li
                             className={`${styles.fList} ${styles.fListSelect}`}
