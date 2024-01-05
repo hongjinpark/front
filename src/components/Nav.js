@@ -2,13 +2,14 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import styles from './Nav.module.css';
 import Category from './Category';
 import Container from './Container';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faFilePen } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from './SearchBar';
 import secureLocalStorage from 'react-secure-storage';
+import ChatModalContext from '../context/ChatModalProvider';
 
 export default function Nav() {
   const Token = localStorage.getItem('login');
@@ -19,6 +20,7 @@ export default function Nav() {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState(initKeyword || '');
   const [show, setOff] = useState(false);
+  const { setIsOpen } = useContext(ChatModalContext);
   let nowKeyword = '';
 
   if (nowUrl.indexOf('keyword')) {
@@ -127,7 +129,11 @@ export default function Nav() {
           )}
         </div>
         <ul className={styles.menu}>
-          <li className="flex items-center justify-center pr-3">
+          <li
+            className="flex items-center justify-center pr-3"
+            onClick={() => setIsOpen(true)}
+            role="presentation"
+          >
             <button className="flex items-center justify-center">
               <div className="relative cursor-pointer">
                 <svg
