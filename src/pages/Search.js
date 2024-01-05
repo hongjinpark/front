@@ -97,7 +97,11 @@ export default function Search() {
                 {origin &&
                   origin.map((e) => {
                     return (
-                      <Link to={`${e.pdCategory}`} key={e.product_id}>
+                      <Link
+                        to={`${e.pdCategory}`}
+                        key={e.product_id}
+                        style={{ textDecoration: 'none', color: 'inherit' }}
+                      >
                         <li key={e.product_id} className={styles.fList}>
                           {e.pdCategory}
                         </li>
