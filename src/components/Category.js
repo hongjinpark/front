@@ -27,6 +27,9 @@ export default function Category({ className }) {
     productLists();
   }, []);
 
+  // 중복 카테고리 제거
+  const newCategory = [...new Set(list.map((e) => e.pdCategory))];
+
   return (
     <div className={classNames(styles.category, className)}>
       <div className={styles.categoryBox}>
@@ -36,14 +39,15 @@ export default function Category({ className }) {
         </button>
         <div className={styles.categories}>
           <ul>
-            {list.map((e) => {
+            {newCategory.map((e, value) => {
+              console.log('e : ', e);
               return (
                 <Link
-                  to={`search/${e.pdCategory}`}
-                  key={e.product_id}
+                  to={`search/${e}`}
+                  key={value}
                   style={{ textDecoration: 'none', color: 'inherit' }}
                 >
-                  <li className={styles.link}>{e.pdCategory}</li>
+                  <li className={styles.link}>{e}</li>
                 </Link>
               );
             })}

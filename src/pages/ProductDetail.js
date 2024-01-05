@@ -21,16 +21,12 @@ export default function ProductDetail() {
   const [like, setLike] = useState(false);
   const [toast, setToast] = useState(false);
   const toggleLike = async () => {
-    const pdList = await axios.get('http://localhost:8090/product/list');
-    const pdId =
-      pdList.data[pdList.data.findIndex((i) => i.product_id == product_id)]
-        .product_id;
     if (like == false) {
       axios.post(
         'http://localhost:8090/attention',
         {
           status: 'Y',
-          productId: pdId,
+          productId: product_id,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -43,7 +39,7 @@ export default function ProductDetail() {
         'http://localhost:8090/attention',
         {
           status: 'N',
-          productId: pdId,
+          productId: product_id,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -60,13 +56,10 @@ export default function ProductDetail() {
           Authorization: `Bearer ${token}`,
         },
       });
-      const pdList = await axios.get('http://localhost:8090/product/list');
-      const pdId =
-        pdList.data[pdList.data.findIndex((i) => i.product_id == product_id)]
-          .product_id;
       const attStatus =
-        att.data.findIndex((i) => i.productId == pdId) != -1
-          ? att.data[att.data.findIndex((i) => i.productId == pdId)].status
+        att.data.findIndex((i) => i.productId == product_id) != -1
+          ? att.data[att.data.findIndex((i) => i.productId == product_id)]
+              .status
           : null;
       if (attStatus == 'Y') {
         setLike(true);
