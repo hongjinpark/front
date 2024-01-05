@@ -35,20 +35,21 @@
   left: 0;
   top: 0;
   width: 150px;
+  visibility: hidden;
+  overflow: hidden;
   border-radius: 10px;
-  transform: translate(0, 47px);
-  transition: all 0.4s ease-out;
   color: #999999;
   background: #fff;
-  visibility: hidden;
   opacity: 0;
-  overflow: hidden;
+  transform: translate(0, 47px);
+  transition: all 0.4s ease-out;
 }
 .categories > ul {
-  margin-bottom: -24px;
+  padding: 0;
 }
 .link {
   padding: 20px;
+  width: 100%;
 }
 
 .categoryBox:hover .categories {

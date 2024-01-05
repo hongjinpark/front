@@ -73,7 +73,7 @@ export default function SearchResult() {
       const foundCourse = newList.filter((e) => e.pdTitle.includes(newSearch));
       setCourse(foundCourse.slice(offset, offset + limit));
     } else {
-      const foundCourse = newList.find((e) => e.pdCategory === searchWord);
+      const foundCourse = newList.filter((e) => e.pdCategory === searchWord);
       setCourse(foundCourse);
     }
   }, [newList, searchWord]);
@@ -119,6 +119,11 @@ export default function SearchResult() {
     min = min ? min.toLocaleString() : 'N/A';
   }
 
+  // 중복 카테고리 제거
+  const categoryLists = [...new Set(newList.map((e) => e.pdCategory))];
+
+  console.log('카테고리 결과 : ', course);
+
   return (
     <Container>
       <div className={styles.search}>
@@ -138,23 +143,19 @@ export default function SearchResult() {
               <p className={styles.fSubTitle}>카테고리</p>
               <ul>
                 {newList &&
-                  newList.map((e) => {
-                    if (e.pdCategory === searchWord) nowState = true;
+                  categoryLists.reverse().map((e, value) => {
+                    if (e === searchWord) nowState = true;
                     else nowState = false;
                     return (
-                      <Link
-                        to={`../${e.pdCategory}`}
-                        key={e.product_id}
-                        onClick={handleCategory}
-                      >
+                      <Link to={`../${e}`} key={value} onClick={handleCategory}>
                         {nowState ? (
                           <li
                             className={`${styles.fList} ${styles.fListSelect}`}
                           >
-                            {e.pdCategory}
+                            {e}
                           </li>
                         ) : (
-                          <li className={styles.fList}>{e.pdCategory}</li>
+                          <li className={styles.fList}>{e}</li>
                         )}
                       </Link>
                     );
