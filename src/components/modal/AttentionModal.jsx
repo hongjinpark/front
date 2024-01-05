@@ -10,29 +10,20 @@ export default function AttentionModal() {
   const { isOpen, setIsOpen } = useContext(AttentionModalContext);
   const [text, setText] = useState('');
   const [attention, setAttention] = useState([]);
-  // const [attProduct, setAttProduct] = useState([]);
   const token = localStorage.getItem('login');
 
   // open시 get
   useEffect(() => {
     if (isOpen) {
-      // const attList = axios.get('http://localhost:8090/attention/lists', {
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      // });
-      // const activeAtt = attList.filter((i) => i.status == 'Y');
-      // const pdList = axios.get('http://localhost:8090/product/list');
-      // .then((res) => );
-
       axios
-        .get('http://localhost:8090/attention/lists', {
+        .get('http://localhost:8090/attention/lists/status', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => setAttention(res.data))
         .catch(() => setIsOpen(false));
+      console.log(attention);
     }
   }, [isOpen]);
 
@@ -97,47 +88,17 @@ export default function AttentionModal() {
   const bodyContent = () => {
     return (
       <div>
-        {attention.length < 0 ? (
+        {attention.length > 0 ? (
           attention.map((attentionItem) => (
             <div className="p-6" key={attentionItem.attention_id}>
               <div className="flex items-center pb-3 border-b-gray-600 border-b">
                 <div className="flex-1 flex items-center">
                   <span className="flex flex-1 items-center">
-                    {attentionItem.reg_time /*상품 시간으로 변경 필요*/}
+                    {attentionItem.regTime}
                   </span>
-                  <div className="border-l-gray-200"></div>
-                  <span className="font-medium text-base text-gray-300"></span>
-                </div>
-                <div className="flex items-center">
-                  <button className="w-7 h-7 bg-none">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-5 h-auto"
-                    >
-                      <path
-                        d="M20 4L4 20"
-                        stroke="currentColor"
-                        strokeWidth="1.52"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      ></path>
-                      <path
-                        d="M4 4L20 20"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      ></path>
-                    </svg>
-                  </button>
                 </div>
               </div>
-              <h2 className="text-2xl p-3 text-left font-semibold">구매완료</h2>
-              <a href="/product/pdid">
+              <a href="{/attention.product_id}">
                 <div className="flex bg-transparent">
                   <div className="w-20 h-20 inline-block pt-0 rounded relative overflow-hidden">
                     <img

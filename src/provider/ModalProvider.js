@@ -1,3 +1,4 @@
+import ChatModal from '../components/modal/ChatModal';
 import ProfileModal from '../components/modal/ProfileModal';
 import PurchaseModal from '../components/modal/PurchaseModal';
 import SelectedModal from '../components/modal/SelectedModal';
@@ -11,6 +12,7 @@ export default function ModalProvider() {
       <SaleModal />
       <ProfileModal />
       <SelectedModal />
+      <ChatModal />
       <AttentionModal />
     </>
   );

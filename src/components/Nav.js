@@ -2,13 +2,14 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import styles from './Nav.module.css';
 import Category from './Category';
 import Container from './Container';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faFilePen } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from './SearchBar';
 import secureLocalStorage from 'react-secure-storage';
+import ChatModalContext from '../context/ChatModalProvider';
 
 export default function Nav() {
   const Token = localStorage.getItem('login');
@@ -19,6 +20,7 @@ export default function Nav() {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState(initKeyword || '');
   const [show, setOff] = useState(false);
+  const { setIsOpen } = useContext(ChatModalContext);
   let nowKeyword = '';
 
   if (nowUrl.indexOf('keyword')) {
@@ -127,6 +129,31 @@ export default function Nav() {
           )}
         </div>
         <ul className={styles.menu}>
+          <li
+            className="flex items-center justify-center pr-3"
+            onClick={() => setIsOpen(true)}
+            role="presentation"
+          >
+            <button className="flex items-center justify-center">
+              <div className="relative cursor-pointer">
+                <svg
+                  stroke="currentColor"
+                  fill="currentColor"
+                  strokeWidth="0"
+                  viewBox="0 0 512 512"
+                  height="24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M144 208c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32zm112 0c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32zm112 0c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32zM256 32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26S14.4 480 24 480c61.5 0 110-25.7 139.1-46.3C192 442.8 223.2 448 256 448c141.4 0 256-93.1 256-208S397.4 32 256 32zm0 368c-26.7 0-53.1-4.1-78.4-12.1l-22.7-7.2-19.5 13.8c-14.3 10.1-33.9 21.4-57.5 29 7.3-12.1 14.4-25.7 19.9-40.2l10.6-28.1-20.6-21.8C69.7 314.1 48 282.2 48 240c0-88.2 93.3-160 208-160s208 71.8 208 160-93.3 160-208 160z"></path>
+                </svg>
+                {/* <div className="absolute -top-2 w-[24px] h-[24px] font-semibold -right-3 rounded-[50%] p-1 text-[11px] bg-jngreen text-center">
+                  0
+                </div> */}
+              </div>
+              <p className="ml-5">채팅하기</p>
+            </button>
+          </li>
           <li>
             <Link
               to="/product"

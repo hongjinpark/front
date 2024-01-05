@@ -15,7 +15,7 @@ export default function MyProductList({ product }) {
         // 판매 상품
         <>
           <a
-            className="group box-border overflow-hidden flex rounded-md cursor-pointer pe-0 pb-2 lg:pb-3 flex-col items-start transition duration-200 ease-in-out transform hover:-translate-y-1 md:hover:-translate-y-1.5 hover:shadow-product bg-white"
+            className="group box-border overflow-hidden flex rounded-md cursor-pointer pe-0 pb-2 lg:pb-3 flex-col items-start transition duration-200 ease-in-out transform hover:-translate-y-1 md:hover:-translate-y-1.5 hover:shadow-lg bg-white"
             title="test"
             href={`/${product.product_id}`}
           >
@@ -51,11 +51,11 @@ export default function MyProductList({ product }) {
               )}
             </div>
             <div className="w-full overflow-hidden p-2 md:px-2.5 xl:px-4">
-              <h2 className="line-clamp-2 text-sm md:text-base text-heading">
+              <h2 className="line-clamp-2 text-sm md:text-base text-heading text-black no-underline">
                 {product.pdTitle}
               </h2>
               <div className="font-semibold space-s-2 mt-0.5 text-heading lg:text-lg lg:mt-1.5">
-                {formattedNumber(product.price)}
+                <p className="">{formattedNumber(product.price)}</p>
               </div>
               <div className="my-1">
                 <span className="text-sm text-gray-400"></span>
