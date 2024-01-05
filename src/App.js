@@ -27,6 +27,7 @@ import history from './utils/history';
 import RequireAuth from './utils/ReqireAuth';
 import Regist from './pages/Regist';
 import Product from './pages/Product';
+import ProductUpdate from './pages/ProductUpdate';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -64,7 +65,9 @@ function App() {
               <Route index element={<Home />} />
               <Route path="login" element={<Login />} />
               <Route path="regist" element={<Regist />} />
-              <Route path="product" element={<Product />} />
+              <Route path="product" element={<Product />}>
+                <Route path="update/:id" element={<ProductUpdate />} />
+              </Route>
               <Route path="linkPage" element={<LinkPage />} />
               <Route path="admin" element={<Admin />} />
               <Route path="lounge" element={<Lounge />} />
@@ -79,6 +82,10 @@ function App() {
                     <MyPage />
                   </RequireAuth>
                 }
+              />
+              <Route
+                path="mypage/product/update/:id"
+                element={<ProductUpdate />}
               />
               <Route element={<AdminRoute />}>
                 <Route path="notice/write" element={<NoticeWrite />}></Route>

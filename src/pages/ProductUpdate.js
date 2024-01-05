@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 
-const Product = () => {
+const ProductUpdate = () => {
   const [imageList, setImageList] = useState([]);
   const [product, setProduct] = useState({
     pdTitle: '',
@@ -13,11 +13,24 @@ const Product = () => {
   });
 
   const [topicList, setTopicList] = useState([]);
+  const [productList, setProductList] = useState({
+    pdTitle: '',
+    pdContents: '',
+    pdCategory: '',
+    price: '',
+    productImageDtoList: [],
+  });
   const errRef = useRef();
   const [errMsg, setErrMsg] = useState('');
   const navigate = useNavigate();
+  const { id } = useParams(); // /update/:id와 동일한 변수명으로 데이터를 꺼낼 수 있습니다.
 
   const [category, setCategory] = useState('');
+
+  const categoryActive = () => {
+    setCategory(category); // error
+    console.log(category);
+  };
 
   // 임의의 버튼을 클릭하면 아래 함수를 실행하도록 한다.
   const onClickSubmit = async (e) => {
@@ -65,6 +78,13 @@ const Product = () => {
   }, [product]);
 
   useEffect(() => {
+    axios.get(`http://localhost:8090/product/list/${id}`).then((result) => {
+      setProductList(result.data);
+      console.log(result.data);
+    });
+  }, []);
+
+  useEffect(() => {
     axios.get('http://localhost:8090/topics').then((result) => {
       setTopicList(result.data);
     });
@@ -92,6 +112,7 @@ const Product = () => {
             <Col sm>
               <Form.Control
                 type="file"
+                defaultValue={productList.productImageDtoList[0]}
                 id="imageList"
                 name="imageList"
                 accept="image/jpg,image/png,image/jpeg,image/gif/png/webp"
@@ -109,6 +130,7 @@ const Product = () => {
             <Col sm>
               <Form.Control
                 type="text"
+                defaultValue={productList.pdTitle}
                 id="pdTitle"
                 name="pdTitle"
                 placeholder="상품명"
@@ -132,15 +154,16 @@ const Product = () => {
                 <ul className="flex flex-col border-solid border-jnGray-300">
                   {topicList.map((topic) => {
                     return (
-                      <li
-                        onClick={() => setCategory(topic.topic_name)}
-                        className="truncate break-keep"
-                        key={topic.topic_id}
-                        role="presentation"
-                      >
-                        <p className="truncate break-keep">
-                          {topic.topic_name}
-                        </p>
+                      <li className="truncate break-keep" key={topic.topic_id}>
+                        <button
+                          onClick={() => {
+                            categoryActive(topic.topic_name);
+                          }}
+                        >
+                          <p className="truncate break-keep">
+                            {topic.topic_name}
+                          </p>
+                        </button>
                       </li>
                     );
                   })}
@@ -160,7 +183,7 @@ const Product = () => {
             <Col sm>
               <Form.Control
                 type="text"
-                value={category}
+                defaultValue={productList.pdCategory}
                 id="pdCategory"
                 name="pdCategory"
                 placeholder="카테고리"
@@ -169,8 +192,8 @@ const Product = () => {
                 spellCheck="false"
                 aria-invalid="false"
                 required
-                onChange={() =>
-                  setProduct({ ...product, pdCategory: category })
+                onChange={(e) =>
+                  setProduct({ ...product, pdCategory: e.target.value })
                 }
               />
             </Col>
@@ -183,6 +206,7 @@ const Product = () => {
             <Col sm>
               <Form.Control
                 type="text"
+                defaultValue={productList.price}
                 id="price"
                 name="price"
                 placeholder="판매가격"
@@ -205,6 +229,7 @@ const Product = () => {
             <Col sm>
               <Form.Control
                 id="pdContents"
+                defaultValue={productList.pdContents}
                 onChange={(e) =>
                   setProduct({ ...product, pdContents: e.target.value })
                 }
@@ -230,4 +255,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default ProductUpdate;

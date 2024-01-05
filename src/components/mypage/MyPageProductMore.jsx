@@ -64,7 +64,12 @@ export default function MyPageProductMore({
             </>
           ) : (
             <>
-              <li>상품수정</li>
+              <li
+                onClick={() => navigate('product/update/' + product.product_id)}
+                role="presentation"
+              >
+                상품수정
+              </li>
               <li onClick={() => setStep('change')} role="presentation">
                 상태변경
               </li>
