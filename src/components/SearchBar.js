@@ -6,26 +6,25 @@ import { useNavigate } from 'react-router-dom';
 
 export default function SearchBar({ className }) {
   const [keywordList, setKeywordList] = useState([]);
+  const [newKeywordLists, setNewKeywordLists] = useState([]);
   const navigate = useNavigate();
-  let newKeywordLists = keywordList;
-
-  const updateKeyword = [...newKeywordLists];
 
   const handleClearKeyword = () => {
     localStorage.removeItem('keyword');
     setKeywordList([]);
+    setNewKeywordLists([]);
   };
 
   const handleRemoveKeyword = (index) => {
-    let newKeywords = updateKeyword.reverse();
+    let newKeywords = [...newKeywordLists];
     newKeywords.splice(index, 1);
     localStorage.setItem('keyword', JSON.stringify(newKeywords));
-    setKeywordList(newKeywords);
+    setKeywordList(keywordList.reverse());
+    setNewKeywordLists(newKeywords.reverse());
   };
 
   const handleMovePage = (e) => {
-    let newE = JSON.stringify(e.e);
-    newE = newE.replaceAll('"', '');
+    let newE = JSON.stringify(e.e).replaceAll('"', '');
     let newKeyword = `keyword=${newE}`;
     navigate(`search/${newKeyword}`);
   };
@@ -33,6 +32,7 @@ export default function SearchBar({ className }) {
   useEffect(() => {
     const storedKeywords = JSON.parse(localStorage.getItem('keyword')) || [];
     setKeywordList(storedKeywords);
+    setNewKeywordLists(storedKeywords.reverse());
   }, []);
 
   return (
@@ -48,35 +48,30 @@ export default function SearchBar({ className }) {
         </button>
       </div>
       <div className={`${styles.searchBar} ${styles.recentList}`}>
-        {keywordList.reverse().map((e, index) => {
-          return (
-            <ul key={index} className={styles.searchBar}>
-              {keywordList ? (
-                <li className={styles.searchBar}>
-                  <button
-                    className={`${styles.searchBar} ${styles.recentWord}`}
-                  >
-                    <span
-                      value={e}
-                      className={styles.searchBar}
-                      onClick={() => handleMovePage({ e })}
-                      role="presentation"
-                    >
-                      {e}
-                    </span>
-                    <FontAwesomeIcon
-                      icon={faXmark}
-                      className={`${styles.xmark}`}
-                      onClick={() => handleRemoveKeyword(index)}
-                    />
-                  </button>
-                </li>
-              ) : (
-                <li className={styles.searchBar}>검색어 내역이 없습니다.</li>
-              )}
-            </ul>
-          );
-        })}
+        {newKeywordLists.map((e, index) => (
+          <ul key={index} className={styles.searchBar}>
+            <li className={styles.searchBar}>
+              <button className={`${styles.searchBar} ${styles.recentWord}`}>
+                <span
+                  value={e}
+                  className={styles.searchBar}
+                  onClick={() => handleMovePage({ e })}
+                  role="presentation"
+                >
+                  {e}
+                </span>
+                <FontAwesomeIcon
+                  icon={faXmark}
+                  className={`${styles.xmark}`}
+                  onClick={() => handleRemoveKeyword(index)}
+                />
+              </button>
+            </li>
+            {newKeywordLists.length === 0 && (
+              <li className={styles.searchBar}>검색어 내역이 없습니다.</li>
+            )}
+          </ul>
+        ))}
       </div>
     </div>
   );

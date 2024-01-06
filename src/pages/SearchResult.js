@@ -122,8 +122,6 @@ export default function SearchResult() {
   // 중복 카테고리 제거
   const categoryLists = [...new Set(newList.map((e) => e.pdCategory))];
 
-  console.log('카테고리 결과 : ', course);
-
   return (
     <Container>
       <div className={styles.search}>
