@@ -1,12 +1,43 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import ChatModalContext from '../../context/ChatModalProvider';
 import Modal from './Modal';
+import SockJS from 'sockjs-client';
+import Stomp from 'webstomp-client';
+import AuthContext from '../../context/AuthProvider';
 
 export default function ChatModal() {
   const [chatRoom, setChatRoom] = useState();
+  const [messages, setMessages] = useState([]);
+  const stomp = useRef(null);
+  const { auth } = useContext(AuthContext);
+
   useEffect(() => {
-    console.log(chatRoom);
-  }, []);
+    setMessages([]);
+    if (chatRoom) {
+      const socket = new SockJS('http://localhost:8090/ws');
+      stomp.current = Stomp.over(socket);
+
+      stomp.current.connect({ Authorization: `Bearer ${auth.token}` }, () => {
+        // 구독할 대상
+        stomp.current.subscribe(`/sub/${chatRoom}`, (response) => {
+          console.log(response);
+          const newMessage = response.body;
+          setMessages((prevMessages) => [...prevMessages, newMessage]);
+          console.log(messages);
+        });
+      });
+    }
+    return () => {
+      // 컴포넌트 언마운트 시 연결 해제
+      if (stomp.current) {
+        stomp.current.disconnect();
+      }
+    };
+  }, [chatRoom]);
+  const sendMessage = () => {
+    // 메시지 전송
+    stomp.current.send(`/room/${chatRoom}`, 'Hello, WebSocket!');
+  };
 
   const backButton = () => {
     return (
@@ -74,6 +105,25 @@ export default function ChatModal() {
                   </div>
                 </div>
               </div>
+              {/*  */}
+              {messages.map((message, index) => (
+                <div key={index}>
+                  <div type="textMessage">
+                    <div className="flex items-end w-auto mb-2 flex-start space-x-1">
+                      <div className="p-3 rounded-xl h-auto rounded-tl bg-white w-auto">
+                        <p className="break-all whitespace-pre-wrap">
+                          {message}
+                        </p>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="block text-[13px] uppercase text-start">
+                          오후 5:56
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -118,7 +168,12 @@ export default function ChatModal() {
             </div>
             <div className="flex items-end space-x-2">
               <span className="text-sm leading-5 text-gray-400">0 / 1000</span>
-              <button type="submit" disabled="" className="w-6 h-6">
+              <button
+                type="submit"
+                disabled=""
+                className="w-6 h-6"
+                onClick={sendMessage}
+              >
                 <svg
                   stroke="currentColor"
                   fill="currentColor"
