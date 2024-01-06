@@ -148,7 +148,7 @@ export default function SaleModal() {
               <h2 className="text-2xl pt-4 pb-3 text-left font-semibold">
                 판매완료
               </h2>
-              <a href="/product/pdid">
+              <a href={`/${saleItem.pdId}`}>
                 <div className="flex bg-transparent">
                   <div className="w-20 h-20 inline-block pt-0 rounded relative overflow-hidden">
                     <img

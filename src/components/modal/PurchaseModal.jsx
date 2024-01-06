@@ -145,7 +145,7 @@ export default function PurchaseModal() {
                 </div>
               </div>
               <h2 className="text-2xl p-3 text-left font-semibold">구매완료</h2>
-              <a href="/product/pdid">
+              <a href={`/${purchaseItem.pdId}`}>
                 <div className="flex bg-transparent">
                   <div className="w-20 h-20 inline-block pt-0 rounded relative overflow-hidden">
                     <img

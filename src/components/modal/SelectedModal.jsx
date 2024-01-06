@@ -150,7 +150,7 @@ export default function SelectedModal() {
               </div>
               {/* <h2 className="text-2xl pt-4 pb-3 text-left font-semibold">sd</h2> */}
               <div className="text-2xl pt-4 pb-3 text-left font-semibold"></div>
-              <a href="/product/pdid">
+              <a href={`/${selectItem.pdId}`}>
                 <div className="flex bg-transparent">
                   <div className="w-20 h-20 inline-block pt-0 rounded relative overflow-hidden">
                     <img
