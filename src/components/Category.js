@@ -40,7 +40,6 @@ export default function Category({ className }) {
         <div className={styles.categories}>
           <ul>
             {newCategory.map((e, value) => {
-              console.log('e : ', e);
               return (
                 <Link
                   to={`search/${e}`}
