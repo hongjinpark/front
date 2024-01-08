@@ -53,6 +53,21 @@ export default function Products({ list }) {
                             className={styles.imgSearchList}
                           />
                         )}
+                        {/*  */}
+                        {(item.pdStatus === 'C' || item.pdStatus === 'R') && (
+                          <div className="absolute top-0 left-0 flex items-end w-[285px] h-[285px] bg-black bg-opacity-50">
+                            <div
+                              className={`w-full p-2 text-center text-white ${
+                                item.pdStatus === 'C' && 'bg-black'
+                              } ${
+                                item.pdStatus === 'R' && 'bg-green-400'
+                              } bg-opacity-50`}
+                            >
+                              {item.pdStatus === 'C' ? '판매완료' : '예약중'}
+                            </div>
+                          </div>
+                        )}
+                        {/*  */}
                         <div className={styles.info}>
                           <p>{item.pdTitle}</p>
                           <p>{price}원</p>
@@ -80,6 +95,19 @@ export default function Products({ list }) {
                           alt="상품이미지"
                           className={styles.imgSearchList}
                         />
+                      )}
+                      {(item.pdStatus === 'C' || item.pdStatus === 'R') && (
+                        <div className="absolute top-0 left-0 flex items-end w-[285px] h-[285px] bg-black bg-opacity-50">
+                          <div
+                            className={`w-full p-2 text-center text-white ${
+                              item.pdStatus === 'C' && 'bg-black'
+                            } ${
+                              item.pdStatus === 'R' && 'bg-green-400'
+                            } bg-opacity-50`}
+                          >
+                            {item.pdStatus === 'C' ? '판매완료' : '예약중'}
+                          </div>
+                        </div>
                       )}
                       <div className={styles.info}>
                         <p>{item.pdTitle}</p>
