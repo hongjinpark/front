@@ -10,6 +10,7 @@ export default function ChatModal() {
   const [messages, setMessages] = useState([]);
   const stomp = useRef(null);
   const { auth } = useContext(AuthContext);
+  const [text, setText] = useState('');
 
   useEffect(() => {
     setMessages([]);
@@ -36,7 +37,9 @@ export default function ChatModal() {
   }, [chatRoom]);
   const sendMessage = () => {
     // 메시지 전송
-    stomp.current.send(`/room/${chatRoom}`, 'Hello, WebSocket!');
+    if (text === '') return;
+    stomp.current.send(`/room/${chatRoom}`, text);
+    setText('');
   };
 
   const backButton = () => {
@@ -127,6 +130,7 @@ export default function ChatModal() {
             </div>
           </div>
         </div>
+        {/* 텍스트창 */}
         <div className="bg-[#e9edef] py-4 border-t-[2px] border-t-slate-300 px-3">
           {/* <form className="bg-[#F7F9FA] py-3 px-3 flex flex-col rounded-xl focus-within:shadow-banner h-auto"> */}
           <textarea
@@ -136,6 +140,8 @@ export default function ChatModal() {
             className="shrink-0 bg-transparent placeholder:text-[#9CA3AF] outline-none resize-none text-md h-16 w-full pre-wrap"
             placeholder="메시지를 입력해주세요"
             name="chat"
+            onChange={(e) => setText(e.target.value)}
+            value={text}
           ></textarea>
           <div className="flex justify-between mt-3">
             <div className="flex">
