@@ -1,5 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { deleteProduct, updateProductStatus } from './../../api/product.api';
+import {
+  deleteProduct,
+  renewProduct,
+  updateProductStatus,
+} from './../../api/product.api';
 export default function MyPageProductMore({
   step,
   setStep,
@@ -57,7 +61,15 @@ export default function MyPageProductMore({
         <ul className="[&>li]:py-3 [&>li]:cursor-pointer text-[rgb(20_19_19)] pt-5">
           {product.pdStatus === 'C' ? (
             <>
-              <li>같은 상품 다시팔기</li>
+              <li
+                onClick={() => {
+                  renewProduct(product.product_id);
+                  navigate(0);
+                }}
+                role="presentation"
+              >
+                같은 상품 다시팔기
+              </li>
               <li onClick={() => setStep('delete')} role="presentation">
                 상품삭제
               </li>
