@@ -4,7 +4,7 @@ import Modal from './Modal';
 import { getPurchaseHistory } from './../../api/history.api'; //추후 삭제 필요
 import { formattedNumber } from './../../utils/util';
 import axios from 'axios';
-// import styles from './modal.module.css';
+import styles from './AttentionModal.module.css';
 
 export default function AttentionModal() {
   const { isOpen, setIsOpen } = useContext(AttentionModalContext);
@@ -23,7 +23,6 @@ export default function AttentionModal() {
         })
         .then((res) => setAttention(res.data))
         .catch(() => setIsOpen(false));
-      console.log(attention);
     }
   }, [isOpen]);
 
@@ -87,22 +86,16 @@ export default function AttentionModal() {
   };
   const bodyContent = () => {
     return (
-      <div>
+      <div className={styles.body}>
         {attention.length > 0 ? (
           attention.map((attentionItem) => (
-            <div className="p-6" key={attentionItem.attention_id}>
-              <div className="flex items-center pb-3 border-b-gray-600 border-b">
-                <div className="flex-1 flex items-center">
-                  <span className="flex flex-1 items-center">
-                    {attentionItem.regTime}
-                  </span>
-                </div>
-              </div>
-              <a href="{/attention.product_id}">
-                <div className="flex bg-transparent">
-                  <div className="w-20 h-20 inline-block pt-0 rounded relative overflow-hidden">
+            <div className={styles.card} key={attentionItem.attention_id}>
+              <a href={'/' + attentionItem.product_id}>
+                <div className={styles.cardFlex}>
+                  <div className={styles.imgBox}>
                     <img
-                      className="top-1/2 left-1/2 w-full h-auto rounded-lg object-cover -translate-x-2/4 -translate-y-2/4 absolute"
+                      // className="top-1/2 left-1/2 w-full h-auto rounded-lg object-cover -translate-x-2/4 -translate-y-2/4 absolute"
+                      className={styles.img}
                       src={require(`../../assets${attentionItem.imgUrl}`)}
                       alt=""
                     />
@@ -114,6 +107,9 @@ export default function AttentionModal() {
                     <strong className="text-lg font-semibold">
                       {formattedNumber(attentionItem.price)}
                     </strong>
+                    <span className="flex flex-1 items-center">
+                      {attentionItem.regTime}
+                    </span>
                   </div>
                 </div>
               </a>

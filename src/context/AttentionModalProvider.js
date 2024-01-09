@@ -7,10 +7,12 @@ export const AttentionModalProvider = ({ children }) => {
 
   const openAttentionModal = () => {
     setIsOpen(true);
+    document.body.style.overflow = 'hidden';
   };
 
   const closeAttentionModal = () => {
     setIsOpen(false);
+    document.body.style.overflow = 'unset';
   };
 
   return (

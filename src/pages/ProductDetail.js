@@ -88,14 +88,14 @@ export default function ProductDetail() {
     setChattingBox(true);
   };
 
-  // const handleExceptioin = (e) => {
-  //   let newclassName = e.target.className;
-  //   if (newclassName.includes('ProductDetail_chat__V1pwk')) {
-  //     setChattingBox(true);
-  //   } else if (chattingBox === true) {
-  //     setChattingBox(false);
-  //   }
-  // };
+  const handleExceptioin = (e) => {
+    let newclassName = e.target.className;
+    if (newclassName.includes('ProductDetail_chat__V1pwk')) {
+      setChattingBox(true);
+    } else if (chattingBox === true) {
+      setChattingBox(false);
+    }
+  };
 
   useEffect(() => {
     productLists();
@@ -112,7 +112,7 @@ export default function ProductDetail() {
   }, [list, product_id]);
 
   return (
-    <div /*onClick={handleExceptioin}*/ role="presentation">
+    <div onClick={handleExceptioin} role="presentation">
       <Container className={styles.container}>
         {course && (
           <>
