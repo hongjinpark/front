@@ -5,12 +5,6 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 
 const ProductUpdate = () => {
   const [imageList, setImageList] = useState([]);
-  const [product, setProduct] = useState({
-    pdTitle: '',
-    pdContents: '',
-    pdCategory: '',
-    price: '',
-  });
 
   const [topicList, setTopicList] = useState([]);
   const [productList, setProductList] = useState({
@@ -20,6 +14,34 @@ const ProductUpdate = () => {
     price: '',
     productImageDtoList: [],
   });
+
+  function handleChange(event) {
+    console.log(event.target.value);
+    console.log(event.target.name);
+    setProductList((prevFormData) => {
+      return {
+        ...prevFormData,
+        [event.target.name]: event.target.value,
+      };
+    });
+  }
+
+  /* const handleChange = ({ e, target }) => {
+    e.preventDefault();
+    console.log(target.value);
+    setProduct((prevFormData) => ({
+      ...prevFormData,
+      [target.name]: target.value,
+    }));
+  };*/
+
+  /*const handleChange = useCallback(({ target }) => {
+    setProduct((prevFormData) => ({
+      ...prevFormData,
+      [target.name]: target.value,
+    }));
+  }, []);*/
+
   const errRef = useRef();
   const [errMsg, setErrMsg] = useState('');
   const navigate = useNavigate();
@@ -27,15 +49,8 @@ const ProductUpdate = () => {
 
   const [category, setCategory] = useState('');
 
-  const categoryActive = () => {
-    setCategory(category); // error
-    console.log(category);
-  };
-
   // 임의의 버튼을 클릭하면 아래 함수를 실행하도록 한다.
-  const onClickSubmit = async (e) => {
-    e.preventDefault();
-
+  const onClickSubmit = async () => {
     const formData = new FormData();
 
     imageList.forEach((image) => {
@@ -43,10 +58,10 @@ const ProductUpdate = () => {
     });
 
     const value = {
-      pdTitle: product.pdTitle,
-      pdContents: product.pdContents,
-      pdCategory: product.pdCategory,
-      price: product.price,
+      pdTitle: productList.pdTitle,
+      pdContents: productList.pdContents,
+      pdCategory: category,
+      price: productList.price,
     };
 
     const blob = new Blob([JSON.stringify(value)], {
@@ -58,8 +73,8 @@ const ProductUpdate = () => {
     const token = localStorage.getItem('login');
     token
       ? axios({
-          method: 'POST',
-          url: `http://localhost:8090/product/new`,
+          method: 'PUT',
+          url: `http://localhost:8090/product/update/${id}`,
           mode: 'cors',
           headers: {
             'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
@@ -75,7 +90,7 @@ const ProductUpdate = () => {
   useEffect(() => {
     setErrMsg('');
     console.log(errMsg);
-  }, [product]);
+  }, [productList]);
 
   useEffect(() => {
     axios.get(`http://localhost:8090/product/list/${id}`).then((result) => {
@@ -112,12 +127,11 @@ const ProductUpdate = () => {
             <Col sm>
               <Form.Control
                 type="file"
-                defaultValue={productList.productImageDtoList[0]}
+                defaultValue={productList.productImageDtoList}
                 id="imageList"
                 name="imageList"
                 accept="image/jpg,image/png,image/jpeg,image/gif/png/webp"
                 multiple
-                required
                 onChange={onChangeImageInput}
               />
             </Col>
@@ -130,7 +144,7 @@ const ProductUpdate = () => {
             <Col sm>
               <Form.Control
                 type="text"
-                defaultValue={productList.pdTitle}
+                value={productList.pdTitle}
                 id="pdTitle"
                 name="pdTitle"
                 placeholder="상품명"
@@ -139,9 +153,7 @@ const ProductUpdate = () => {
                 spellCheck="false"
                 aria-invalid="false"
                 required
-                onChange={(e) =>
-                  setProduct({ ...product, pdTitle: e.target.value })
-                }
+                onChange={handleChange}
               />
             </Col>
           </Form.Group>
@@ -154,16 +166,15 @@ const ProductUpdate = () => {
                 <ul className="flex flex-col border-solid border-jnGray-300">
                   {topicList.map((topic) => {
                     return (
-                      <li className="truncate break-keep" key={topic.topic_id}>
-                        <button
-                          onClick={() => {
-                            categoryActive(topic.topic_name);
-                          }}
-                        >
-                          <p className="truncate break-keep">
-                            {topic.topic_name}
-                          </p>
-                        </button>
+                      <li
+                        onClick={() => setCategory(topic.topic_name)}
+                        className="truncate break-keep"
+                        key={topic.topic_id}
+                        role="presentation"
+                      >
+                        <p className="truncate break-keep">
+                          {topic.topic_name}
+                        </p>
                       </li>
                     );
                   })}
@@ -183,7 +194,7 @@ const ProductUpdate = () => {
             <Col sm>
               <Form.Control
                 type="text"
-                defaultValue={productList.pdCategory}
+                value={category ? category : productList.pdCategory}
                 id="pdCategory"
                 name="pdCategory"
                 placeholder="카테고리"
@@ -192,9 +203,7 @@ const ProductUpdate = () => {
                 spellCheck="false"
                 aria-invalid="false"
                 required
-                onChange={(e) =>
-                  setProduct({ ...product, pdCategory: e.target.value })
-                }
+                onChange={handleChange}
               />
             </Col>
           </Form.Group>
@@ -206,7 +215,7 @@ const ProductUpdate = () => {
             <Col sm>
               <Form.Control
                 type="text"
-                defaultValue={productList.price}
+                value={productList.price}
                 id="price"
                 name="price"
                 placeholder="판매가격"
@@ -216,9 +225,7 @@ const ProductUpdate = () => {
                 aria-invalid="false"
                 required
                 requiredplaceholder="판매가격"
-                onChange={(e) =>
-                  setProduct({ ...product, price: e.target.value })
-                }
+                onChange={handleChange}
               />
             </Col>
           </Form.Group>
@@ -228,11 +235,10 @@ const ProductUpdate = () => {
           >
             <Col sm>
               <Form.Control
+                type="text"
                 id="pdContents"
-                defaultValue={productList.pdContents}
-                onChange={(e) =>
-                  setProduct({ ...product, pdContents: e.target.value })
-                }
+                value={productList.pdContents}
+                onChange={handleChange}
                 name="pdContents"
                 className="px-4 py-3 items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 bg-white border border-gray-300 focus:shadow focus:outline-none focus:border-heading placeholder-body inline-block w-full px-4 py-4 mt-6 outline-none align-middle overflow-x-scroll appearance-none resize-none border-solid border border-jnGray-300 placeholder:text-jnGray-500 h-[220px] text-sm"
                 autoComplete="off"

@@ -65,9 +65,14 @@ function App() {
               <Route index element={<Home />} />
               <Route path="login" element={<Login />} />
               <Route path="regist" element={<Regist />} />
-              <Route path="product" element={<Product />}>
-                <Route path="update/:id" element={<ProductUpdate />} />
-              </Route>
+              <Route
+                path="product"
+                element={
+                  <RequireAuth>
+                    <Product />
+                  </RequireAuth>
+                }
+              />
               <Route path="linkPage" element={<LinkPage />} />
               <Route path="admin" element={<Admin />} />
               <Route path="lounge" element={<Lounge />} />

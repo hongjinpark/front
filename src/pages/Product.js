@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import useAuth from './../hooks/useAuth';
 
 const Product = () => {
   const [imageList, setImageList] = useState([]);
@@ -13,6 +14,7 @@ const Product = () => {
   });
 
   const [topicList, setTopicList] = useState([]);
+  const { auth } = useAuth();
   const errRef = useRef();
   const [errMsg, setErrMsg] = useState('');
   const navigate = useNavigate();
@@ -76,6 +78,7 @@ const Product = () => {
 
   return (
     <div>
+      {auth.userInfo.length}
       <p
         ref={errRef}
         className={errMsg ? 'errmsg' : 'offscreen'}
