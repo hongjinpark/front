@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import AttentionModalContext from '../../context/AttentionModalProvider';
 import Modal from './Modal';
 import { getPurchaseHistory } from './../../api/history.api'; //추후 삭제 필요
-import { formattedNumber } from './../../utils/util';
+import { formattedNumber, detailDate } from './../../utils/util';
 import axios from 'axios';
 import styles from './AttentionModal.module.css';
 
@@ -94,21 +94,18 @@ export default function AttentionModal() {
                 <div className={styles.cardFlex}>
                   <div className={styles.imgBox}>
                     <img
-                      // className="top-1/2 left-1/2 w-full h-auto rounded-lg object-cover -translate-x-2/4 -translate-y-2/4 absolute"
                       className={styles.img}
                       src={require(`../../assets${attentionItem.imgUrl}`)}
                       alt=""
                     />
                   </div>
                   <div className="h-20 flex flex-col flex-1 ml-5 items-start">
-                    <p className="text-base font-normal overflow-hidden text-left mb-2">
-                      {attentionItem.pdTitle}
-                    </p>
-                    <strong className="text-lg font-semibold">
+                    <p className={styles.title}>{attentionItem.pdTitle}</p>
+                    <strong className={styles.price}>
                       {formattedNumber(attentionItem.price)}
                     </strong>
-                    <span className="flex flex-1 items-center">
-                      {attentionItem.regTime}
+                    <span className={styles.date}>
+                      {detailDate(attentionItem.regTime)}
                     </span>
                   </div>
                 </div>
