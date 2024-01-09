@@ -59,7 +59,7 @@ export default function Nav() {
     } else {
       let searchKeyword = keyword;
       let existingKeywords = JSON.parse(localStorage.getItem('keyword')) || [];
-      existingKeywords.push(searchKeyword);
+      existingKeywords.unshift(searchKeyword);
 
       localStorage.setItem('keyword', JSON.stringify(existingKeywords));
 
@@ -92,7 +92,6 @@ export default function Nav() {
   };
 
   const handlemyPageClick = () => {
-    console.log('선택');
     setOff((prevState) => !prevState);
   };
 

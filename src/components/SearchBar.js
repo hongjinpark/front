@@ -6,21 +6,17 @@ import { useNavigate } from 'react-router-dom';
 
 export default function SearchBar({ className }) {
   const [keywordList, setKeywordList] = useState([]);
-  const [newKeywordLists, setNewKeywordLists] = useState([]);
   const navigate = useNavigate();
 
   const handleClearKeyword = () => {
     localStorage.removeItem('keyword');
     setKeywordList([]);
-    setNewKeywordLists([]);
   };
 
   const handleRemoveKeyword = (index) => {
-    let newKeywords = [...newKeywordLists];
-    newKeywords.splice(index, 1);
-    localStorage.setItem('keyword', JSON.stringify(newKeywords));
-    setKeywordList(keywordList.reverse());
-    setNewKeywordLists(newKeywords.reverse());
+    keywordList.splice(index, 1);
+    localStorage.setItem('keyword', JSON.stringify(keywordList));
+    setKeywordList(keywordList);
   };
 
   const handleMovePage = (e) => {
@@ -32,7 +28,6 @@ export default function SearchBar({ className }) {
   useEffect(() => {
     const storedKeywords = JSON.parse(localStorage.getItem('keyword')) || [];
     setKeywordList(storedKeywords);
-    setNewKeywordLists(storedKeywords.reverse());
   }, []);
 
   return (
@@ -48,7 +43,7 @@ export default function SearchBar({ className }) {
         </button>
       </div>
       <div className={`${styles.searchBar} ${styles.recentList}`}>
-        {newKeywordLists.map((e, index) => (
+        {keywordList.map((e, index) => (
           <ul key={index} className={styles.searchBar}>
             <li className={styles.searchBar}>
               <button className={`${styles.searchBar} ${styles.recentWord}`}>
@@ -67,7 +62,7 @@ export default function SearchBar({ className }) {
                 />
               </button>
             </li>
-            {newKeywordLists.length === 0 && (
+            {keywordList.length === 0 && (
               <li className={styles.searchBar}>검색어 내역이 없습니다.</li>
             )}
           </ul>
