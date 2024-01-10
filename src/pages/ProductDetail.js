@@ -90,10 +90,13 @@ export default function ProductDetail() {
 
   const handleExceptioin = (e) => {
     let newclassName = e.target.className;
-    if (newclassName.includes('ProductDetail_chat__V1pwk')) {
-      setChattingBox(true);
-    } else if (chattingBox === true) {
-      setChattingBox(false);
+    //추후 수정여부 검토 필요
+    if (newclassName.includes !== undefined) {
+      if (newclassName.includes('ProductDetail_chat__V1pwk')) {
+        setChattingBox(true);
+      } else if (chattingBox === true) {
+        setChattingBox(false);
+      }
     }
   };
 
