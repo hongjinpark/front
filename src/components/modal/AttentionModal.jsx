@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import AttentionModalContext from '../../context/AttentionModalProvider';
 import Modal from './Modal';
-import { getPurchaseHistory } from './../../api/history.api'; //추후 삭제 필요
+import { searchAttention } from './../../api/history.api'; //추후 삭제 필요
 import { formattedNumber, detailDate } from './../../utils/util';
 import axios from 'axios';
 import styles from './AttentionModal.module.css';
@@ -28,7 +28,16 @@ export default function AttentionModal() {
 
   //검색 버튼 클릭 동작
   const handleGet = () => {
-    getPurchaseHistory(text).then((res) => {
+    if (text == '') {
+      axios
+        .get('http://localhost:8090/attention/lists/status', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => setAttention(res.data));
+    }
+    searchAttention(text).then((res) => {
       setAttention(res.data);
     });
   };

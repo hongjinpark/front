@@ -10,3 +10,6 @@ export const getSaletHistory = (title = '', period = '') => {
 export const deleteHistory = (id) => {
   return httpApi.delete(`/purchasehistories/${id}`);
 };
+export const searchAttention = (title = '') => {
+  return httpApi.get(`/attention/${title}`);
+};
