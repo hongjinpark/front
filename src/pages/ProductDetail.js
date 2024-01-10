@@ -107,7 +107,6 @@ export default function ProductDetail() {
 
   useEffect(() => {
     if (!list) return;
-    // att.data.findIndex((i) => i.productId == pdId)
     const foundCourse = list.find(
       (e) => Number(e.product_id) == Number(product_id)
     );

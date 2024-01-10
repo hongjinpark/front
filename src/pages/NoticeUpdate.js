@@ -6,24 +6,33 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 export default function NoticeUpdate() {
-  const [data, setData] = useState();
+  const [data, setData] = useState({ title: '', contents: '' });
   const navigator = useNavigate();
   const { id } = useParams();
-  const [title, setTitle] = useState();
-  const [contents, setContents] = useState();
 
-  const saveTitle = (event) => {
-    setTitle(event.target.value);
-  };
-
-  const saveContent = (event) => {
-    setContents(event.target.value);
+  const handleChange = (event) => {
+    setData((preFormData) => {
+      return {
+        ...preFormData,
+        [event.target.name]: event.target.value,
+      };
+    });
   };
 
   useEffect(() => {
-    axios.get('http://localhost:8090/notice/list').then((result) => {
-      setData(result.data);
-    });
+    function getData() {
+      axios.get('http://localhost:8090/notice/list').then((res) => {
+        const result = res.data;
+        console.log(result.findIndex((v) => v.notice_id == id));
+        setData({
+          title:
+            result[result.findIndex((v) => v.notice_id == id)].notice_title,
+          contents:
+            result[result.findIndex((v) => v.notice_id == id)].notice_contents,
+        });
+      });
+    }
+    getData(data);
   }, []);
 
   return (
@@ -31,41 +40,39 @@ export default function NoticeUpdate() {
       <div className={styles.box}>
         <div className={styles.top_title}>
           <input
+            name="title"
             className={styles.title_text}
             placeholder="제목 수정"
-            defaultValue={
-              data
-                ? data[data.findIndex((v) => v.notice_id == id)].notice_title
-                : null
-            }
-            onChange={saveTitle}
+            defaultValue={data ? data.title : null}
+            onChange={handleChange}
           ></input>
         </div>
 
         <textarea
+          name="contents"
           className={styles.contents_text}
           placeholder="내용 수정"
-          defaultValue={
-            data
-              ? data[data.findIndex((v) => v.notice_id == id)].notice_contents
-              : null
-          }
-          onChange={saveContent}
+          defaultValue={data ? data.contents : null}
+          onChange={handleChange}
         ></textarea>
       </div>
       <Button
         variant="outline-dark"
         onClick={() => {
-          axios
-            .put('http://localhost:8090/notice/update/' + id, {
-              noticeTitle: title,
-              noticeContents: contents,
-            })
-            .then(() => {
-              navigator('/notice');
-              window.location.reload('/notice');
-              alert('수정 완료.');
-            });
+          if (data.title !== '' || data.contents !== '') {
+            axios
+              .put('http://localhost:8090/notice/update/' + id, {
+                noticeTitle: data.title,
+                noticeContents: data.contents,
+              })
+              .then(() => {
+                navigator('/notice');
+                window.location.reload('/notice');
+                alert('수정 완료.');
+              });
+          } else {
+            alert('공란');
+          }
         }}
         className={styles.button}
       >
