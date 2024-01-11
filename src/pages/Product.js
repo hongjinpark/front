@@ -78,7 +78,7 @@ const Product = () => {
 
   return (
     <div>
-      {auth.userInfo.name}
+      {auth.nickname}
       <p
         ref={errRef}
         className={errMsg ? 'errmsg' : 'offscreen'}
