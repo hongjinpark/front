@@ -23,8 +23,24 @@ export default function AttentionModal() {
         })
         .then((res) => setAttention(res.data))
         .catch(() => setIsOpen(false));
+    } else {
+      setText('');
     }
   }, [isOpen]);
+
+  const onChange = (e) => {
+    setText(e.target.value);
+    console.log(e.target.value);
+    if (e.target.value == '') {
+      axios
+        .get('http://localhost:8090/attention/lists/status', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => setAttention(res.data));
+    }
+  };
 
   //검색 버튼 클릭 동작
   const handleGet = () => {
@@ -36,10 +52,11 @@ export default function AttentionModal() {
           },
         })
         .then((res) => setAttention(res.data));
+    } else {
+      searchAttention(text).then((res) => {
+        setAttention(res.data);
+      });
     }
-    searchAttention(text).then((res) => {
-      setAttention(res.data);
-    });
   };
 
   const headerContent = () => {
@@ -82,7 +99,7 @@ export default function AttentionModal() {
             placeholder="상품명을 입력해주세요."
             autoComplete="off"
             value={text}
-            onChange={(e) => setText(e.target.value)}
+            onChange={onChange}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 handleGet();
