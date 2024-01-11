@@ -78,6 +78,7 @@ const Product = () => {
 
   return (
     <div>
+      {auth.userInfo.name}
       <p
         ref={errRef}
         className={errMsg ? 'errmsg' : 'offscreen'}
