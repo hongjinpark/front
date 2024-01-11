@@ -78,7 +78,6 @@ const Product = () => {
 
   return (
     <div>
-      {auth.userInfo.length}
       <p
         ref={errRef}
         className={errMsg ? 'errmsg' : 'offscreen'}
