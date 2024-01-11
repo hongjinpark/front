@@ -16,6 +16,8 @@ export default function Search() {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
 
+  const newCategoryLists = [...list];
+
   const newList = list.sort((a, b) => a[order] - b[order]);
   const handlerecommenBtn = () => {
     setOrder('price');
@@ -53,8 +55,10 @@ export default function Search() {
   }, [order]);
 
   useEffect(() => {
-    setOrigin(list);
+    setOrigin([...new Set(newCategoryLists.map((e) => e.pdCategory))]);
   }, [list]);
+
+  console.log('origin : ', origin);
 
   let min,
     max,
@@ -95,16 +99,14 @@ export default function Search() {
               <p className={styles.fSubTitle}>카테고리</p>
               <ul>
                 {origin &&
-                  origin.map((e) => {
+                  origin.map((e, index) => {
                     return (
                       <Link
-                        to={`${e.pdCategory}`}
-                        key={e.product_id}
+                        to={`${e}`}
+                        key={index}
                         style={{ textDecoration: 'none', color: 'inherit' }}
                       >
-                        <li key={e.product_id} className={styles.fList}>
-                          {e.pdCategory}
-                        </li>
+                        <li className={styles.fList}>{e}</li>
                       </Link>
                     );
                   })}

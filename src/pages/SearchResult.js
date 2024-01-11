@@ -10,18 +10,21 @@ import Pagination from './Pagination';
 export default function SearchResult() {
   const { searchWord } = useParams();
   const [list, setList] = useState([]);
+  const [course, setCourse] = useState([]);
+  const [categoryLists, setCategoryLists] = useState([]);
   const [keyword, setKeyword] = useState('');
   let nowState = false;
   const [btnClick, setBtnClick] = useState('recommen');
-  const [course, setCourse] = useState([]);
   const navigate = useNavigate();
   const [order, setOrder] = useState('price');
-
   const [limit, setLimit] = useState(3);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
 
+  const newCategoryLists = [...list];
+
   const newList = list.sort((a, b) => a[order] - b[order]);
+
   const handlerecommenBtn = () => {
     setOrder('price');
     setBtnClick('recommen');
@@ -76,10 +79,16 @@ export default function SearchResult() {
       const foundCourse = newList.filter((e) => e.pdCategory === searchWord);
       setCourse(foundCourse);
     }
+
+    setCategoryLists([...new Set(newCategoryLists.map((e) => e.pdCategory))]);
   }, [newList, searchWord]);
 
   const handleCategory = () => {
-    setKeyword('');
+    if (keyword === keyword) {
+      return;
+    } else {
+      setKeyword('');
+    }
     productLists();
   };
 
@@ -98,29 +107,27 @@ export default function SearchResult() {
     max,
     avg = 0;
 
-  if (!newList) return;
-  if (newList.length > 1) {
-    min = max = avg = Number(newList[0].price);
-    newList.forEach((e) => {
+  if (!course) return;
+  if (course.length > 1) {
+    min = max = avg = Number(course[0].price);
+    course.forEach((e) => {
       (avg += Number(e.price)) &&
         (max = Math.max(max, Number(e.price))) &&
         (min = Math.min(min, Number(e.price)));
     });
-    avg = avg / Number(newList.length);
+    avg = avg / Number(course.length);
 
     avg = avg ? avg.toLocaleString() : 'N/A';
     max = max ? max.toLocaleString() : 'N/A';
     min = min ? min.toLocaleString() : 'N/A';
   } else {
-    avg = avg / Number(newList.length);
+    if (!course[0]) return;
+    avg = avg / Number(course.length);
 
-    avg = avg ? avg.toLocaleString() : 'N/A';
-    max = max ? max.toLocaleString() : 'N/A';
-    min = min ? min.toLocaleString() : 'N/A';
+    avg = avg ? avg.toLocaleString() : course[0].price;
+    max = max ? max.toLocaleString() : course[0].price;
+    min = min ? min.toLocaleString() : course[0].price;
   }
-
-  // 중복 카테고리 제거
-  const categoryLists = [...new Set(newList.map((e) => e.pdCategory))];
 
   return (
     <Container>
@@ -140,8 +147,8 @@ export default function SearchResult() {
             <div className={styles.filterList}>
               <p className={styles.fSubTitle}>카테고리</p>
               <ul>
-                {newList &&
-                  categoryLists.reverse().map((e, value) => {
+                {categoryLists &&
+                  categoryLists.map((e, value) => {
                     if (e === searchWord) nowState = true;
                     else nowState = false;
                     return (
