@@ -4,6 +4,7 @@ import Modal from './Modal';
 import SockJS from 'sockjs-client';
 import Stomp from 'webstomp-client';
 import AuthContext from '../../context/AuthProvider';
+import axios from 'axios';
 
 export default function ChatModal() {
   const [chatRoom, setChatRoom] = useState();
@@ -11,6 +12,7 @@ export default function ChatModal() {
   const stomp = useRef(null);
   const { auth } = useContext(AuthContext);
   const [text, setText] = useState('');
+  const [chatList, setChatList] = useState([]);
 
   useEffect(() => {
     setMessages([]);
@@ -41,6 +43,13 @@ export default function ChatModal() {
     stomp.current.send(`/room/${chatRoom}`, text);
     setText('');
   };
+
+  useEffect(() => {
+    axios.get(`http://localhost:8090/chat/${2}`).then((result) => {
+      setChatList(result.data);
+      console.log(chatList);
+    });
+  }, []);
 
   const backButton = () => {
     return (
@@ -78,6 +87,24 @@ export default function ChatModal() {
               <span className="block text-center text-[14px] py-4">
                 2024년 1월 5일
               </span>
+              {chatList.map((chatList) => (
+                <div key={chatList.chatMessageId}>
+                  <div type="textMessage">
+                    <div className="flex items-end w-auto mb-2 flex-start space-x-1 flex-row-reverse space-x-reverse">
+                      <div className="p-3 rounded-xl h-auto rounded-tr bg-[#363C45] text-white w-auto">
+                        <p className="break-all whitespace-pre-wrap">
+                          {chatList.message}
+                        </p>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="block text-[13px] uppercase text-start">
+                          오후 {chatList.sendTime}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
               {/* 나 */}
               <div>
                 <div type="textMessage">
