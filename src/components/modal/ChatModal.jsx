@@ -45,12 +45,55 @@ export default function ChatModal() {
   };
 
   useEffect(() => {
+    // chatroom id로 변경해야함
     axios.get(`http://localhost:8090/chat/${2}`).then((result) => {
       setChatList(result.data);
       console.log(chatList);
     });
   }, []);
-
+  function showChat() {
+    return (
+      <>
+        {chatList.map((list, index) =>
+          list.userId === auth.id ? (
+            <div key={index}>
+              <div type="textMessage">
+                <div className="flex items-end w-auto mb-2 flex-start space-x-1 flex-row-reverse space-x-reverse">
+                  <div className="p-3 rounded-xl h-auto rounded-tr bg-[#363C45] text-white w-auto">
+                    <p className="break-all whitespace-pre-wrap">
+                      {list.message}
+                    </p>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="block text-[13px] uppercase text-end">
+                      {list.sendTime}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div key={index}>
+              <div type="textMessage">
+                <div className="flex items-end w-auto mb-2 flex-start space-x-1">
+                  <div className="p-3 rounded-xl h-auto rounded-tl bg-white w-auto">
+                    <p className="break-all whitespace-pre-wrap">
+                      {list.message}
+                    </p>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="block text-[13px] uppercase text-start">
+                      {list.sendTime}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        )}
+      </>
+    );
+  }
   const backButton = () => {
     return (
       <button
@@ -87,73 +130,7 @@ export default function ChatModal() {
               <span className="block text-center text-[14px] py-4">
                 2024년 1월 5일
               </span>
-              {chatList.map((chatList) => (
-                <div key={chatList.chatMessageId}>
-                  <div type="textMessage">
-                    <div className="flex items-end w-auto mb-2 flex-start space-x-1 flex-row-reverse space-x-reverse">
-                      <div className="p-3 rounded-xl h-auto rounded-tr bg-[#363C45] text-white w-auto">
-                        <p className="break-all whitespace-pre-wrap">
-                          {chatList.message}
-                        </p>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="block text-[13px] uppercase text-start">
-                          오후 {chatList.sendTime}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-              {/* 나 */}
-              <div>
-                <div type="textMessage">
-                  <div className="flex items-end w-auto mb-2 flex-start space-x-1 flex-row-reverse space-x-reverse">
-                    <div className="p-3 rounded-xl h-auto rounded-tr bg-[#363C45] text-white w-auto">
-                      <p className="break-all whitespace-pre-wrap">text1</p>
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="block text-[13px] uppercase text-end">
-                        오후 5:56
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* 상대 */}
-              <div>
-                <div type="textMessage">
-                  <div className="flex items-end w-auto mb-2 flex-start space-x-1">
-                    <div className="p-3 rounded-xl h-auto rounded-tl bg-white w-auto">
-                      <p className="break-all whitespace-pre-wrap">text2</p>
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="block text-[13px] uppercase text-start">
-                        오후 5:56
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/*  */}
-              {messages.map((message, index) => (
-                <div key={index}>
-                  <div type="textMessage">
-                    <div className="flex items-end w-auto mb-2 flex-start space-x-1">
-                      <div className="p-3 rounded-xl h-auto rounded-tl bg-white w-auto">
-                        <p className="break-all whitespace-pre-wrap">
-                          {message}
-                        </p>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="block text-[13px] uppercase text-start">
-                          오후 5:56
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+              {showChat()}
             </div>
           </div>
         </div>
