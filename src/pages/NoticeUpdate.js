@@ -23,7 +23,6 @@ export default function NoticeUpdate() {
     function getData() {
       axios.get('http://localhost:8090/notice/list').then((res) => {
         const result = res.data;
-        console.log(result.findIndex((v) => v.notice_id == id));
         setData({
           title:
             result[result.findIndex((v) => v.notice_id == id)].notice_title,
@@ -33,6 +32,7 @@ export default function NoticeUpdate() {
       });
     }
     getData(data);
+    console.log(data);
   }, []);
 
   return (
@@ -43,7 +43,7 @@ export default function NoticeUpdate() {
             name="title"
             className={styles.title_text}
             placeholder="제목 수정"
-            defaultValue={data ? data.title : null}
+            defaultValue={data.title}
             onChange={handleChange}
           ></input>
         </div>
@@ -52,14 +52,14 @@ export default function NoticeUpdate() {
           name="contents"
           className={styles.contents_text}
           placeholder="내용 수정"
-          defaultValue={data ? data.contents : null}
+          defaultValue={data.contents}
           onChange={handleChange}
         ></textarea>
       </div>
       <Button
         variant="outline-dark"
         onClick={() => {
-          if (data.title !== '' || data.contents !== '') {
+          if (data.title !== '' && data.contents !== '') {
             axios
               .put('http://localhost:8090/notice/update/' + id, {
                 noticeTitle: data.title,
@@ -70,8 +70,10 @@ export default function NoticeUpdate() {
                 window.location.reload('/notice');
                 alert('수정 완료.');
               });
+          } else if (data.title == '') {
+            alert('제목을 입력해 주세요');
           } else {
-            alert('공란');
+            alert('내용을 입력해 주세요');
           }
         }}
         className={styles.button}

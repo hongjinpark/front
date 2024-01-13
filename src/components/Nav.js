@@ -173,10 +173,10 @@ export default function Nav() {
           </li>
           <li>
             <Link
-              to="/lounge"
+              to="/board"
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
-              Lounge
+              게시판
             </Link>
           </li>
 
@@ -185,7 +185,7 @@ export default function Nav() {
               to="/notice"
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
-              Notice
+              공지사항
             </Link>
           </li>
           {Token ? (
