@@ -4,6 +4,10 @@
   margin-top: 50px;
 }
 
+.noProduct {
+  padding: 50px;
+}
+
 ul.products {
   display: flex;
   align-items: center;

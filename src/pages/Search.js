@@ -9,19 +9,18 @@ import Pagination from './Pagination';
 
 export default function Search() {
   const [list, setList] = useState([]);
-  const [origin, setOrigin] = useState([]);
+  const [topic, setTopic] = useState([]);
   const [order, setOrder] = useState('price');
-  const [btnClick, setBtnClick] = useState('recommen');
+  const [btnClick, setBtnClick] = useState('recommend');
   const [limit, setLimit] = useState(3);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
 
-  const newCategoryLists = [...list];
-
   const newList = list.sort((a, b) => a[order] - b[order]);
+
   const handlerecommenBtn = () => {
     setOrder('price');
-    setBtnClick('recommen');
+    setBtnClick('recommend');
   };
   const handleLeastBtn = () => {
     setOrder('rating');
@@ -49,16 +48,24 @@ export default function Search() {
     }
   };
 
+  const topicLists = async () => {
+    let path = `/topics`;
+    try {
+      const options = {
+        path: path,
+      };
+      const getData = await getApi(options);
+      setTopic(getData);
+    } catch (e) {
+      throw e;
+    }
+  };
+
   useEffect(() => {
     productLists();
+    topicLists();
     setLimit(20);
   }, [order]);
-
-  useEffect(() => {
-    setOrigin([...new Set(newCategoryLists.map((e) => e.pdCategory))]);
-  }, [list]);
-
-  console.log('origin : ', origin);
 
   let min,
     max,
@@ -98,15 +105,27 @@ export default function Search() {
             <div className={styles.filterList}>
               <p className={styles.fSubTitle}>카테고리</p>
               <ul>
-                {origin &&
-                  origin.map((e, index) => {
+                {topic &&
+                  topic.map((e, index) => {
+                    let replaced_word = '';
+                    let newTopicName = e.topic_name;
+                    console.log('newTopicName : ', newTopicName);
+                    if (e.topic_name.indexOf('/') != -1) {
+                      replaced_word = e.topic_name.replace('/', '');
+                    } else {
+                      replaced_word = e.topic_name;
+                    }
+
+                    if (newTopicName.indexOf('/') != -1) {
+                      newTopicName = newTopicName.replace('/', '');
+                    }
                     return (
                       <Link
-                        to={`${e}`}
+                        to={`${replaced_word}`}
                         key={index}
                         style={{ textDecoration: 'none', color: 'inherit' }}
                       >
-                        <li className={styles.fList}>{e}</li>
+                        <li className={styles.fList}>{e.topic_name}</li>
                       </Link>
                     );
                   })}
