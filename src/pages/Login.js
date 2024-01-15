@@ -57,8 +57,9 @@ const Login = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%',
+        width: '600px',
         height: '50vh',
+        margin: '0 auto',
       }}
     >
       <p
