@@ -8,7 +8,7 @@ import Nav from './components/Nav';
 import Footer from './components/Footer';
 import LinkPage from './pages/LinkPage';
 import Admin from './pages/Admin';
-import Lounge from './pages/Lounge';
+import Board from './pages/Board';
 import NotFoundPage from './pages/NotFoundPage';
 import ProductDetail from './pages/ProductDetail';
 import Notice from './pages/Notice';
@@ -75,7 +75,7 @@ function App() {
               />
               <Route path="linkPage" element={<LinkPage />} />
               <Route path="admin" element={<Admin />} />
-              <Route path="lounge" element={<Lounge />} />
+              <Route path="board" element={<Board />} />
               <Route path=":product_id" element={<ProductDetail />} />
               <Route path="notice" element={<Notice />}>
                 <Route path=":id" element={<NoticeDetail />} />

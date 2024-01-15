@@ -22,7 +22,7 @@ export default function Products({ list }) {
   if (!list || list.length === 0) {
     return (
       <div className={styles.poductResult}>
-        <h1>상품 검색 결과가 없습니다.</h1>
+        <h1 className={styles.noProduct}>상품 검색 결과가 없습니다.</h1>
       </div>
     );
   } else if (Array.isArray(list)) {

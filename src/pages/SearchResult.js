@@ -10,8 +10,8 @@ import Pagination from './Pagination';
 export default function SearchResult() {
   const { searchWord } = useParams();
   const [list, setList] = useState([]);
+  const [topic, setTopic] = useState([]);
   const [course, setCourse] = useState([]);
-  const [categoryLists, setCategoryLists] = useState([]);
   const [keyword, setKeyword] = useState('');
   let nowState = false;
   const [btnClick, setBtnClick] = useState('recommen');
@@ -19,9 +19,8 @@ export default function SearchResult() {
   const [order, setOrder] = useState('price');
   const [limit, setLimit] = useState(3);
   const [page, setPage] = useState(1);
-  const offset = (page - 1) * limit;
 
-  const newCategoryLists = [...list];
+  const offset = (page - 1) * limit;
 
   const newList = list.sort((a, b) => a[order] - b[order]);
 
@@ -34,11 +33,11 @@ export default function SearchResult() {
     setBtnClick('least');
   };
   const handleLowerBtn = () => {
-    setOrder('price');
+    setOrder('price', 'ascendingOrder');
     setBtnClick('lower');
   };
   const handleHighBtn = () => {
-    setOrder('-price');
+    setOrder('price', 'descendingOrder');
     setBtnClick('high');
   };
 
@@ -55,10 +54,24 @@ export default function SearchResult() {
     }
   };
 
+  const topicLists = async () => {
+    let path = `/topics`;
+    try {
+      const options = {
+        path: path,
+      };
+      const getData = await getApi(options);
+      setTopic(getData);
+    } catch (e) {
+      throw e;
+    }
+  };
+
   useEffect(() => {
+    topicLists();
     productLists();
     setLimit(20);
-  }, [order, searchWord]);
+  }, []);
 
   useEffect(() => {
     if (searchWord.includes('keyword') != -1) {
@@ -71,7 +84,7 @@ export default function SearchResult() {
   useEffect(() => {
     if (!newList && !searchWord) return;
 
-    if (!searchWord.indexOf('keyword')) {
+    if (searchWord.indexOf('keyword') === 0) {
       const newSearch = searchWord.replace('keyword=', '');
       const foundCourse = newList.filter((e) => e.pdTitle.includes(newSearch));
       setCourse(foundCourse.slice(offset, offset + limit));
@@ -79,9 +92,7 @@ export default function SearchResult() {
       const foundCourse = newList.filter((e) => e.pdCategory === searchWord);
       setCourse(foundCourse);
     }
-
-    setCategoryLists([...new Set(newCategoryLists.map((e) => e.pdCategory))]);
-  }, [newList, searchWord]);
+  }, [newList, searchWord, offset, limit]);
 
   const handleCategory = () => {
     if (keyword === keyword) {
@@ -107,9 +118,9 @@ export default function SearchResult() {
     max,
     avg = 0;
 
-  if (!course) return;
   if (course.length > 1) {
-    min = max = avg = Number(course[0].price);
+    avg = max = 0;
+    min = Number(course[0].price);
     course.forEach((e) => {
       (avg += Number(e.price)) &&
         (max = Math.max(max, Number(e.price))) &&
@@ -121,12 +132,14 @@ export default function SearchResult() {
     max = max ? max.toLocaleString() : 'N/A';
     min = min ? min.toLocaleString() : 'N/A';
   } else {
-    if (!course[0]) return;
     avg = avg / Number(course.length);
 
-    avg = avg ? avg.toLocaleString() : course[0].price;
-    max = max ? max.toLocaleString() : course[0].price;
-    min = min ? min.toLocaleString() : course[0].price;
+    avg =
+      course.length === 0 ? 'N/A' : Number(course[0].price).toLocaleString();
+    max =
+      course.length === 0 ? 'N/A' : Number(course[0].price).toLocaleString();
+    min =
+      course.length === 0 ? 'N/A' : Number(course[0].price).toLocaleString();
   }
 
   return (
@@ -147,13 +160,26 @@ export default function SearchResult() {
             <div className={styles.filterList}>
               <p className={styles.fSubTitle}>카테고리</p>
               <ul>
-                {categoryLists &&
-                  categoryLists.map((e, value) => {
-                    if (e === searchWord) nowState = true;
+                {topic &&
+                  topic.map((e, value) => {
+                    let replaced_word = '';
+                    let newTopicName = e.topic_name;
+                    if (e.topic_name.indexOf('/') != -1) {
+                      replaced_word = e.topic_name.replace('/', '');
+                    } else {
+                      replaced_word = e.topic_name;
+                    }
+
+                    if (newTopicName.indexOf('/') != -1) {
+                      newTopicName = newTopicName.replace('/', '');
+                    }
+
+                    if (newTopicName === searchWord) nowState = true;
                     else nowState = false;
+
                     return (
                       <Link
-                        to={`../${e}`}
+                        to={`../${replaced_word}`}
                         key={value}
                         onClick={handleCategory}
                         style={{ textDecoration: 'none', color: 'inherit' }}
@@ -162,10 +188,10 @@ export default function SearchResult() {
                           <li
                             className={`${styles.fList} ${styles.fListSelect}`}
                           >
-                            {e}
+                            {e.topic_name}
                           </li>
                         ) : (
-                          <li className={styles.fList}>{e}</li>
+                          <li className={styles.fList}>{e.topic_name}</li>
                         )}
                       </Link>
                     );
@@ -237,7 +263,7 @@ export default function SearchResult() {
                 </button>
               </div>
             </div>
-            {course && course?.length !== 0 ? (
+            {course.length !== 0 ? (
               <>
                 <p className={styles.compare}>
                   현재 페이지의 상품 가격을 비교해봤어요
@@ -267,7 +293,9 @@ export default function SearchResult() {
                 </div>
               </>
             ) : (
-              <></>
+              <>
+                <div className={styles.emptyDiv}></div>
+              </>
             )}
 
             <div className={styles.itemBox}>

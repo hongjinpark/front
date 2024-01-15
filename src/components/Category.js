@@ -8,27 +8,24 @@ import { useEffect, useState } from 'react';
 import { getApi } from '../api/axios';
 
 export default function Category({ className }) {
-  const [list, setList] = useState([]);
+  const [topic, setTopic] = useState([]);
 
-  const productLists = async () => {
-    let path = `/product/list`;
+  const topicLists = async () => {
+    let path = `/topics`;
     try {
       const options = {
         path: path,
       };
       const getData = await getApi(options);
-      setList(getData);
+      setTopic(getData);
     } catch (e) {
       throw e;
     }
   };
 
   useEffect(() => {
-    productLists();
+    topicLists();
   }, []);
-
-  // 중복 카테고리 제거
-  const newCategory = [...new Set(list.map((e) => e.pdCategory))];
 
   return (
     <div className={classNames(styles.category, className)}>
@@ -39,14 +36,24 @@ export default function Category({ className }) {
         </button>
         <div className={styles.categories}>
           <ul>
-            {newCategory.map((e, value) => {
+            {topic.map((e, value) => {
+              let searchWord = '';
+              if (e.topic_name.indexOf('/') != -1) {
+                searchWord = e.topic_name.replace('/', '');
+              } else {
+                searchWord = e.topic_name;
+              }
+
               return (
                 <Link
-                  to={`search/${e}`}
+                  to={`search/${searchWord}`}
+                  onClick={() =>
+                    console.log('searchWord type: ', typeof searchWord)
+                  }
                   key={value}
                   style={{ textDecoration: 'none', color: 'inherit' }}
                 >
-                  <li className={styles.link}>{e}</li>
+                  <li className={styles.link}>{e.topic_name}</li>
                 </Link>
               );
             })}

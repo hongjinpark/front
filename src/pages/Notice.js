@@ -17,7 +17,7 @@ export default function Noitce() {
 
   useEffect(() => {
     axios.get('http://localhost:8090/notice/list').then((result) => {
-      setBoard(result.data);
+      setBoard(result.data.reverse());
     });
     //role 정보 담기
     const token = localStorage.getItem('login');

@@ -40,16 +40,22 @@ export default function NoticeDetail() {
       <Button
         variant="outline-dark"
         onClick={() => {
-          axios
-            .post('http://localhost:8090/notice/new', {
-              noticeContents: contentsValue,
-              noticeTitle: titleValue,
-            })
-            .then(() => {
-              navigator('/notice');
-              window.location.reload('/notice');
-              alert('저장 완료.');
-            });
+          if (titleValue !== '' && contentsValue !== '') {
+            axios
+              .post('http://localhost:8090/notice/new', {
+                noticeContents: contentsValue,
+                noticeTitle: titleValue,
+              })
+              .then(() => {
+                navigator('/notice');
+                window.location.reload('/notice');
+                alert('저장 완료.');
+              });
+          } else if (titleValue == '') {
+            alert('제목을 입력해주세요');
+          } else {
+            alert('내용을 입력해주세요');
+          }
         }}
         className={styles.button}
       >

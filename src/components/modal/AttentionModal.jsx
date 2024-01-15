@@ -30,7 +30,6 @@ export default function AttentionModal() {
 
   const onChange = (e) => {
     setText(e.target.value);
-    console.log(e.target.value);
     if (e.target.value == '') {
       axios
         .get('http://localhost:8090/attention/lists/status', {
