@@ -17,6 +17,7 @@ export default function NoticeUpdate() {
         [event.target.name]: event.target.value,
       };
     });
+    console.log(data);
   };
 
   useEffect(() => {
@@ -32,7 +33,6 @@ export default function NoticeUpdate() {
       });
     }
     getData(data);
-    console.log(data);
   }, []);
 
   return (
@@ -44,7 +44,7 @@ export default function NoticeUpdate() {
             className={styles.title_text}
             placeholder="제목 수정"
             defaultValue={data.title}
-            onChange={handleChange}
+            onInput={handleChange}
           ></input>
         </div>
 
@@ -53,7 +53,7 @@ export default function NoticeUpdate() {
           className={styles.contents_text}
           placeholder="내용 수정"
           defaultValue={data.contents}
-          onChange={handleChange}
+          onInput={handleChange}
         ></textarea>
       </div>
       <Button
