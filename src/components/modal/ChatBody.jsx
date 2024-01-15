@@ -3,31 +3,29 @@ import axios from './../../api/axios';
 import AuthContext from '../../context/AuthProvider';
 import SockJS from 'sockjs-client';
 import Stomp from 'webstomp-client';
+import { format, isSameDay } from 'date-fns';
 
 export default function ChatBody({ chatRoom }) {
   const [text, setText] = useState('');
   const { auth } = useContext(AuthContext);
-  const [messages, setMessages] = useState([]);
   const [chatList, setChatList] = useState([]);
   const stomp = useRef(null);
   useEffect(() => {
-    setMessages([]);
+    setChatList([]);
     if (chatRoom) {
       const socket = new SockJS('http://localhost:8090/ws');
       stomp.current = Stomp.over(socket);
       axios
         .get(`http://localhost:8090/chat/${chatRoom.chatRoomId}`)
         .then((result) => {
+          //   setChatList(result.data);
           setChatList(result.data);
-          console.log(chatList);
         });
       stomp.current.connect({ Authorization: `Bearer ${auth.token}` }, () => {
         // 구독할 대상
         stomp.current.subscribe(`/sub/${chatRoom.chatRoomId}`, (response) => {
-          console.log(response);
-          const newMessage = response.body;
-          setMessages((prevMessages) => [...prevMessages, newMessage]);
-          console.log(messages);
+          const newMessage = JSON.parse(response.body);
+          setChatList((prevMessages) => [...prevMessages, newMessage]);
         });
       });
     }
@@ -38,6 +36,30 @@ export default function ChatBody({ chatRoom }) {
       }
     };
   }, [chatRoom]);
+  const groupMessagesByDate = (messages) => {
+    const groupedMessages = [];
+
+    messages.forEach((message) => {
+      const messageDate = new Date(message.sendTime);
+      const dateIndex = groupedMessages.findIndex((group) =>
+        isSameDay(new Date(group.date), messageDate)
+      );
+
+      if (dateIndex !== -1) {
+        // 이미 있는 날짜 그룹에 추가
+        groupedMessages[dateIndex].messages.push(message);
+      } else {
+        // 새로운 날짜 그룹 생성
+        groupedMessages.push({
+          date: format(messageDate, 'yyyy-MM-dd'),
+          messages: [message],
+        });
+      }
+    });
+    return groupedMessages;
+  };
+  const groupedMessages = groupMessagesByDate(chatList);
+
   const sendMessage = () => {
     // 메시지 전송
     if (text === '') return;
@@ -45,60 +67,54 @@ export default function ChatBody({ chatRoom }) {
     setText('');
   };
   function showChat() {
-    return (
-      <>
-        {chatList.map((list, index) =>
-          list.userId === auth.id ? (
-            <div key={index}>
-              <div type="textMessage">
-                <div className="flex items-end w-auto mb-2 flex-start space-x-1 flex-row-reverse space-x-reverse">
-                  <div className="p-3 rounded-xl h-auto rounded-tr bg-[#363C45] text-white w-auto">
-                    <p className="break-all whitespace-pre-wrap">
-                      {list.message}
-                    </p>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="block text-[13px] uppercase text-end">
-                      {list.sendTime}
-                    </span>
-                  </div>
+    return groupedMessages.map((group) => (
+      <div key={group.date}>
+        <span className="block text-center text-[14px] py-4">
+          {format(new Date(group.date), 'yyyy년 MM월 dd일')}
+        </span>
+        {group.messages.map((list, index) => (
+          <div key={index}>
+            <div type="textMessage">
+              <div
+                className={`flex items-end w-auto mb-2 ${
+                  list.userId === auth.id
+                    ? 'flex-start space-x-1 flex-row-reverse space-x-reverse'
+                    : 'flex-start space-x-1'
+                }`}
+              >
+                <div
+                  className={`p-3 rounded-xl h-auto ${
+                    list.userId === auth.id
+                      ? 'rounded-tr bg-[#363C45] text-white'
+                      : 'rounded-tl bg-white'
+                  } w-auto`}
+                >
+                  <p className="break-all whitespace-pre-wrap">
+                    {list.message}
+                  </p>
+                </div>
+                <div className="flex flex-col">
+                  <span
+                    className={`block text-[13px] uppercase ${
+                      list.userId === auth.id ? 'text-end' : 'text-start'
+                    }`}
+                  >
+                    {format(new Date(list.sendTime), 'HH시 mm분')}
+                  </span>
                 </div>
               </div>
             </div>
-          ) : (
-            <div key={index}>
-              <div type="textMessage">
-                <div className="flex items-end w-auto mb-2 flex-start space-x-1">
-                  <div className="p-3 rounded-xl h-auto rounded-tl bg-white w-auto">
-                    <p className="break-all whitespace-pre-wrap">
-                      {list.message}
-                    </p>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="block text-[13px] uppercase text-start">
-                      {list.sendTime}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )
-        )}
-      </>
-    );
+          </div>
+        ))}
+      </div>
+    ));
   }
-
   return (
     <>
       <div className="h-full overflow-auto">
         <div className="p-5 h-full bg-[#e9edef] overflow-auto">
           <div></div>
-          <div>
-            <span className="block text-center text-[14px] py-4">
-              2024년 1월 5일
-            </span>
-            {showChat()}
-          </div>
+          <div>{showChat()}</div>
         </div>
       </div>
       {/* 텍스트창 */}
