@@ -1,23 +1,33 @@
 import { useEffect, useState, useContext } from 'react';
 import ChatModalContext from '../../context/ChatModalProvider';
 import Modal from './Modal';
-import AuthContext from '../../context/AuthProvider';
 import { getChatRoom } from './../../api/chat.api';
 import { formattedNumber } from './../../utils/util';
 import ChatBody from './ChatBody';
+import useAuth from './../../hooks/useAuth';
 
 export default function ChatModal() {
   const [chatRoom, setChatRoom] = useState();
-  const { auth } = useContext(AuthContext);
+  const { auth } = useAuth();
+  const { isOpen, setIsOpen } = useContext(ChatModalContext);
   const [chatRoomList, setChatRoomList] = useState([]);
-
   useEffect(() => {
-    getChatRoom().then((result) => {
-      setChatRoomList(result.data);
-    });
-  }, []);
+    if (auth)
+      getChatRoom()
+        .then((result) => {
+          setChatRoomList(result.data);
+        })
+        .catch(() => {
+          setIsOpen(false);
+        });
+    else {
+      setChatRoomList([]);
+      setChatRoom();
+    }
+  }, [auth, isOpen, setIsOpen]);
+
   const findNickName = (chat) => {
-    return auth.id === chat.buyUser.id
+    return auth?.id === chat.buyUser.id
       ? chat.buyUser.userInfo
         ? chat.sellUser.userInfo.usrNickName
         : chat.sellUser.nickname
@@ -101,17 +111,19 @@ export default function ChatModal() {
                     alt="프로필"
                     // src="profile.png"
                     src={
-                      auth.id === chatroom.buyUser.id
-                        ? chatroom.sellUser.userInfo
-                          ? require(
-                              `../../assets${chatroom.sellUser.userInfo.imgUrl}`
-                            )
-                          : 'profile.png'
-                        : chatroom.buyUser.userInfo
-                          ? require(
-                              `../../assets${chatroom.buyUser.userInfo.imgUrl}`
-                            )
-                          : 'profile.png'
+                      auth
+                        ? auth.id === chatroom.buyUser.id
+                          ? chatroom.sellUser.userInfo
+                            ? require(
+                                `../../assets${chatroom.sellUser.userInfo.imgUrl}`
+                              )
+                            : 'profile.png'
+                          : chatroom.buyUser.userInfo
+                            ? require(
+                                `../../assets${chatroom.buyUser.userInfo.imgUrl}`
+                              )
+                            : 'profile.png'
+                        : null
                     }
                     decoding="async"
                     data-nimg="1"
