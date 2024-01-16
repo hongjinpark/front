@@ -32,69 +32,77 @@ export default function Noitce() {
             setRole(result.data);
           })
       : null;
+    console.log(role);
+    console.log(board);
   }, []);
 
   return (
-    <div className={styles.body}>
-      <h2 className={styles.logo}> 공지사항 </h2>
-      <Outlet />
-
-      <div className={styles.list}>
-        <div className={`${styles.list_tit} ${styles.list_grid}`}>
-          <div> 제목 </div>
-          <div className={styles.acenter}> 작성일 </div>
+    <section className={styles.notice}>
+      <div className={styles[`page-title`]}>
+        <div className={styles.container}>
+          <h3>공지사항</h3>
         </div>
-
-        {board
-          ? board.map(function (a, i) {
-              return <List i={i} key={i} />;
-            })
-          : null}
       </div>
 
-      <Button
-        className={styles.button}
-        onClick={() => {
-          navigator('/notice');
-          MoveToTop();
-        }}
-        variant="outline-dark"
-      >
-        목록
-      </Button>
-      {role == 'ADMIN' ? (
-        <Button
-          className={styles.button}
-          onClick={() => {
-            navigator('/notice/write');
-            MoveToTop();
-          }}
-          variant="outline-dark"
-        >
-          글쓰기
-        </Button>
-      ) : null}
-    </div>
+      <div id="board-list">
+        <div className={styles.container}>
+          <Outlet />
+          <table className={styles[`board-table`]}>
+            <thead>
+              <tr>
+                <th scope="col" className={styles[`th-title`]}>
+                  제목
+                </th>
+                <th scope="col" className={styles[`th-date`]}>
+                  등록일
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {board
+                ? board.map(function (a, i) {
+                    return <List i={i} key={i} />;
+                  })
+                : null}
+            </tbody>
+          </table>
+          <Button
+            className={styles.button}
+            onClick={() => {
+              navigator('/notice');
+              MoveToTop();
+            }}
+            variant="outline-dark"
+          >
+            목록
+          </Button>
+          {role == 'ADMIN' ? (
+            <Button
+              className={styles.button}
+              onClick={() => {
+                navigator('/notice/write');
+                MoveToTop();
+              }}
+              variant="outline-dark"
+            >
+              글쓰기
+            </Button>
+          ) : null}
+        </div>
+      </div>
+    </section>
   );
 
   function List(props) {
-    const [hover, setHover] = useState(false);
     return (
-      <div className={`${styles.list_data} ${styles.list_grid}`}>
-        <div
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-          onClick={() => {
-            navigator('/notice/' + board[props.i].notice_id);
-            MoveToTop();
-          }}
-          className={`${styles.title} ${hover == true ? styles.hover : ''}`}
-          role="presentation"
-        >
-          {board[props.i].notice_title}
-        </div>
-        <div className={styles.acenter}>{board[props.i].reg_time}</div>
-      </div>
+      <tr>
+        <th>
+          <a href={'/notice/' + board[props.i].notice_id}>
+            {board[props.i].notice_title}
+          </a>
+        </th>
+        <td>{board[props.i].reg_time}</td>
+      </tr>
     );
   }
 }

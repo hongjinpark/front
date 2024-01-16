@@ -1,8 +1,9 @@
 import styles from './NoticeWrite.module.css';
-import { Button } from 'react-bootstrap/';
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { SaveOutlined } from '@ant-design/icons';
+import ToastPopup from '../components/ToastPopup';
 
 export default function NoticeDetail() {
   const navigator = useNavigate();
@@ -10,6 +11,8 @@ export default function NoticeDetail() {
 
   const [titleValue, setTitle] = useState('');
   const [contentsValue, setcontents] = useState('');
+  const [toast, setToast] = useState(false);
+  const [toastContent, setToastConstent] = useState('');
 
   const saveTitle = (event) => {
     setTitle(event.target.value);
@@ -24,7 +27,7 @@ export default function NoticeDetail() {
         <div className={styles.top_title}>
           <input
             className={styles.title_text}
-            placeholder="제목"
+            placeholder="제목을 입력해주세요"
             defaultValue={titleValue}
             onChange={saveTitle}
           ></input>
@@ -32,13 +35,13 @@ export default function NoticeDetail() {
 
         <textarea
           className={styles.contents_text}
-          placeholder="내용"
+          placeholder="내용을 입력해주세요"
           defaultValue={contentsValue}
           onChange={saveContent}
         ></textarea>
       </div>
-      <Button
-        variant="outline-dark"
+      <SaveOutlined
+        className={styles.save}
         onClick={() => {
           if (titleValue !== '' && contentsValue !== '') {
             axios
@@ -49,18 +52,17 @@ export default function NoticeDetail() {
               .then(() => {
                 navigator('/notice');
                 window.location.reload('/notice');
-                alert('저장 완료.');
               });
           } else if (titleValue == '') {
-            alert('제목을 입력해주세요');
+            setToastConstent('제목을 입력해주세요');
+            setToast(true);
           } else {
-            alert('내용을 입력해주세요');
+            setToast(true);
+            setToastConstent('내용을 입력해주세요');
           }
         }}
-        className={styles.button}
-      >
-        저장
-      </Button>
+      />
+      {toast && <ToastPopup setToast={setToast} text={toastContent} />}
     </div>
   );
 }
