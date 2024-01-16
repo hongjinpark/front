@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-catch */
 import styles from './Category.module.css';
+import '../components/Font.css';
 import classNames from 'classnames';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -60,9 +61,21 @@ export default function Category({ className }) {
           </ul>
         </div>
       </div>
-      <button className={classNames(styles.btn, styles.eBtn)}>이벤트</button>
-      <button className={classNames(styles.btn, styles.sBtn)}>사기조회</button>
-      <button className={classNames(styles.btn, styles.iBtn)}>출석체크</button>
+      <button className={classNames(styles.btn, styles.eBtn)}>
+        <Link to="/admin" style={{ textDecoration: 'none', color: 'inherit' }}>
+          Admin
+        </Link>
+      </button>
+      <button className={classNames(styles.btn, styles.sBtn)}>
+        <Link to="/board" style={{ textDecoration: 'none', color: 'inherit' }}>
+          게시판
+        </Link>
+      </button>
+      <button className={classNames(styles.btn, styles.iBtn)}>
+        <Link to="/notice" style={{ textDecoration: 'none', color: 'inherit' }}>
+          공지사항
+        </Link>
+      </button>
     </div>
   );
 }

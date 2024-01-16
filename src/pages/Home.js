@@ -33,7 +33,7 @@ const Home = () => {
   }, [auth]);
 
   return (
-    <Container>
+    <Container className={styles.container}>
       <div className={styles.box1}>
         <div className={styles.items}>
           <Products

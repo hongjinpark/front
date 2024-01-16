@@ -36,37 +36,43 @@ export default function SearchBar({ className }) {
         <h3 className={`${styles.searchBar} ${styles.recentTtitle}`}>
           최근 검색어
         </h3>
-        <button onClick={handleClearKeyword} className={styles.searchBar}>
-          <p className={`${styles.searchBar} ${styles.recentDelete}`}>
-            전체 삭제
-          </p>
-        </button>
+        {keywordList.length !== 0 && (
+          <button onClick={handleClearKeyword} className={styles.searchBar}>
+            <p className={`${styles.searchBar} ${styles.recentDelete}`}>
+              전체 삭제
+            </p>
+          </button>
+        )}
       </div>
       <div className={`${styles.searchBar} ${styles.recentList}`}>
-        {keywordList.map((e, index) => (
-          <ul key={index} className={styles.searchBar}>
-            <li className={styles.searchBar}>
-              <button className={`${styles.searchBar} ${styles.recentWord}`}>
-                <span
-                  value={e}
-                  className={styles.searchBar}
-                  onClick={() => handleMovePage({ e })}
-                  role="presentation"
-                >
-                  {e}
-                </span>
-                <FontAwesomeIcon
-                  icon={faXmark}
-                  className={`${styles.xmark}`}
-                  onClick={() => handleRemoveKeyword(index)}
-                />
-              </button>
-            </li>
-            {keywordList.length === 0 && (
-              <li className={styles.searchBar}>검색어 내역이 없습니다.</li>
-            )}
-          </ul>
-        ))}
+        {keywordList.length === 0 && (
+          <li className={`${styles.searchBar} ${styles.noSearch}`}>
+            검색어 내역이 없습니다.
+          </li>
+        )}
+        {keywordList.map((e, index) => {
+          return (
+            <ul key={index} className={styles.searchBar}>
+              <li className={styles.searchBar}>
+                <button className={`${styles.searchBar} ${styles.recentWord}`}>
+                  <span
+                    value={e}
+                    className={styles.searchBar}
+                    onClick={() => handleMovePage({ e })}
+                    role="presentation"
+                  >
+                    {e}
+                  </span>
+                  <FontAwesomeIcon
+                    icon={faXmark}
+                    className={`${styles.xmark}`}
+                    onClick={() => handleRemoveKeyword(index)}
+                  />
+                </button>
+              </li>
+            </ul>
+          );
+        })}
       </div>
     </div>
   );

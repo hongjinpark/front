@@ -1,3 +1,7 @@
+.section {
+  padding-top: 140px;
+}
+
 .container {
   display: flex;
 }

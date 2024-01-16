@@ -21,7 +21,7 @@
 .info,
 .contact {
   padding: 0;
-  color: #c4c4c4;
+  color: #8f8f8f;
   list-style: none;
 }
 
@@ -37,14 +37,23 @@
 }
 
 .title {
-  font-size: 32px;
   font-weight: 600;
   color: #333;
+  padding-bottom: 20px;
 }
 .subTitle {
-  font-size: 24px;
-  font-weight: 500;
+  font-weight: bold;
+  font-size: 18px;
   color: #333;
+  padding-bottom: 10px;
+}
+.subLists {
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.subLists:hover {
+  color: #333;
+  transition: all 0.2s ease;
 }
 
 .items:hover {

@@ -93,7 +93,7 @@ export default function Search() {
   }
 
   return (
-    <Container>
+    <Container className={styles.section}>
       <div className={styles.search}>
         <div className={styles.container}>
           {/* left box */}

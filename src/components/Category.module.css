@@ -1,5 +1,7 @@
 .category {
   display: flex;
+  font-family: 'Pretendard Variable';
+  padding: 20px 0 10px;
 }
 
 .category > .btn {
