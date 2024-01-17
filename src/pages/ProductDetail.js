@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 import { Link, useParams } from 'react-router-dom';
 import styles from './ProductDetail.module.css';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { getApi } from '../api/axios';
 import Container from '../components/Container';
 import Button from '../components/Button';
@@ -9,13 +9,14 @@ import Caution from '../components/Caution';
 import LikeButton from '../components/LikeButton';
 import axios from 'axios';
 import ToastPopup from '../components/ToastPopup';
+import ChatModalContext from '../context/ChatModalProvider';
 
 export default function ProductDetail() {
   const { product_id } = useParams();
   const [list, setList] = useState([]);
   const [course, setCourse] = useState(null);
   const token = localStorage.getItem('login');
-  const [chattingBox, setChattingBox] = useState(false);
+  const { setIsOpen, setStep } = useContext(ChatModalContext);
 
   //관심물품
   const [like, setLike] = useState(false);
@@ -85,20 +86,21 @@ export default function ProductDetail() {
   };
 
   const handleChatt = () => {
-    setChattingBox(true);
+    setIsOpen(true);
+    setStep('init');
   };
 
-  const handleExceptioin = (e) => {
-    let newclassName = e.target.className;
-    //추후 수정여부 검토 필요
-    if (newclassName.includes !== undefined) {
-      if (newclassName.includes('ProductDetail_chat__V1pwk')) {
-        setChattingBox(true);
-      } else if (chattingBox === true) {
-        setChattingBox(false);
-      }
-    }
-  };
+  // const handleExceptioin = (e) => {
+  //   let newclassName = e.target.className;
+  //   //추후 수정여부 검토 필요
+  //   if (newclassName.includes !== undefined) {
+  //     if (newclassName.includes('ProductDetail_chat__V1pwk')) {
+  //       setChattingBox(true);
+  //     } else if (chattingBox === true) {
+  //       setChattingBox(false);
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     productLists();
@@ -114,7 +116,7 @@ export default function ProductDetail() {
   }, [list, product_id]);
 
   return (
-    <div onClick={handleExceptioin} role="presentation">
+    <div role="presentation">
       <Container className={styles.container}>
         {course && (
           <>
@@ -180,7 +182,7 @@ export default function ProductDetail() {
           </div>
         )}
 
-        <div
+        {/* <div
           className={
             chattingBox
               ? `${styles.chatSection} ${styles.active}`
@@ -216,7 +218,7 @@ export default function ProductDetail() {
               <button className={styles.chat}>보내기</button>
             </div>
           </div>
-        </div>
+        </div> */}
         {toast && (
           <ToastPopup setToast={setToast} text="관심 상품이 추가되었습니다." />
         )}

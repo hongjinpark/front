@@ -10,6 +10,7 @@ import { faFilePen } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from './SearchBar';
 import secureLocalStorage from 'react-secure-storage';
 import ChatModalContext from '../context/ChatModalProvider';
+import useAuth from '../hooks/useAuth';
 
 export default function Nav() {
   const Token = localStorage.getItem('login');
@@ -20,7 +21,8 @@ export default function Nav() {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState(initKeyword || '');
   const [show, setOff] = useState(false);
-  const { setIsOpen } = useContext(ChatModalContext);
+  const { setIsOpen, setStep } = useContext(ChatModalContext);
+  const { setAuth } = useAuth();
   let nowKeyword = '';
 
   if (nowUrl.indexOf('keyword')) {
@@ -43,6 +45,7 @@ export default function Nav() {
     localStorage.removeItem('login');
     secureLocalStorage.removeItem('role');
     localStorage.removeItem('user');
+    setAuth(null);
     alert('로그아웃 완료');
     navigate('/');
   };
@@ -135,7 +138,10 @@ export default function Nav() {
           <ul className={styles.menu}>
             <li
               className="flex items-center justify-center pr-3"
-              onClick={() => setIsOpen(true)}
+              onClick={() => {
+                setIsOpen(true);
+                setStep('room');
+              }}
               role="presentation"
             >
               <button className="flex items-center justify-center">

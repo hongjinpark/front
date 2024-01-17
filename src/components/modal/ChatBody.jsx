@@ -4,6 +4,7 @@ import AuthContext from '../../context/AuthProvider';
 import SockJS from 'sockjs-client';
 import Stomp from 'webstomp-client';
 import { format, isSameDay } from 'date-fns';
+import { formattedNumber } from './../../utils/util';
 
 export default function ChatBody({ chatRoom }) {
   const [text, setText] = useState('');
@@ -66,6 +67,39 @@ export default function ChatBody({ chatRoom }) {
     stomp.current.send(`/room/${chatRoom.chatRoomId}`, text);
     setText('');
   };
+  const header = () => {
+    return (
+      <div className="border-t-2 px-4 min-h-[70px] basis-[70px] flex justify-between items-center">
+        <a
+          className="flex flex-grow h-10 gap-4"
+          href={`/${chatRoom?.product.product_id}`}
+        >
+          <div className="relative w-10 h-10 aspect-square">
+            <img
+              alt="상품 썸네일"
+              src={
+                chatRoom && require(`../../assets${chatRoom?.product.imgUrl}`)
+              } // 상품 이미지
+              decoding="async"
+              data-nimg="fill"
+              className="rounded-md h-full w-full"
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <div className="flex items-center">
+              <span className="font-semibold text-[15px]">
+                {formattedNumber(chatRoom?.product.price)}
+              </span>
+            </div>
+            <span className="block text-[12px]">
+              {chatRoom?.product.pdTitle}
+            </span>
+          </div>
+        </a>
+      </div>
+    );
+  };
   function showChat() {
     return groupedMessages.map((group) => (
       <div key={group.date}>
@@ -111,6 +145,7 @@ export default function ChatBody({ chatRoom }) {
   }
   return (
     <>
+      {header()}
       <div className="h-full overflow-auto">
         <div className="p-5 h-full bg-[#e9edef] overflow-auto">
           <div></div>

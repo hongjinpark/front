@@ -4,7 +4,7 @@ const ChatModalContext = createContext({});
 
 export const ChatModalProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [step, setStep] = useState();
   const openChatModal = () => {
     setIsOpen(true);
   };
@@ -20,6 +20,8 @@ export const ChatModalProvider = ({ children }) => {
         setIsOpen,
         openModal: openChatModal,
         closeModal: closeChatModal,
+        step,
+        setStep,
       }}
     >
       {children}
