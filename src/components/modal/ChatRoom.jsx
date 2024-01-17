@@ -2,11 +2,12 @@ import { useState, useContext, useEffect } from 'react';
 import useAuth from './../../hooks/useAuth';
 import ChatModalContext from '../../context/ChatModalProvider';
 import { getChatRoom } from './../../api/chat.api';
-export default function ChatRoom({ setChatRoom }) {
+export default function ChatRoom({ setChatRoom, setTitle }) {
   const { auth } = useAuth();
   const { isOpen, setIsOpen, setStep } = useContext(ChatModalContext);
   const [chatRoomList, setChatRoomList] = useState([]);
   useEffect(() => {
+    setTitle('채팅');
     if (auth)
       getChatRoom()
         .then((result) => {

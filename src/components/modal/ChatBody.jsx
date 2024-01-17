@@ -6,14 +6,15 @@ import Stomp from 'webstomp-client';
 import { format, isSameDay } from 'date-fns';
 import { formattedNumber } from './../../utils/util';
 
-export default function ChatBody({ chatRoom }) {
-  const [text, setText] = useState('');
+export default function ChatBody({ chatRoom, setTitle }) {
+  const [text, setText] = useState();
   const { auth } = useContext(AuthContext);
   const [chatList, setChatList] = useState([]);
   const stomp = useRef(null);
   useEffect(() => {
     setChatList([]);
     if (chatRoom) {
+      setTitle(findNickName(chatRoom));
       const socket = new SockJS('http://localhost:8090/ws');
       stomp.current = Stomp.over(socket);
       axios
@@ -37,6 +38,15 @@ export default function ChatBody({ chatRoom }) {
       }
     };
   }, [chatRoom]);
+  const findNickName = () => {
+    return auth?.id === chatRoom.buyUser.id
+      ? chatRoom.buyUser.userInfo
+        ? chatRoom.sellUser.userInfo.usrNickName
+        : chatRoom.sellUser.nickname
+      : chatRoom.buyUser.userInfo
+        ? chatRoom.buyUser.userInfo.usrNickName
+        : chatRoom.buyUser.nickname;
+  };
   const groupMessagesByDate = (messages) => {
     const groupedMessages = [];
 

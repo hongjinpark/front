@@ -1,37 +1,26 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import ChatModalContext from '../../context/ChatModalProvider';
 import Modal from './Modal';
 import ChatRoom from './ChatRoom';
 import ChatBody from './ChatBody';
-import useAuth from '../../hooks/useAuth';
 import ChatInit from './ChatInit';
 
 export default function ChatModal() {
   const { step } = useContext(ChatModalContext);
-  const { auth } = useAuth();
   const [chatRoom, setChatRoom] = useState();
-  useEffect(() => {});
+  const [title, setTitle] = useState();
 
-  const findNickName = () => {
-    return auth?.id === chatRoom.buyUser.id
-      ? chatRoom.buyUser.userInfo
-        ? chatRoom.sellUser.userInfo.usrNickName
-        : chatRoom.sellUser.nickname
-      : chatRoom.buyUser.userInfo
-        ? chatRoom.buyUser.userInfo.usrNickName
-        : chatRoom.buyUser.nickname;
-  };
   return (
     <Modal
       ModalContext={ChatModalContext}
-      title={step === 'room' ? '채팅' : step === 'chat' ? findNickName() : null}
+      title={title}
       bodyContent={
         step === 'room' ? (
-          <ChatRoom setChatRoom={setChatRoom} />
+          <ChatRoom setChatRoom={setChatRoom} setTitle={setTitle} />
         ) : step === 'chat' ? (
-          <ChatBody chatRoom={chatRoom} />
+          <ChatBody chatRoom={chatRoom} setTitle={setTitle} />
         ) : step === 'init' ? (
-          <ChatInit />
+          <ChatInit setTitle={setTitle} />
         ) : null
       }
     />

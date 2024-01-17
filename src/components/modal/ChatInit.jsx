@@ -1,11 +1,31 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-export default function ChatInit() {
+import { useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getProductById } from '../../api/product.api';
+import useAuth from '../../hooks/useAuth';
+import ChatModalContext from '../../context/ChatModalProvider';
+export default function ChatInit({ setTitle }) {
   const location = useLocation();
-  const [text, setText] = useState('');
+  const [product, setProduct] = useState();
+  const [text, setText] = useState();
+  const { auth } = useAuth();
+  const navigate = useNavigate();
+  const { setIsOpen } = useContext(ChatModalContext);
   useEffect(() => {
-    console.log(location.pathname.replace('/', ''));
-  });
+    if (!auth) {
+      navigate('/login');
+      setIsOpen(false);
+    }
+    const pdId = location.pathname.replace('/', '');
+    getProductById(pdId).then((res) => {
+      setProduct(res.data);
+      setTitle(res.data.user_nickname);
+    });
+  }, []);
+  useEffect(() => {
+    setText(
+      `[상품정보 보내기] 안녕하세요. [${product?.pdTitle}] 보고 문의드립니다.`
+    );
+  }, [product]);
   return (
     <>
       <div className="h-full overflow-auto">
@@ -14,7 +34,7 @@ export default function ChatInit() {
           <div className="flex flex-col items-center justify-center h-full gap-3 text-center">
             <img
               alt="알림 로고"
-              src="/_next/static/media/alert.f94545b9.svg"
+              src="alert.svg"
               width="48"
               height="48"
               decoding="async"
