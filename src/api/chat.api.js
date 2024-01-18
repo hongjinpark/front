@@ -13,3 +13,6 @@ export const createChatRoom = (message, id) => {
     },
   });
 };
+export const existChatRoom = (productId) => {
+  return httpApi.get(`/chat/chatroom/product/${productId}`);
+};

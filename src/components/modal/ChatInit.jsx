@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getProductById } from '../../api/product.api';
 import useAuth from '../../hooks/useAuth';
 import ChatModalContext from '../../context/ChatModalProvider';
-import { createChatRoom, getChatRoom } from '../../api/chat.api';
+import { createChatRoom, existChatRoom, getChatRoom } from '../../api/chat.api';
 export default function ChatInit({ setTitle, setChatRoom }) {
   const location = useLocation();
   const [product, setProduct] = useState();
@@ -17,6 +17,13 @@ export default function ChatInit({ setTitle, setChatRoom }) {
       setIsOpen(false);
     }
     const pdId = location.pathname.replace('/', '');
+    existChatRoom(pdId).then((res) => {
+      const data = res.data;
+      if (data) {
+        setChatRoom(data);
+        setStep('chat');
+      }
+    });
     getProductById(pdId).then((res) => {
       setProduct(res.data);
       setTitle(res.data.user_nickname);
