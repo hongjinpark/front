@@ -2,18 +2,25 @@ import { Button } from 'react-bootstrap/';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Notice.module.css';
 import styles from './Notice.module.css';
-
+import Pagination from './Pagination';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 export default function Noitce() {
   const navigator = useNavigate();
-  const [board, setBoard] = useState();
+  const [board, setBoard] = useState([]);
   const MoveToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const [role, setRole] = useState('');
+
+  //페이지네이션
+  // const [Data, setData] = useState();
+  const [limit, setLimit] = useState(3);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
+  // const test = setData(board.slice(offset, offset + limit));
 
   useEffect(() => {
     axios.get('http://localhost:8090/notice/list').then((result) => {
@@ -32,8 +39,7 @@ export default function Noitce() {
             setRole(result.data);
           })
       : null;
-    console.log(role);
-    console.log(board);
+    setLimit(10);
   }, []);
 
   return (
@@ -59,11 +65,7 @@ export default function Noitce() {
               </tr>
             </thead>
             <tbody>
-              {board
-                ? board.map(function (a, i) {
-                    return <List i={i} key={i} />;
-                  })
-                : null}
+              <List data={board.slice(offset, offset + limit)} />
             </tbody>
           </table>
           <Button
@@ -88,21 +90,30 @@ export default function Noitce() {
               글쓰기
             </Button>
           ) : null}
+          <Pagination
+            total={board.length}
+            limit={limit}
+            page={page}
+            setPage={setPage}
+          />
+          {/* {board ? console.log(board.length) : null} */}
         </div>
       </div>
     </section>
   );
 
   function List(props) {
-    return (
-      <tr>
-        <th>
-          <a href={'/notice/' + board[props.i].notice_id}>
-            {board[props.i].notice_title}
-          </a>
-        </th>
-        <td>{board[props.i].reg_time}</td>
-      </tr>
-    );
+    return props.data.map(function (a, i) {
+      return (
+        <tr key={i}>
+          <th>
+            <a href={'/notice/' + props.data[i].notice_id}>
+              {props.data[i].notice_title}
+            </a>
+          </th>
+          <td>{props.data[i].reg_time}</td>
+        </tr>
+      );
+    });
   }
 }
