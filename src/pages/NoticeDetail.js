@@ -43,32 +43,34 @@ export default function NoticeDetail() {
             <div className={styles.title_text}>
               {data[data.findIndex((v) => v.notice_id == id)].notice_title}
             </div>
-            {role == 'ADMIN' ? (
-              <div className={styles.edit}>
-                <EditOutlined
-                  onClick={() => {
-                    navigator('/notice/update/' + params.id);
-                    MoveToTop();
-                  }}
-                  className={styles.button}
-                />
-                <DeleteOutlined
-                  onClick={() => {
-                    if (window.confirm('삭제하시겠습니까?')) {
-                      axios
-                        .delete('http://localhost:8090/notice/' + params.id)
-                        .then(() => {
-                          navigator('/notice');
-                          window.location.reload('/notice');
-                        });
-                    }
-                  }}
-                  className={styles.button}
-                />
+            <div className={styles.sub_head}>
+              {role == 'ADMIN' ? (
+                <div className={styles.edit}>
+                  <EditOutlined
+                    onClick={() => {
+                      navigator('/notice/update/' + params.id);
+                      MoveToTop();
+                    }}
+                    className={styles.button}
+                  />
+                  <DeleteOutlined
+                    onClick={() => {
+                      if (window.confirm('삭제하시겠습니까?')) {
+                        axios
+                          .delete('http://localhost:8090/notice/' + params.id)
+                          .then(() => {
+                            navigator('/notice');
+                            window.location.reload('/notice');
+                          });
+                      }
+                    }}
+                    className={styles.button}
+                  />
+                </div>
+              ) : null}
+              <div className={styles.date_div}>
+                {data[data.findIndex((v) => v.notice_id == id)].reg_time}
               </div>
-            ) : null}
-            <div className={styles.date_div}>
-              {data[data.findIndex((v) => v.notice_id == id)].reg_time}
             </div>
           </div>
 

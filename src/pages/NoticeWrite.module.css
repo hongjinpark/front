@@ -20,7 +20,7 @@
   font-size: 20px;
   width: 100%;
   outline: none;
-  margin: 20px 20px 5px 15px;
+  margin: 15px 20px 5px 15px;
 }
 .contents_text {
   margin: 20px 20px;
@@ -30,7 +30,8 @@
   resize: none;
 }
 .top_title {
-  border-bottom: solid 5px #ababab;
+  border-top: solid 2px gray;
+  border-bottom: double 5px #ababab;
   margin: 30px 0px 0px 0px;
 }
 .save {

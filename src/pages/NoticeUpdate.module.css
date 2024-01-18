@@ -1,6 +1,7 @@
 .body {
-  margin: 0 auto;
+  /* margin: 0 auto; */
   width: 1200px;
+  /* margin-top: 140px; */
 }
 .box {
   height: 800px;
@@ -28,6 +29,7 @@
   resize: none;
 }
 .top_title {
-  border-bottom: solid 5px #ababab;
-  margin: 30px 0px 0px 0px;
+  border-bottom: double 5px #ababab;
+  border-top: solid 2px gray;
+  /* margin: 30px 0px 0px 0px; */
 }

@@ -16,11 +16,10 @@ export default function Noitce() {
   const [role, setRole] = useState('');
 
   //페이지네이션
-  // const [Data, setData] = useState();
+
   const [limit, setLimit] = useState(3);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
-  // const test = setData(board.slice(offset, offset + limit));
 
   useEffect(() => {
     axios.get('http://localhost:8090/notice/list').then((result) => {
@@ -96,7 +95,6 @@ export default function Noitce() {
             page={page}
             setPage={setPage}
           />
-          {/* {board ? console.log(board.length) : null} */}
         </div>
       </div>
     </section>
