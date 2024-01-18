@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import styles from './ToastPopup.module.css';
 
-function ToastPopup({ setToast, text }) {
+function ToastPopup({ toast, setToast, text }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setToast(false);
@@ -9,13 +9,13 @@ function ToastPopup({ setToast, text }) {
     return () => {
       clearTimeout(timer);
     };
-  }, [setToast]);
+  }, [toast]);
 
-  return (
+  return toast == true ? (
     <div className={styles.board}>
       <p className={styles.Toast}>{text}</p>
     </div>
-  );
+  ) : null;
 }
 
 export default ToastPopup;

@@ -376,9 +376,12 @@ export default function ProductDetail() {
             </div>
           </div>
         </div> */}
-        {toast && (
-          <ToastPopup setToast={setToast} text="관심 상품이 추가되었습니다." />
-        )}
+
+        <ToastPopup
+          toast={toast}
+          setToast={setToast}
+          text="관심 상품이 추가되었습니다."
+        />
       </Container>
     </div>
   );

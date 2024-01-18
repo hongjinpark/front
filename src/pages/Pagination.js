@@ -30,7 +30,7 @@ export default function Pagination({ total, limit, page, setPage }) {
           disabled={page === 1}
           role="presentation"
         >
-          <FontAwesomeIcon icon={faAngleLeft} />
+          <FontAwesomeIcon className={styles.faAngle} icon={faAngleLeft} />
         </div>
         {numPages > 0 ? (
           Array(numPages)
@@ -72,7 +72,7 @@ export default function Pagination({ total, limit, page, setPage }) {
           disabled={page === numPages}
           role="presentation"
         >
-          <FontAwesomeIcon icon={faAngleRight} />
+          <FontAwesomeIcon className={styles.faAngle} icon={faAngleRight} />
         </div>
       </div>
     </>
