@@ -3,13 +3,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getProductById } from '../../api/product.api';
 import useAuth from '../../hooks/useAuth';
 import ChatModalContext from '../../context/ChatModalProvider';
-export default function ChatInit({ setTitle }) {
+import { createChatRoom, getChatRoom } from '../../api/chat.api';
+export default function ChatInit({ setTitle, setChatRoom }) {
   const location = useLocation();
   const [product, setProduct] = useState();
   const [text, setText] = useState();
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { setIsOpen } = useContext(ChatModalContext);
+  const { setIsOpen, setStep } = useContext(ChatModalContext);
   useEffect(() => {
     if (!auth) {
       navigate('/login');
@@ -21,6 +22,17 @@ export default function ChatInit({ setTitle }) {
       setTitle(res.data.user_nickname);
     });
   }, []);
+
+  const handleSend = () => {
+    createChatRoom(text, location.pathname.replace('/', '')).then((res) => {
+      const id = res.data;
+      getChatRoom(id).then((res) => {
+        setChatRoom(res.data);
+        setStep('chat');
+      });
+    });
+  };
+
   useEffect(() => {
     setText(
       `[상품정보 보내기] 안녕하세요. [${product?.pdTitle}] 보고 문의드립니다.`
@@ -104,7 +116,7 @@ export default function ChatInit({ setTitle }) {
               type="submit"
               disabled=""
               className="w-6 h-6"
-              //   onClick={sendMessage}
+              onClick={() => handleSend()}
             >
               <svg
                 stroke="currentColor"

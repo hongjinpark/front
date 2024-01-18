@@ -20,7 +20,7 @@ export default function ChatModal() {
         ) : step === 'chat' ? (
           <ChatBody chatRoom={chatRoom} setTitle={setTitle} />
         ) : step === 'init' ? (
-          <ChatInit setTitle={setTitle} />
+          <ChatInit setTitle={setTitle} setChatRoom={setChatRoom} />
         ) : null
       }
     />

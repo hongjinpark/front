@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import useAuth from './../../hooks/useAuth';
 import ChatModalContext from '../../context/ChatModalProvider';
-import { getChatRoom } from './../../api/chat.api';
+import { getChatRoomList } from './../../api/chat.api';
 export default function ChatRoom({ setChatRoom, setTitle }) {
   const { auth } = useAuth();
   const { isOpen, setIsOpen, setStep } = useContext(ChatModalContext);
@@ -9,7 +9,7 @@ export default function ChatRoom({ setChatRoom, setTitle }) {
   useEffect(() => {
     setTitle('채팅');
     if (auth)
-      getChatRoom()
+      getChatRoomList()
         .then((result) => {
           setChatRoomList(result.data);
         })
