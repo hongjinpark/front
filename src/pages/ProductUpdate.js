@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import styles from '../pages/Search.module.css';
 
 const ProductUpdate = () => {
   const [imageList, setImageList] = useState([]);
@@ -118,7 +119,7 @@ const ProductUpdate = () => {
       >
         {errMsg}
       </p>
-      <Container>
+      <Container className={styles.section}>
         <Form onSubmit={onClickSubmit} className="mx-auto w-full max-w-[768px]">
           <Form.Group
             as={Row}
@@ -219,7 +220,7 @@ const ProductUpdate = () => {
                 id="price"
                 name="price"
                 placeholder="판매가격"
-                className="py-2 px-4 md:px-5 w-full appearance-none border text-input text-xs lg:text-sm font-body placeholder-body min-h-12 transition duration-200 ease-in-out bg-white border-gray-300 focus:border-heading h-11 md:h-12 focus:outline-none rounded-md"
+                className
                 autoComplete="off"
                 spellCheck="false"
                 aria-invalid="false"
@@ -250,7 +251,11 @@ const ProductUpdate = () => {
             </Col>
           </Form.Group>
           <div style={{ marginTop: 40 }} className="d-grid gap-1">
-            <Button variant="secondary" type="submit">
+            <Button
+              variant="secondary"
+              type="submit"
+              className="bg-[rgb(108,117,125)]"
+            >
               등록
             </Button>
           </div>

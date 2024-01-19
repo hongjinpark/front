@@ -6,6 +6,7 @@ import { login } from '../api/user.api';
 import { Button, Container, Col, Row, Form } from 'react-bootstrap';
 import { httpApi } from './../api/axios';
 import secureLocalStorage from 'react-secure-storage';
+import styles from '../pages/Search.module.css';
 
 const Login = () => {
   const { setAuth } = useAuth();
@@ -69,7 +70,7 @@ const Login = () => {
       >
         {errMsg}
       </p>
-      <Container className="main-right">
+      <Container className={styles.section}>
         <Form onSubmit={handleSubmit}>
           <Form.Group as={Row} ClassName="mb-3" controlId="formBasicEmail">
             <Col sm>
