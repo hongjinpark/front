@@ -20,6 +20,25 @@ export default function NoticeDetail() {
   const saveContent = (event) => {
     setcontents(event.target.value);
   };
+  const Save = () => {
+    if (titleValue !== '' && contentsValue !== '') {
+      axios
+        .post('http://localhost:8090/notice/new', {
+          noticeContents: contentsValue,
+          noticeTitle: titleValue,
+        })
+        .then(() => {
+          navigator('/notice');
+          window.location.reload('/notice');
+        });
+    } else if (titleValue == '') {
+      setToastConstent('제목을 입력해주세요');
+      setToast(true);
+    } else {
+      setToast(true);
+      setToastConstent('내용을 입력해주세요');
+    }
+  };
 
   return (
     <div className={styles.body}>
@@ -31,6 +50,7 @@ export default function NoticeDetail() {
             defaultValue={titleValue}
             onChange={saveTitle}
           ></input>
+          <SaveOutlined className={styles.save} onClick={Save} />
         </div>
 
         <textarea
@@ -40,29 +60,8 @@ export default function NoticeDetail() {
           onChange={saveContent}
         ></textarea>
       </div>
-      <SaveOutlined
-        className={styles.save}
-        onClick={() => {
-          if (titleValue !== '' && contentsValue !== '') {
-            axios
-              .post('http://localhost:8090/notice/new', {
-                noticeContents: contentsValue,
-                noticeTitle: titleValue,
-              })
-              .then(() => {
-                navigator('/notice');
-                window.location.reload('/notice');
-              });
-          } else if (titleValue == '') {
-            setToastConstent('제목을 입력해주세요');
-            setToast(true);
-          } else {
-            setToast(true);
-            setToastConstent('내용을 입력해주세요');
-          }
-        }}
-      />
-      {toast && <ToastPopup setToast={setToast} text={toastContent} />}
+
+      <ToastPopup toast={toast} setToast={setToast} text={toastContent} />
     </div>
   );
 }
