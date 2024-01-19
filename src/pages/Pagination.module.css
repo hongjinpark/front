@@ -17,3 +17,6 @@
   font-weight: 800;
   color: red;
 }
+.faAngle:hover {
+  cursor: pointer;
+}

@@ -1,8 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap/';
+// import { Button } from 'react-bootstrap/';
 import axios from 'axios';
 import styles from './NoticeDetail.module.css';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 export default function NoticeDetail() {
   const navigator = useNavigate();
@@ -34,17 +35,40 @@ export default function NoticeDetail() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const Delete = () => {
+    if (window.confirm('삭제하시겠습니까?')) {
+      axios.delete('http://localhost:8090/notice/' + params.id).then(() => {
+        navigator('/notice');
+        window.location.reload('/notice');
+      });
+    }
+  };
+
   return (
     <>
       {data ? (
-        <div className={styles.box}>
+        <div className={styles.body}>
           <div className={styles.top_title}>
             <div className={styles.title_text}>
               {data[data.findIndex((v) => v.notice_id == id)].notice_title}
             </div>
-
-            <div className={styles.date_div}>
-              {data[data.findIndex((v) => v.notice_id == id)].reg_time}
+            <div className={styles.sub_head}>
+              <div className={styles.date_div}>
+                {data[data.findIndex((v) => v.notice_id == id)].reg_time}
+              </div>
+              {role == 'ADMIN' ? (
+                <div className={styles.edit}>
+                  |&nbsp;&nbsp;
+                  <EditOutlined
+                    onClick={() => {
+                      navigator('/notice/update/' + params.id);
+                      MoveToTop();
+                    }}
+                    className={styles.button}
+                  />
+                  <DeleteOutlined onClick={Delete} className={styles.button} />
+                </div>
+              ) : null}
             </div>
           </div>
 
@@ -54,37 +78,6 @@ export default function NoticeDetail() {
             </div>
           </div>
         </div>
-      ) : null}
-      {role == 'ADMIN' ? (
-        <Button
-          variant="outline-dark"
-          onClick={() => {
-            if (window.confirm('삭제하시겠습니까?')) {
-              axios
-                .delete('http://localhost:8090/notice/' + params.id)
-                .then(() => {
-                  navigator('/notice');
-                  window.location.reload('/notice');
-                  alert('삭제 완료');
-                });
-            } else {
-              alert('취소했습니다');
-            }
-          }}
-        >
-          글삭제
-        </Button>
-      ) : null}
-      {role == 'ADMIN' ? (
-        <Button
-          variant="outline-dark"
-          onClick={() => {
-            navigator('/notice/update/' + params.id);
-            MoveToTop();
-          }}
-        >
-          글수정
-        </Button>
       ) : null}
     </>
   );

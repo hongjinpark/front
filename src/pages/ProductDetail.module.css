@@ -1,5 +1,6 @@
 .container {
   padding-top: 50px;
+  padding-top: 140px;
 }
 
 .pdInfo {
@@ -25,6 +26,7 @@
 .infoBox {
   color: #333;
   margin-left: 50px;
+  width: 588px;
 }
 .category {
   margin-bottom: 20px;

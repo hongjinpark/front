@@ -1,4 +1,4 @@
-import styles from './NoticeWrite.module.css';
+import styles from './NoticeUpdate.module.css';
 import { Button } from 'react-bootstrap/';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -42,7 +42,7 @@ export default function NoticeUpdate() {
           <input
             name="title"
             className={styles.title_text}
-            placeholder="제목 수정"
+            placeholder="제목을 입력해주세요"
             defaultValue={data.title}
             onInput={handleChange}
           ></input>
@@ -51,7 +51,7 @@ export default function NoticeUpdate() {
         <textarea
           name="contents"
           className={styles.contents_text}
-          placeholder="내용 수정"
+          placeholder="내용을 입력해주세요"
           defaultValue={data.contents}
           onInput={handleChange}
         ></textarea>
