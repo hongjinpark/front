@@ -164,12 +164,12 @@ const ProductUpdate = () => {
                 id="pdCategory"
                 className="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300"
               >
-                <ul className="flex flex-col border-solid border-jnGray-300">
+                <ul className={styles.categoryList}>
                   {topicList.map((topic) => {
                     return (
                       <li
                         onClick={() => setCategory(topic.topic_name)}
-                        className="truncate break-keep"
+                        className={styles.topicList}
                         key={topic.topic_id}
                         role="presentation"
                       >

@@ -59,6 +59,11 @@
   font-size: 14px;
 }
 
+.sellMenu {
+  display: block;
+  vertical-align: middle;
+}
+
 ul.menu {
   display: flex;
   align-items: center;
@@ -84,6 +89,12 @@ ul.menu {
 .Link {
   textdecoration: 'none';
   color: #000000;
+}
+
+.sellLink {
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .mypage {

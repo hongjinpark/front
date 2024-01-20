@@ -164,3 +164,16 @@
 .emptyDiv {
   padding: 50px;
 }
+
+.categoryList {
+  --tw-border-opacity: 1;
+  border-color: rgb(218 222 229/var(--tw-border-opacity));
+  border-style: solid;
+  flex-direction: column;
+  display: flex;
+}
+
+.topicList {
+  padding: 0.75rem;
+  height: 2.5rem;
+}
