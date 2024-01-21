@@ -35,17 +35,30 @@ export default function NoticeDetail() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const Delete = () => {
+    if (window.confirm('삭제하시겠습니까?')) {
+      axios.delete('http://localhost:8090/notice/' + params.id).then(() => {
+        navigator('/notice');
+        window.location.reload('/notice');
+      });
+    }
+  };
+
   return (
     <>
       {data ? (
-        <div className={styles.box}>
+        <div className={styles.body}>
           <div className={styles.top_title}>
             <div className={styles.title_text}>
               {data[data.findIndex((v) => v.notice_id == id)].notice_title}
             </div>
             <div className={styles.sub_head}>
+              <div className={styles.date_div}>
+                {data[data.findIndex((v) => v.notice_id == id)].reg_time}
+              </div>
               {role == 'ADMIN' ? (
                 <div className={styles.edit}>
+                  |&nbsp;&nbsp;
                   <EditOutlined
                     onClick={() => {
                       navigator('/notice/update/' + params.id);
@@ -53,24 +66,9 @@ export default function NoticeDetail() {
                     }}
                     className={styles.button}
                   />
-                  <DeleteOutlined
-                    onClick={() => {
-                      if (window.confirm('삭제하시겠습니까?')) {
-                        axios
-                          .delete('http://localhost:8090/notice/' + params.id)
-                          .then(() => {
-                            navigator('/notice');
-                            window.location.reload('/notice');
-                          });
-                      }
-                    }}
-                    className={styles.button}
-                  />
+                  <DeleteOutlined onClick={Delete} className={styles.button} />
                 </div>
               ) : null}
-              <div className={styles.date_div}>
-                {data[data.findIndex((v) => v.notice_id == id)].reg_time}
-              </div>
             </div>
           </div>
 

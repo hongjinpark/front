@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import useAuth from './../hooks/useAuth';
+import styles from '../pages/Search.module.css';
 
 const Product = () => {
   const [imageList, setImageList] = useState([]);
@@ -75,10 +76,10 @@ const Product = () => {
   const onChangeImageInput = (e) => {
     setImageList([...imageList, ...e.target.files]);
   };
+  console.log(auth.nickname);
 
   return (
     <div>
-      {auth.nickname}
       <p
         ref={errRef}
         className={errMsg ? 'errmsg' : 'offscreen'}
@@ -86,7 +87,7 @@ const Product = () => {
       >
         {errMsg}
       </p>
-      <Container>
+      <Container className={styles.section}>
         <Form onSubmit={onClickSubmit} className="mx-auto w-full max-w-[768px]">
           <Form.Group
             as={Row}
@@ -132,12 +133,12 @@ const Product = () => {
                 id="pdCategory"
                 className="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300"
               >
-                <ul className="flex flex-col border-solid border-jnGray-300">
+                <ul className={styles.categoryList}>
                   {topicList.map((topic) => {
                     return (
                       <li
                         onClick={() => setCategory(topic.topic_name)}
-                        className="truncate break-keep"
+                        className={styles.topicList}
                         key={topic.topic_id}
                         role="presentation"
                       >
@@ -222,7 +223,11 @@ const Product = () => {
             </Col>
           </Form.Group>
           <div style={{ marginTop: 40 }} className="d-grid gap-1">
-            <Button variant="secondary" type="submit">
+            <Button
+              variant="secondary"
+              type="submit"
+              className="bg-[rgb(108,117,125)]"
+            >
               등록
             </Button>
           </div>

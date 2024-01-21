@@ -1,4 +1,4 @@
-import styles from './NoticeWrite.module.css';
+import styles from './NoticeUpdate.module.css';
 import { Button } from 'react-bootstrap/';
 import { useEffect, useState } from 'react';
 import axios from 'axios';

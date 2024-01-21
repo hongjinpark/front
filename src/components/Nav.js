@@ -6,7 +6,6 @@ import { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
-import { faFilePen } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from './SearchBar';
 import secureLocalStorage from 'react-secure-storage';
 import ChatModalContext from '../context/ChatModalProvider';
@@ -167,11 +166,25 @@ export default function Nav() {
             <li>
               <Link
                 to="/product"
-                className={styles.link}
+                className={styles.sellLink}
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
-                <FontAwesomeIcon icon={faFilePen} className={styles.menuSell} />
-                <span className={styles.navMenu}>판매하기</span>
+                <svg
+                  fill="none"
+                  height="29"
+                  viewBox="0 0 24 24"
+                  width="28"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m10 19h-3.8c-1.1201 0-1.68016 0-2.10798-.218-.37633-.1917-.68229-.4977-.87403-.874-.21799-.4278-.21799-.9879-.21799-2.108v-7.6c0-1.12011 0-1.68016.21799-2.10798.19174-.37633.4977-.68229.87403-.87403.42782-.21799.98788-.21799 2.10798-.21799h11.6c1.1201 0 1.6802 0 2.108.21799.3763.19174.6823.4977.874.87403.218.42782.218.98788.218 2.10798v.3m-12 1v-1m0 1h2.0001m-2.0001 0c-1.11721-.00002-1.99756.12616-1.9999 1.3325-.00176.9003-.00001 1.1675 1.99999 1.1675 2.00001 0 2.00001.2055 2.00001 1.1667 0 .7223-.0001 1.3333-2.0001 1.3333m0 1v-1m0 0h-1.9999m6.9999-4.5h3m-3 10 2.025-.405c.1765-.0353.2648-.053.3471-.0853.0731-.0286.1426-.0658.2069-.1107.0726-.0506.1362-.1142.2636-.2416l4.1574-4.1574c.5523-.5523.5523-1.4477 0-2s-1.4477-.5523-2 0l-4.1574 4.1574c-.1274.1274-.191.191-.2416.2636-.0449.0643-.0821.1338-.1107.2069-.0323.0823-.05.1706-.0853.3471z"
+                    stroke="#000"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                  ></path>
+                </svg>
+                <span className={`ml-2 ${styles.navMenu}`}>판매하기</span>
               </Link>
             </li>
 
