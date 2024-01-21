@@ -19,7 +19,7 @@ import ContextProvider from './provider/ContextProvider';
 import Search from './pages/Search';
 import NoticeWrite from './pages/NoticeWrite';
 import NoticeUpdate from './pages/NoticeUpdate';
-import React from 'react';
+import React, { useEffect } from 'react';
 import SearchResult from './pages/SearchResult';
 import AdminRoute from './components/route/AdminRoute';
 import { CustomRouter } from './utils/CustomRouter';
@@ -29,6 +29,9 @@ import Regist from './pages/Regist';
 import Product from './pages/Product';
 import ProductUpdate from './pages/ProductUpdate';
 import BoardDetail from './pages/BoardDetail';
+
+import axios from './api/axios';
+import secureLocalStorage from 'react-secure-storage';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -56,6 +59,26 @@ class ErrorBoundary extends React.Component {
 }
 
 function App() {
+  useEffect(() => {
+    const token = localStorage.getItem('login');
+    if (token) {
+      axios
+        .post(
+          '/token',
+          {},
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
+        .then((res) => {
+          if (!res.data) {
+            localStorage.removeItem('login');
+            secureLocalStorage.removeItem('role');
+            localStorage.removeItem('user');
+          }
+        });
+    }
+  }, []);
   return (
     <ErrorBoundary>
       <CustomRouter history={history}>
