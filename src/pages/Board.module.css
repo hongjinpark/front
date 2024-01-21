@@ -209,10 +209,10 @@ section.notice {
 }
 
 .boardWrapper {
-  display: flex;
-  justify-content: center;
-  user-select: none;
-  padding-top: 140px;
+    display: flex;
+    justify-content: center;
+    user-select: none;
+    padding-top: 140px;
 }
 
 .poductResult {
@@ -265,6 +265,7 @@ ul.products {
     height: 100px;
     border-radius: 0 0 5px 5px;
 }
+
 .imgSearchList {
     z-index: -1;
     width: 285px;
@@ -282,9 +283,11 @@ ul.products {
     text-align: left;
     padding-left: 20px;
 }
+
 .info > p:nth-child(1) {
     font-size: 20px;
 }
+
 .info > p:nth-child(2) {
     font-size: 24px;
     font-weight: 800;
@@ -382,4 +385,54 @@ ul.products {
 ._11vv8ke3 {
     padding: 4rem 0;
     flex-basis: 48%;
+}
+
+.as1 {
+    transform: translate3d(0px, 0px, 0px);
+    transition-duration: 0ms;
+}
+
+.as2 {
+    width: 588px;
+}
+
+.as3 {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    inset: 0px;
+    color: transparent;
+}
+
+.aa1 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    top: 200px;
+    position: sticky;
+}
+
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: royalblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.section {
+    padding-top: 140px;
 }

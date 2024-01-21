@@ -23,7 +23,7 @@ export default function BoardList({ list }) {
             return (
               <div className={styles._11vv8ke3} key={board.boardId}>
                 <Link
-                  to={`../../${board.boardId}`}
+                  to={`../../board/${board.boardId}`}
                   style={{ textDecoration: 'none', color: 'inherit' }}
                 >
                   <article className={styles.w7pzr90}>
