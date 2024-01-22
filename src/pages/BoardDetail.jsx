@@ -17,6 +17,8 @@ const BoardDetail = () => {
   });*/
   const [list, setList] = useState([]);
   const [boardImageDtoList, setBoardImageDtoList] = useState([]);
+  const [userInfoDtoList, setUserInfoDtoList] = useState([]);
+  const [regionDtoList, setRegionDtoList] = useState([]);
   const { id } = useParams();
 
   const boardLists = async () => {
@@ -30,6 +32,8 @@ const BoardDetail = () => {
       const getData = await getApi(options);
       setList(getData);
       setBoardImageDtoList(getData.boardImageDtoList);
+      setUserInfoDtoList(getData.userInfoDtoList);
+      setRegionDtoList(getData.regionDtoList);
     } catch (e) {
       throw e;
     }
@@ -42,10 +46,16 @@ const BoardDetail = () => {
 
   console.log(list);
   console.log(boardImageDtoList);
+  console.log(userInfoDtoList);
   return (
     <Container className={styles.container}>
       <div>
-        <BoardDetailList list={list} boardImageDtoList={boardImageDtoList} />
+        <BoardDetailList
+          list={list}
+          boardImageDtoList={boardImageDtoList}
+          userInfoDtoList={userInfoDtoList}
+          regionDtoList={regionDtoList}
+        />
       </div>
     </Container>
   );
