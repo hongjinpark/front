@@ -12,15 +12,12 @@ export default function BoardDetailList({
 }) {
   return (
     <>
-      <article className={styles.content}>
-        <div className="items-start block grid-cols-2 pt-5 lg:grid gap-x-10 xl:gap-x-14 pb-14 lg:py-10 lg:pb-14 2xl:pb-2">
+      <div className={styles.section}>
+        <div className="items-start block grid-cols-2 pt-5 lg:grid gap-x-7 xl:gap-x-14 pb-14 lg:py-10 lg:pb-14 2xl:pb-2">
           <div className="px-3 sticky top-[200px]">
             <div className="carouselWrapper relative product-gallery swiperThumbnail product-gallery-slider">
               <div className="max-w-[1080px] lg:min-h-[550px] mx-auto max-w-[1080px] px-4 md:px-8 2xl:px-16 box-content">
-                <div
-                  className="slider slick-initialized slick-slider slick-dotted"
-                  data-article-id="706251914"
-                >
+                <div className="slider slick-initialized slick-slider slick-dotted">
                   <Swiper
                     pagination={true}
                     modules={[Pagination]}
@@ -80,8 +77,8 @@ export default function BoardDetailList({
             <div className={styles.bdContents}>{list.bdContents}</div>
           </div>
         </div>
-        <div className={styles.aa7}></div>
-      </article>
+      </div>
+      <div className={styles.aa7}></div>
     </>
   );
 }

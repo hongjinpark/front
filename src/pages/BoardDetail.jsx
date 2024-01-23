@@ -69,14 +69,13 @@ const BoardDetail = () => {
 
   return (
     <Container className={styles.container}>
-      <div>
-        <BoardDetailList
-          list={list}
-          boardImageDtoList={boardImageDtoList}
-          userInfoDtoList={userInfoDtoList}
-          regionDtoList={regionDtoList}
-        />
-      </div>
+      <BoardDetailList
+        list={list}
+        boardImageDtoList={boardImageDtoList}
+        userInfoDtoList={userInfoDtoList}
+        regionDtoList={regionDtoList}
+      />
+
       <div className={styles.commentContent}>
         <CommentList comment={comment} />
       </div>
