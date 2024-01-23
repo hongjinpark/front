@@ -61,7 +61,7 @@ const Login = () => {
         width: '600px',
         height: '50vh',
         margin: '0 auto',
-        padding: '140px 0px 0px 0px',
+        // padding: '140px 0px 100px 0px',
       }}
     >
       <p
