@@ -45,16 +45,25 @@
   opacity: 0;
   transform: translate(0, 47px);
   transition: all 0.4s ease-out;
+  height: 500px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.categories::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
 }
 .categories > ul {
   padding: 0;
 }
+
 .link {
   padding: 20px;
   width: 100%;
 }
 
 .categoryBox:hover .categories {
+  height: 500px;
+  overflow: scroll;
   visibility: visible;
   opacity: 1;
 }

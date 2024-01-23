@@ -2,7 +2,7 @@ import styles from './NoticeWrite.module.css';
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SaveOutlined } from '@ant-design/icons';
+import { Button } from 'react-bootstrap';
 import ToastPopup from '../components/ToastPopup';
 
 export default function NoticeDetail() {
@@ -42,17 +42,25 @@ export default function NoticeDetail() {
 
   return (
     <div className={styles.body}>
-      <div className={styles.box}>
-        <div className={styles.top_title}>
-          <input
-            className={styles.title_text}
-            placeholder="제목을 입력해주세요"
-            defaultValue={titleValue}
-            onChange={saveTitle}
-          ></input>
-          <SaveOutlined className={styles.save} onClick={Save} />
-        </div>
-
+      <div className={styles.head}>
+        <h3>공지사항 글쓰기</h3>
+        <Button
+          variant="outline-secondary"
+          className={styles.save}
+          onClick={Save}
+        >
+          등록
+        </Button>
+      </div>
+      <div className={styles.top_title}>
+        <input
+          className={styles.title_text}
+          placeholder="제목을 입력해주세요"
+          defaultValue={titleValue}
+          onChange={saveTitle}
+        ></input>
+      </div>
+      <div className={styles.buttom_contents}>
         <textarea
           className={styles.contents_text}
           placeholder="내용을 입력해주세요"
