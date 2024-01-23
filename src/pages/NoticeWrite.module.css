@@ -1,44 +1,52 @@
 .body {
   margin: 0 auto;
   width: 1100px;
-  height: auto;
-  /* margin-bottom: 50px; */
   padding-top: 140px;
-  border-bottom: 1.5px solid #eee;
+  height: 1000px;
+
+  /* position: relative; */
 }
-.box {
-  margin-top: 100px;
-  height: 800px;
-  /* border-bottom: 1.5px solid #eee; */
+.head {
+  border-bottom: 1px solid black;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+.head h3 {
+  font-size: 28px;
+  color: #333333;
+  font-weight: 400;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  display: inline-block;
+}
+.save {
+  float: right;
+  display: inline-block;
 }
 .top_title {
-  border-bottom: 1.5px solid #eee;
+  border: 1.5px solid #eee;
+  border-radius: 10px;
+  padding: 20px 20px 20px 20px;
 }
 .title_text {
   font-weight: bold;
-  font-size: 30px;
-  width: auto;
-  outline: none;
-  margin-left: 10px;
-  margin-bottom: 20px;
-}
-
-.contents_text {
-  margin-left: 10px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  font-size: 20px;
   width: 100%;
-  height: 90%;
+  outline: none;
+  background-color: #f5f6f8;
+  border-radius: 10px;
+  padding: 13px 16px 11px;
+}
+.buttom_contents {
+  border: 1.5px solid #eee;
+  margin-top: 10px;
+  padding: 40px 30px 30px 30px;
+  height: 600px;
+  border-radius: 10px;
+}
+.contents_text {
+  width: 100%;
+  height: 100%;
   outline: none;
   resize: none;
-}
-
-.save {
-  font-size: 30px;
-  /* margin-left: 10px; */
-  float: right;
-}
-.save:hover {
-  transform: scale(1.1);
-  cursor: pointer;
 }
