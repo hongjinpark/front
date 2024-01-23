@@ -54,7 +54,7 @@ export default function BoardDetailList({
                       ))}
                       <div className={styles.aa5}>
                         {userInfoDtoList.map((userInfo, index) => (
-                          <div key={index} className={styles.aa6}>
+                          <div key={index} className={styles.aa16}>
                             <div className={styles.w7pzr95}>
                               {userInfo.usrNickName}
                             </div>
@@ -62,7 +62,7 @@ export default function BoardDetailList({
                         ))}
 
                         {regionDtoList.map((region, index) => (
-                          <div key={index} className={styles.aa6}>
+                          <div key={index} className={styles.aa16}>
                             <div className={styles.w7pzr94}>
                               {region.regionName}
                             </div>

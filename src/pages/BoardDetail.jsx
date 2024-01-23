@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import Container from '../components/Container';
 import styles from '../pages/Board.module.css';
 import BoardDetailList from '../pages/BoardDetailList';
+import CommentList from '../pages/CommentList';
 
 const BoardDetail = () => {
   /*const [list, setList] = useState({
@@ -19,6 +20,8 @@ const BoardDetail = () => {
   const [boardImageDtoList, setBoardImageDtoList] = useState([]);
   const [userInfoDtoList, setUserInfoDtoList] = useState([]);
   const [regionDtoList, setRegionDtoList] = useState([]);
+
+  const [comment, setComment] = useState([]);
   const { id } = useParams();
 
   const boardLists = async () => {
@@ -44,9 +47,26 @@ const BoardDetail = () => {
     console.log(list);
   }, []);
 
-  console.log(list);
-  console.log(boardImageDtoList);
-  console.log(userInfoDtoList);
+  const commentLists = async () => {
+    let path = `/comment/list/${id}`;
+
+    // eslint-disable-next-line no-useless-catch
+    try {
+      const options = {
+        path: path,
+      };
+      const getData = await getApi(options);
+      setComment(getData);
+    } catch (e) {
+      throw e;
+    }
+  };
+
+  useEffect(() => {
+    commentLists();
+    console.log(comment);
+  }, []);
+
   return (
     <Container className={styles.container}>
       <div>
@@ -56,6 +76,9 @@ const BoardDetail = () => {
           userInfoDtoList={userInfoDtoList}
           regionDtoList={regionDtoList}
         />
+      </div>
+      <div className={styles.commentContent}>
+        <CommentList comment={comment} />
       </div>
     </Container>
   );

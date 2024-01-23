@@ -433,6 +433,11 @@ ul.products {
 
 .aa6 {
     display: inline-block;
+    margin-left: -1030px;
+}
+
+.aa16 {
+    display: inline-block;
     margin-left: 8px;
 }
 
@@ -496,6 +501,18 @@ ul.products {
     color: transparent;
 }
 
+.commentImageStyle {
+    --tw-border-opacity: 1;
+    border-color: rgb(255 255 255/var(--tw-border-opacity));
+    border-width: 1px;
+    border-radius: 50%;
+    --tw-translate-x: -1rem;
+    width: 50px;
+    height: 50px;
+    box-sizing: content-box;
+    color: transparent;
+}
+
 .section {
     padding-top: 140px;
 }
@@ -515,4 +532,61 @@ ul.products {
 }
 
 
+.commentContents {
+    margin-bottom: 16px;
+    margin-left: -1030px;
+    margin-top: 8px;
+    display: block;
+}
 
+.commentImgUrl {
+    display: inline-block;
+    margin-bottom: 72px;
+}
+
+.commentLike {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    margin-left: -1030px;
+}
+
+.commentBoard {
+    overflow: hidden;
+    margin: 0px 16px 16px;
+    border-radius: 4px;
+    border: 1px solid rgb(222, 226, 230);
+    box-sizing: border-box;
+}
+
+.commentButton {
+    border-radius: 0px;
+    border-color: rgb(0, 196, 113);
+    font-weight: 700;
+    background-color: rgb(0, 196, 113);
+}
+
+.commentAddContent {
+    margin: 0px 16px 16px;
+    border-radius: 4px;
+    border: 1px solid rgb(222, 226, 230);
+    box-sizing: border-box;
+}
+
+.commentAddContent2 {
+    display: flex;
+    justify-content: flex-end;
+    background-color: rgb(255, 255, 255);
+}
+
+.commentContent {
+    padding-bottom: 0;
+    padding-top: 10px;
+    display: block;
+}
+
+.commentLikes {
+    margin-top: 10px;
+    margin-left: 10px;
+}
