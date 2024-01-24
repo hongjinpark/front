@@ -35,7 +35,7 @@ const Product = () => {
     const value = {
       pdTitle: product.pdTitle,
       pdContents: product.pdContents,
-      pdCategory: product.pdCategory,
+      pdCategory: category,
       price: product.price,
     };
 
