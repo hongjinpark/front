@@ -228,7 +228,9 @@ export default function Nav() {
                   to="/login"
                   style={{ textDecoration: 'none', color: 'inherit' }}
                 >
-                  <FontAwesomeIcon icon={faUser} />
+                  <span className={styles.navMenu}>
+                    <FontAwesomeIcon icon={faUser} />
+                  </span>
                 </Link>
               </li>
             )}
