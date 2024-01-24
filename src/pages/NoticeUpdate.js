@@ -1,17 +1,16 @@
 import styles from './NoticeUpdate.module.css';
 import { Button } from 'react-bootstrap/';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import ToastPopup from '../components/ToastPopup';
+import ToastContext from '../context/ToastContext';
 
 export default function NoticeUpdate() {
   const [data, setData] = useState({ title: '', contents: '' });
   const navigator = useNavigate();
   const { id } = useParams();
-  const [toast, setToast] = useState(false);
-  const [toastContent, setToastConstent] = useState('');
+  const toastContext = useContext(ToastContext);
 
   const handleChange = (event) => {
     setData((preFormData) => {
@@ -29,16 +28,13 @@ export default function NoticeUpdate() {
           noticeContents: data.contents,
         })
         .then(() => {
+          toastContext.setToastMessage(['수정이 완료되었습니다']);
           navigator('/notice');
-          window.location.reload('/notice');
-          alert('수정 완료.');
         });
     } else if (data.title == '') {
-      setToastConstent('제목을 입력해주세요');
-      setToast(true);
+      toastContext.setToastMessage(['제목을 입력해주세요']);
     } else {
-      setToast(true);
-      setToastConstent('내용을 입력해주세요');
+      toastContext.setToastMessage(['내용을 입력해주세요']);
     }
   };
 
@@ -83,7 +79,6 @@ export default function NoticeUpdate() {
           onInput={handleChange}
         ></textarea>
       </div>
-      <ToastPopup toast={toast} setToast={setToast} text={toastContent} />
     </div>
   );
 }

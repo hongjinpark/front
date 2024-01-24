@@ -8,9 +8,9 @@ import Button from '../components/Button';
 import Caution from '../components/Caution';
 import LikeButton from '../components/LikeButton';
 import axios from 'axios';
-import ToastPopup from '../components/ToastPopup';
 import ChatModalContext from '../context/ChatModalProvider';
 import useAuth from './../hooks/useAuth';
+import ToastContext from '../context/ToastContext';
 
 export default function ProductDetail() {
   const { product_id } = useParams();
@@ -19,9 +19,9 @@ export default function ProductDetail() {
   const token = localStorage.getItem('login');
   const { setIsOpen, setStep } = useContext(ChatModalContext);
   const { auth } = useAuth();
+  const toastContext = useContext(ToastContext);
   //관심물품
   const [like, setLike] = useState(false);
-  const [toast, setToast] = useState(false);
   const toggleLike = async () => {
     if (like == false) {
       axios.post(
@@ -34,7 +34,7 @@ export default function ProductDetail() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setToast(true);
+      toastContext.setToastMessage(['관심 상품이 추가되었습니다.']);
       setLike(true);
     } else {
       axios.post(
@@ -376,12 +376,6 @@ export default function ProductDetail() {
             </div>
           </div>
         </div> */}
-
-        <ToastPopup
-          toast={toast}
-          setToast={setToast}
-          text="관심 상품이 추가되었습니다."
-        />
       </Container>
     </div>
   );

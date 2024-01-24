@@ -1,21 +1,26 @@
 import { useEffect } from 'react';
 import styles from './ToastPopup.module.css';
 
-function ToastPopup({ toast, setToast, text }) {
+function ToastPopup({ toastMessage, setToastMessage }) {
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setToast(false);
-    }, 1500);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [toast]);
+    if (toastMessage == null) {
+      undefined;
+    } else if (toastMessage.length > 0) {
+      setTimeout(() => {
+        setToastMessage([]);
+      }, 2000);
+    }
+  }, [toastMessage]);
 
-  return toast == true ? (
+  if (toastMessage < 1 || toastMessage == null) {
+    return null;
+  }
+
+  return (
     <div className={styles.board}>
-      <p className={styles.Toast}>{text}</p>
+      <p className={styles.Toast}>{toastMessage}</p>
     </div>
-  ) : null;
+  );
 }
 
 export default ToastPopup;

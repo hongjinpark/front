@@ -1,9 +1,10 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 // import { Button } from 'react-bootstrap/';
 import axios from 'axios';
 import styles from './NoticeDetail.module.css';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import ToastContext from '../context/ToastContext';
 
 export default function NoticeDetail() {
   const navigator = useNavigate();
@@ -11,6 +12,7 @@ export default function NoticeDetail() {
   const [data, setData] = useState();
   const params = useParams();
   const [role, setRole] = useState('');
+  const toastContext = useContext(ToastContext);
 
   useEffect(() => {
     axios.get('http://localhost:8090/notice/list').then((result) => {
@@ -38,8 +40,9 @@ export default function NoticeDetail() {
   const Delete = () => {
     if (window.confirm('삭제하시겠습니까?')) {
       axios.delete('http://localhost:8090/notice/' + params.id).then(() => {
+        toastContext.setToastMessage(['게시글이 삭제되었습니다']);
         navigator('/notice');
-        window.location.reload('/notice');
+        // window.location.reload('/notice');
       });
     }
   };

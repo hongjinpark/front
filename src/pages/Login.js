@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
 import useAuth from '../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { login } from '../api/user.api';
@@ -7,6 +7,7 @@ import { Button, Container, Col, Row, Form } from 'react-bootstrap';
 import { httpApi } from './../api/axios';
 import secureLocalStorage from 'react-secure-storage';
 import styles from '../pages/Search.module.css';
+import ToastContext from '../context/ToastContext';
 
 const Login = () => {
   const { setAuth } = useAuth();
@@ -19,6 +20,7 @@ const Login = () => {
   const [user, setUser] = useState({ email: '', password: '' });
   const [errMsg, setErrMsg] = useState('');
 
+  const toastContext = useContext(ToastContext);
   useEffect(() => {
     setErrMsg('');
   }, [user]);
@@ -36,11 +38,11 @@ const Login = () => {
         `Bearer ${accessToken}`;
       setAuth(responseUser);
       setUser('');
-      alert('로그인 완료');
+      toastContext.setToastMessage(['로그인 되었습니다']);
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
-        alert('이메일 또는 비밀번호를 확인해주세요.');
+        toastContext.setToastMessage(['이메일 또는 비밀번호를 확인해주세요.']);
       } else if (err.response?.status === 400) {
         alert('Missing Username or Password');
       } else if (err.response?.status === 401) {

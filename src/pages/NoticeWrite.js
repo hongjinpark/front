@@ -1,9 +1,9 @@
 import styles from './NoticeWrite.module.css';
 import axios from 'axios';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import ToastPopup from '../components/ToastPopup';
+import ToastContext from '../context/ToastContext';
 
 export default function NoticeDetail() {
   const navigator = useNavigate();
@@ -11,8 +11,7 @@ export default function NoticeDetail() {
 
   const [titleValue, setTitle] = useState('');
   const [contentsValue, setcontents] = useState('');
-  const [toast, setToast] = useState(false);
-  const [toastContent, setToastConstent] = useState('');
+  const toastContext = useContext(ToastContext);
 
   const saveTitle = (event) => {
     setTitle(event.target.value);
@@ -28,15 +27,13 @@ export default function NoticeDetail() {
           noticeTitle: titleValue,
         })
         .then(() => {
-          navigator('/notice');
-          window.location.reload('/notice');
+          toastContext.setToastMessage(['작성이 완료되었습니다']);
+          navigator('/notice', { replace: true });
         });
     } else if (titleValue == '') {
-      setToastConstent('제목을 입력해주세요');
-      setToast(true);
+      toastContext.setToastMessage(['제목을 입력해주세요']);
     } else {
-      setToast(true);
-      setToastConstent('내용을 입력해주세요');
+      toastContext.setToastMessage(['내용을 입력해주세요']);
     }
   };
 
@@ -68,8 +65,6 @@ export default function NoticeDetail() {
           onChange={saveContent}
         ></textarea>
       </div>
-
-      <ToastPopup toast={toast} setToast={setToast} text={toastContent} />
     </div>
   );
 }

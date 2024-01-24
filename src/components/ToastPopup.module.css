@@ -25,7 +25,7 @@
 
   flex-direction: column;
   gap: 16px;
-  opacity: 0.7;
+  opacity: 0.9;
   margin-left: -160px;
 }
 @keyframes slide-top {

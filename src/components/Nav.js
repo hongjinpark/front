@@ -10,6 +10,7 @@ import SearchBar from './SearchBar';
 import secureLocalStorage from 'react-secure-storage';
 import ChatModalContext from '../context/ChatModalProvider';
 import useAuth from '../hooks/useAuth';
+import ToastContext from '../context/ToastContext';
 
 export default function Nav() {
   const Token = localStorage.getItem('login');
@@ -22,6 +23,7 @@ export default function Nav() {
   const [show, setOff] = useState(false);
   const { setIsOpen, setStep } = useContext(ChatModalContext);
   const { setAuth } = useAuth();
+  const toastContext = useContext(ToastContext);
   let nowKeyword = '';
 
   if (nowUrl.indexOf('keyword')) {
@@ -45,7 +47,7 @@ export default function Nav() {
     secureLocalStorage.removeItem('role');
     localStorage.removeItem('user');
     setAuth(null);
-    alert('로그아웃 완료');
+    toastContext.setToastMessage(['로그아웃 되었습니다']);
     navigate('/');
   };
 
