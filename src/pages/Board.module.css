@@ -323,6 +323,8 @@ ul.products {
     font-size: .813rem;
 }
 
+
+
 .w7pzr95 {
     font-weight: 700;
     line-height: 1.4;
@@ -437,6 +439,19 @@ ul.products {
     margin-left: -1030px;
 }
 
+.aa26 {
+    display: inline-block;
+    margin-left: 18px;
+    margin-top: 10px;
+}
+
+.aa36 {
+    display: inline-block;
+    margin-left: 18px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
 .aa16 {
     display: inline-block;
     margin-left: 8px;
@@ -514,6 +529,7 @@ ul.products {
     color: transparent;
 }
 
+
 .section {
     padding-top: 140px;
 }
@@ -542,7 +558,13 @@ ul.products {
 
 .commentImgUrl {
     display: inline-block;
-    margin-bottom: 72px;
+    margin-bottom: auto;
+}
+
+.replyCommentImgUrl {
+    padding-top: 10px;
+    display: inline-block;
+    margin-bottom: auto;
 }
 
 .commentLike {
@@ -551,6 +573,13 @@ ul.products {
     justify-content: space-between;
     margin-bottom: 16px;
     margin-left: -1030px;
+}
+
+.replyCommentLike {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto;
 }
 
 .commentBoard {
@@ -575,6 +604,15 @@ ul.products {
     box-sizing: border-box;
 }
 
+.commentAddReplyContent {
+    margin: auto;
+    border-radius: 4px;
+    border: 1px solid rgb(222, 226, 230);
+    box-sizing: border-box;
+    width: 300%;
+    padding: 1px;
+}
+
 .commentAddContent2 {
     display: flex;
     justify-content: flex-end;
@@ -590,4 +628,12 @@ ul.products {
 .commentLikes {
     margin-top: 10px;
     margin-left: 10px;
+}
+
+.update {
+    margin-left: 5px;
+}
+
+.update1 {
+    margin-left: auto;
 }

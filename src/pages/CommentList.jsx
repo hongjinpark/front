@@ -3,10 +3,14 @@ import { format } from 'date-fns';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import ReplyCommentBoard from './ReplyCommentBoard';
+import ReplyCommentList from '../pages/ReplyCommentList';
 
 export default function CommentList({ comment }) {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [visible, setVisible] = useState([false, false, false, false, false]);
+
   const [regComment, setRegComment] = useState({
     contents: '',
   });
@@ -38,8 +42,8 @@ export default function CommentList({ comment }) {
     <>
       <div>
         <div className="pt-4 lg:pt-0">
-          {comment.map((comment, index) => (
-            <div key={index} className={styles.aa5}>
+          {comment.map((comment, i) => (
+            <div key={i} className={styles.aa5}>
               <div className={styles.commentImgUrl}>
                 <img
                   className={styles.commentImageStyle}
@@ -90,7 +94,30 @@ export default function CommentList({ comment }) {
                   </span>
                 </div>
                 <div className={styles.commentLike}>
-                  <div className={styles.w7pzr94}>답글쓰기</div>
+                  <div>
+                    <button
+                      className={styles.w7pzr94}
+                      onClick={() => {
+                        setVisible((prev) => {
+                          const updatedState = [...prev];
+                          updatedState[i] = !updatedState[i];
+                          return updatedState;
+                        });
+                      }}
+                    >
+                      {visible[i] ? '숨기기' : '답글쓰기'}
+                    </button>
+                    {/* <div className={`${styles.w7pzr94} ${styles.update1}`}>
+                      수정
+                    </div>
+                    <div className={`${styles.w7pzr94} ${styles.update}`}>
+                      삭제
+                    </div>*/}
+                    {visible[i] && (
+                      <ReplyCommentBoard commentGroup={comment.comment_group} />
+                    )}
+                    <ReplyCommentList commentGroup={comment.comment_group} />
+                  </div>
                 </div>
               </div>
             </div>

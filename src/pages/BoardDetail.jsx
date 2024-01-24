@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import Container from '../components/Container';
 import styles from '../pages/Board.module.css';
 import BoardDetailList from '../pages/BoardDetailList';
-import CommentList from '../pages/CommentList';
+import CommentList from './CommentList';
 
 const BoardDetail = () => {
   /*const [list, setList] = useState({
