@@ -68,6 +68,7 @@
 }
 .img_card:hover {
   cursor: pointer;
+  filter: brightness(50%);
 }
 .img_card p {
   position: absolute;
@@ -99,9 +100,6 @@
   border-radius: 10%;
 }
 
-.img:hover {
-  filter: brightness(50%);
-}
 .img_form {
   border: 1.5px solid #eee;
   border-radius: 10px;
