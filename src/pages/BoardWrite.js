@@ -1,6 +1,6 @@
 import styles from './Write.module.css';
 import axios from 'axios';
-import { useContext, useState } from 'react';
+import { useContext, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import ToastContext from '../context/ToastContext';
@@ -22,6 +22,7 @@ export default function NoticeDetail() {
 
   const [imageList, setImageList] = useState([]);
   const [previewImg, setPreviewImg] = useState([]);
+  const fileInput = useRef();
 
   const saveTitle = (event) => {
     setTitle(event.target.value);
@@ -82,6 +83,7 @@ export default function NoticeDetail() {
           name="imageList"
           accept="image/jpg,image/png,image/jpeg,image/gif/png/webp"
           multiple
+          ref={fileInput}
           required
           onChange={onChangeImageInput}
         />
@@ -96,6 +98,7 @@ export default function NoticeDetail() {
               const deleteImg = [...previewImg];
               deleteImg.splice(index, 1);
               setPreviewImg(deleteImg);
+              fileInput.current.value = '';
             }}
           >
             <img className={styles.img} src={imgsrc} alt="thumbnail" />
