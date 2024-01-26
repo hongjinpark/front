@@ -4,6 +4,7 @@ import SaleModalContext from '../../context/SaleModalProvider';
 import ProfileModalContext from '../../context/ProfileModalProvider';
 import SelectedModalContext from '../../context/SelectedModalProvider';
 import AttentionModalContext from '../../context/AttentionModalProvider';
+import RegionModalContext from '../../context/RegionModalProvider';
 
 export default function MyPageMenu() {
   const { openModal: openPurchaseModal } = useContext(PurchaseModalContext);
@@ -11,6 +12,7 @@ export default function MyPageMenu() {
   const { openModal: openProfileModal } = useContext(ProfileModalContext);
   const { openModal: openSelectedModal } = useContext(SelectedModalContext);
   const { openModal: openAttentionModal } = useContext(AttentionModalContext);
+  const { openModal: openRegionModal } = useContext(RegionModalContext);
   return (
     <div className="hidden lg:block mt-6 min-w-[150px] basis-[300px] flex-shrink [&_ul]:mb-4 [&_li]:w-fit [&_li]:cursor-pointer [&_li]:mb-2 [&_li]:text-gray-600">
       <h2 className="mb-3 text-2xl font-semibold">마이 페이지</h2>
@@ -30,13 +32,13 @@ export default function MyPageMenu() {
         </button>
       </ul>
       <h3 className="mb-2 text-xl font-semibold">내 정보</h3>
-      <ul>
+      <ul className="flex-col flex">
         <button onClick={() => openProfileModal()}>
           <li>프로필 수정</li>
         </button>
-        <li>계좌 관리</li>
-        <li>배송지 관리</li>
-        <li>이용 후기</li>
+        <button onClick={() => openRegionModal()}>
+          <li>지역 수정</li>
+        </button>
       </ul>
     </div>
   );

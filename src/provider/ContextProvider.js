@@ -6,6 +6,7 @@ import { SaleModalProvider } from '../context/SaleModalProvider';
 import { SelectedModalProvider } from '../context/SelectedModalProvider';
 import { ChatModalProvider } from './../context/ChatModalProvider';
 import { AttentionModalProvider } from '../context/AttentionModalProvider';
+import { RegionModalProvider } from '../context/RegionModalProvider';
 
 export default function ContextProvider({ children }) {
   return (
@@ -17,7 +18,9 @@ export default function ContextProvider({ children }) {
               <SaleModalProvider>
                 <ProfileModalProvider>
                   <SelectedModalProvider>
-                    <AttentionModalProvider>{children}</AttentionModalProvider>
+                    <AttentionModalProvider>
+                      <RegionModalProvider>{children}</RegionModalProvider>
+                    </AttentionModalProvider>
                   </SelectedModalProvider>
                 </ProfileModalProvider>
               </SaleModalProvider>
