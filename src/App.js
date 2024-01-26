@@ -30,6 +30,7 @@ import Product from './pages/Product';
 import ProductUpdate from './pages/ProductUpdate';
 import BoardDetail from './pages/BoardDetail';
 import ToastContext from './context/ToastContext';
+import BoardWrite from './pages/BoardWrite';
 
 import axios from './api/axios';
 import secureLocalStorage from 'react-secure-storage';
@@ -107,6 +108,7 @@ function App() {
                 <Route path="board" element={<Board />} />
                 <Route path="board/:id" element={<BoardDetail />} />
                 <Route path="board/update/:id" element={<BoardUpdate />} />
+                <Route path="board/write" element={<BoardWrite />} />
                 <Route path=":product_id" element={<ProductDetail />} />
                 <Route path="notice" element={<Notice />}>
                   <Route path=":id" element={<NoticeDetail />} />

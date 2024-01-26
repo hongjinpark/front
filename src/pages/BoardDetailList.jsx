@@ -48,6 +48,7 @@ export default function BoardDetailList({
                           src={require(`../assets${board.imgUrl}`)}
                           alt=""
                         />
+                        {console.log(board)}
                       </SwiperSlide>
                     ))}
                   </Swiper>

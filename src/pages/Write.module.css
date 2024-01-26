@@ -2,7 +2,8 @@
   margin: 0 auto;
   width: 1100px;
   padding-top: 140px;
-  height: 1000px;
+  height: auto;
+  margin-bottom: 30px;
 
   /* position: relative; */
 }
@@ -27,6 +28,7 @@
   border: 1.5px solid #eee;
   border-radius: 10px;
   padding: 20px 20px 20px 20px;
+  height: auto;
 }
 .title_text {
   font-weight: bold;
@@ -49,4 +51,25 @@
   height: 100%;
   outline: none;
   resize: none;
+}
+
+.img_list {
+  width: auto;
+  height: 120px;
+  position: relative;
+}
+
+.img_card {
+  filter: brightness(1);
+  transition: 0.5s;
+  object-fit: cover;
+  margin-top: 10px;
+  height: 100px;
+  width: 150px;
+  border-radius: 10%;
+}
+
+.img_card:hover {
+  cursor: pointer;
+  filter: brightness(80%);
 }
