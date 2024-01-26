@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import styles from './modal.module.css';
+
 export default function Modal({
   ModalContext,
   title,
@@ -15,8 +16,10 @@ export default function Modal({
   useEffect(() => {
     if (isOpen) {
       setModalVisible(isOpen);
+      document.body.style.overflow = 'hidden';
     } else {
       setModalVisible(false);
+      document.body.style.overflow = 'unset';
     }
   }, [isOpen]);
 
@@ -32,6 +35,7 @@ export default function Modal({
     setModalVisible(false);
     setTimeout(() => {
       closeModal();
+      document.body.style.overflow = 'unset';
     }, 300);
   };
   return (

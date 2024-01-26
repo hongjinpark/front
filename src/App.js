@@ -157,7 +157,6 @@ function App() {
           <ModalProvider />
         </ContextProvider>
       </CustomRouter>
-      /
     </ErrorBoundary>
   );
 }
