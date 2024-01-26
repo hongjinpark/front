@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import useAuth from './../../hooks/useAuth';
 import ChatModalContext from '../../context/ChatModalProvider';
 import { getChatRoomList } from './../../api/chat.api';
+import { detailDate } from './../../utils/util';
 export default function ChatRoom({ setChatRoom, setTitle }) {
   const { auth } = useAuth();
   const { isOpen, setIsOpen, setStep } = useContext(ChatModalContext);
@@ -134,10 +135,12 @@ export default function ChatRoom({ setChatRoom, setTitle }) {
                         {findNickName(chatroom)}
                       </h4>
                     </div>
-                    <p className="text-base mt-[2px]">11월 28일</p>
+                    <p className="text-base mt-[2px]">
+                      {detailDate(chatroom?.chatMessage.sendTime)}
+                    </p>
                   </div>
                   <span className="text-base text-ellipsis overflow-hidden whitespace-nowrap min-[1024px]:max-w-[300px]">
-                    안녕하세요
+                    {chatroom?.chatMessage.message}
                   </span>
                 </div>
               </div>

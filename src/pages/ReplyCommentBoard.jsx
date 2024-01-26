@@ -35,7 +35,7 @@ export default function ReplyCommentBoard({ commentGroup }) {
 
   return (
     <div className="pt-4 lg:pt-0">
-      <form onSubmit={handleSubmit}>
+      <form className={styles.aa2} onSubmit={handleSubmit}>
         <div className={styles.commentAddReplyContent}>
           <textarea
             type="text"

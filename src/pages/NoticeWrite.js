@@ -1,4 +1,4 @@
-import styles from './NoticeWrite.module.css';
+import styles from './Write.module.css';
 import axios from 'axios';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';

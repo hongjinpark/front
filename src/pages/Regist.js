@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { postApi } from '../api/axios';
 import { useNavigate } from 'react-router-dom';
+import styles from '../pages/Search.module.css';
 
 const Regist = () => {
   const [user, setUser] = useState({ email: '', password: '', nickname: '' });
@@ -63,8 +64,8 @@ const Regist = () => {
       >
         {errMsg}
       </p>
-      <Container className="panel">
-        <Form onSubmit={handleSubmit}>
+      <Container className={styles.section}>
+        <Form onSubmit={handleSubmit} className="mx-auto w-full max-w-[570px]">
           <Form.Group as={Row} className="mb-3">
             <Col sm>
               <Form.Control
@@ -107,7 +108,11 @@ const Regist = () => {
             </Col>
           </Form.Group>
           <div style={{ marginTop: 20 }} className="d-grid gap-1">
-            <Button variant="secondary" type="submit">
+            <Button
+              variant="secondary"
+              type="submit"
+              className="bg-[rgb(108,117,125)]"
+            >
               회원가입
             </Button>
           </div>

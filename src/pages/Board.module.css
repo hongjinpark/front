@@ -419,7 +419,7 @@ ul.products {
 }
 
 .aa2 {
-  display: flex;
+    display: flex;
 }
 
 .aa3 {
@@ -604,19 +604,39 @@ ul.products {
   box-sizing: border-box;
 }
 
+.commentAddContent2 {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #94d3a2;
+    border-color: rgba(27, 31, 35, .1);
+    color: rgba(255, 255, 255, .8);
+    cursor: default;
+    border-radius: 5px;
+    margin: auto;
+}
+
+.commentAddContent {
+    border-radius: 4px;
+    border: 1px solid rgb(222, 226, 230);
+    box-sizing: border-box;
+    width: 90%;
+    margin-left: 20px;
+    margin-bottom: 70px;
+}
+
 .commentAddReplyContent {
-  margin: auto;
-  border-radius: 4px;
-  border: 1px solid rgb(222, 226, 230);
-  box-sizing: border-box;
-  width: 300%;
-  padding: 1px;
+    border-radius: 4px;
+    border: 1px solid rgb(222, 226, 230);
+    box-sizing: border-box;
+    padding: 1px;
+
 }
 
 .commentAddContent2 {
-  display: flex;
-  justify-content: flex-end;
-  background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(255, 255, 255);
+    margin-left: 20px;
 }
 
 .commentContent {
@@ -677,3 +697,12 @@ ul.products {
     box-shadow: 12px 12px 20px -12px rgba(0, 0, 0, 0.35);
   }
 }
+
+.update {
+  margin-right: auto;
+}
+
+.update1 {
+    margin-right: auto;
+}
+

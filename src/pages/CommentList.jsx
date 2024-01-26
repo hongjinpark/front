@@ -5,10 +5,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import ReplyCommentBoard from './ReplyCommentBoard';
 import ReplyCommentList from '../pages/ReplyCommentList';
+import useAuth from '../hooks/useAuth';
 
 export default function CommentList({ comment }) {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { auth } = useAuth();
   const [visible, setVisible] = useState([false, false, false, false, false]);
 
   const [regComment, setRegComment] = useState({
@@ -107,12 +109,18 @@ export default function CommentList({ comment }) {
                     >
                       {visible[i] ? '숨기기' : '답글쓰기'}
                     </button>
-                    {/* <div className={`${styles.w7pzr94} ${styles.update1}`}>
-                      수정
-                    </div>
-                    <div className={`${styles.w7pzr94} ${styles.update}`}>
-                      삭제
-                    </div>*/}
+                    {comment.user_id == auth?.id ? (
+                      <>
+                        <span className={`${styles.w7pzr94} ${styles.update}`}>
+                          수정
+                        </span>
+                        <span className={`${styles.w7pzr94} ${styles.update}`}>
+                          삭제
+                        </span>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                     {visible[i] && (
                       <ReplyCommentBoard commentGroup={comment.comment_group} />
                     )}
@@ -122,7 +130,7 @@ export default function CommentList({ comment }) {
               </div>
             </div>
           ))}
-          <form onSubmit={handleSubmit}>
+          <form className={styles.aa2} onSubmit={handleSubmit}>
             <div className={styles.commentAddContent}>
               <textarea
                 type="text"
