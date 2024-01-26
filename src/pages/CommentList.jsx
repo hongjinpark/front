@@ -11,7 +11,6 @@ import ToastContext from '../context/ToastContext';
 
 export default function CommentList({ comment }) {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { auth } = useAuth();
   const navigator = useNavigate();
   const toastContext = useContext(ToastContext);
@@ -44,9 +43,10 @@ export default function CommentList({ comment }) {
             board: id,
             contents: regComment.contents,
           },
+        }).then(() => {
+          toastContext.setToastMessage(['등록되었습니다.']);
         })
       : alert('로그인이 필요합니다.');
-    navigate('/login', { replace: true });
   };
 
   console.log(regComment);
