@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Container from '../components/Container';
 import BoardList from './BoardList';
 import Pagination from './Pagination';
+import Button from 'react-bootstrap/Button';
 
 const Board = () => {
   const [limit, setLimit] = useState(3);
@@ -32,9 +33,12 @@ const Board = () => {
 
   return (
     <Container className={styles.container}>
-      <div>
+      <div className={styles.boards}>
         <BoardList list={list.slice(offset, offset + limit)} />
       </div>
+      <Button className={styles.btn_post} variant="outline-secondary">
+        등록
+      </Button>
 
       <Pagination
         total={list.length}

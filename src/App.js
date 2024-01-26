@@ -34,6 +34,7 @@ import ToastContext from './context/ToastContext';
 import axios from './api/axios';
 import secureLocalStorage from 'react-secure-storage';
 import ToastPopup from './components/ToastPopup';
+import BoardUpdate from './pages/BoardUpdate';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -105,6 +106,7 @@ function App() {
                 <Route path="admin" element={<Admin />} />
                 <Route path="board" element={<Board />} />
                 <Route path="board/:id" element={<BoardDetail />} />
+                <Route path="board/update/:id" element={<BoardUpdate />} />
                 <Route path=":product_id" element={<ProductDetail />} />
                 <Route path="notice" element={<Notice />}>
                   <Route path=":id" element={<NoticeDetail />} />

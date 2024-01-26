@@ -33,6 +33,9 @@
   margin-right: 10px;
   vertical-align: middle;
 }
+.button:hover {
+  scale: 1.1;
+}
 
 .contents_text {
   margin-left: 10px;

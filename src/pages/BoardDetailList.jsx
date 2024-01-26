@@ -1,8 +1,12 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import styles from './Board.module.css';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import ToastContext from '../context/ToastContext';
 
 export default function BoardDetailList({
   list,
@@ -10,6 +14,19 @@ export default function BoardDetailList({
   userInfoDtoList,
   regionDtoList,
 }) {
+  const navigator = useNavigate();
+  const toastContext = useContext(ToastContext);
+  const userId = JSON.parse(localStorage.getItem('user'));
+
+  const Delete = () => {
+    if (window.confirm('삭제하시겠습니까?')) {
+      toastContext.setToastMessage(['게시글이 삭제되었습니다.']);
+      navigator('/board');
+    }
+  };
+  const Edit = () => {
+    navigator('/board/update/3');
+  };
   return (
     <>
       <div className={styles.section}>
@@ -26,7 +43,11 @@ export default function BoardDetailList({
                   >
                     {boardImageDtoList.map((board, index) => (
                       <SwiperSlide key={index}>
-                        <img src={require(`../assets${board.imgUrl}`)} alt="" />
+                        <img
+                          className={styles.img}
+                          src={require(`../assets${board.imgUrl}`)}
+                          alt=""
+                        />
                       </SwiperSlide>
                     ))}
                   </Swiper>
@@ -65,6 +86,19 @@ export default function BoardDetailList({
                             </div>
                           </div>
                         ))}
+                        {list.userId == userId.id ? (
+                          <div className={styles.edit}>
+                            &nbsp;&nbsp;
+                            <EditOutlined
+                              onClick={Edit}
+                              className={styles.btn_edit}
+                            />
+                            <DeleteOutlined
+                              onClick={Delete}
+                              className={styles.btn_edit}
+                            />
+                          </div>
+                        ) : null}
                       </div>
                     </div>
                   </div>
