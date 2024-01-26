@@ -29,7 +29,7 @@ const Home = () => {
 
   useEffect(() => {
     productLists();
-    setLimit(20);
+    setLimit(12);
   }, [auth]);
 
   return (

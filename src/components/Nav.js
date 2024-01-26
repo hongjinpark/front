@@ -198,6 +198,11 @@ export default function Nav() {
               >
                 <span className={styles.navMenu}>
                   <FontAwesomeIcon icon={faUser} className={styles.mypage} />
+                  {Token && (
+                    <span className={styles.loginId}>
+                      {JSON.parse(localStorage.getItem('user')).email}
+                    </span>
+                  )}
                 </span>
                 {show && (
                   <div className={styles.myPageBox}>
