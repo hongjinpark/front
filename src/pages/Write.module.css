@@ -60,16 +60,51 @@
 }
 
 .img_card {
+  position: relative;
+  height: 100px;
+  width: 150px;
+  float: left;
+  margin-right: 5px;
+}
+.img_card:hover {
+  cursor: pointer;
+}
+.img_card p {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  transition: opacity 0.3s ease-in-out;
+  font-size: 20px;
+}
+.img_card:hover p {
+  opacity: 1;
+}
+
+.img {
   filter: brightness(1);
   transition: 0.5s;
   object-fit: cover;
   margin-top: 10px;
-  height: 100px;
-  width: 150px;
+  width: 100%;
+  height: 100%;
+
   border-radius: 10%;
 }
 
-.img_card:hover {
-  cursor: pointer;
-  filter: brightness(80%);
+.img:hover {
+  filter: brightness(50%);
+}
+.img_form {
+  border: 1.5px solid #eee;
+  border-radius: 10px;
+  padding: 20px 20px 20px 20px;
+  height: 200px;
 }
