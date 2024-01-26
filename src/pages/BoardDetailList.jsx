@@ -7,6 +7,7 @@ import 'swiper/css/pagination';
 import styles from './Board.module.css';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import ToastContext from '../context/ToastContext';
+import useAuth from '../hooks/useAuth';
 
 export default function BoardDetailList({
   list,
@@ -16,7 +17,7 @@ export default function BoardDetailList({
 }) {
   const navigator = useNavigate();
   const toastContext = useContext(ToastContext);
-  const userId = JSON.parse(localStorage.getItem('user'));
+  const { auth } = useAuth();
 
   const Delete = () => {
     if (window.confirm('삭제하시겠습니까?')) {
@@ -87,7 +88,7 @@ export default function BoardDetailList({
                             </div>
                           </div>
                         ))}
-                        {list.userId == userId.id ? (
+                        {list.userId == auth?.id ? (
                           <div className={styles.edit}>
                             &nbsp;&nbsp;
                             <EditOutlined

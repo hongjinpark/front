@@ -6,6 +6,7 @@ import Container from '../components/Container';
 import styles from '../pages/Board.module.css';
 import BoardDetailList from '../pages/BoardDetailList';
 import CommentList from './CommentList';
+import Pagination from './Pagination';
 
 const BoardDetail = () => {
   /*const [list, setList] = useState({
@@ -20,6 +21,11 @@ const BoardDetail = () => {
   const [boardImageDtoList, setBoardImageDtoList] = useState([]);
   const [userInfoDtoList, setUserInfoDtoList] = useState([]);
   const [regionDtoList, setRegionDtoList] = useState([]);
+
+  //페이지네이션
+  const [limit, setLimit] = useState(3);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
 
   const [comment, setComment] = useState([]);
   const { id } = useParams();
@@ -44,6 +50,7 @@ const BoardDetail = () => {
 
   useEffect(() => {
     boardLists();
+    setLimit(10);
     console.log(list);
   }, []);
 
@@ -77,8 +84,15 @@ const BoardDetail = () => {
       />
 
       <div className={styles.commentContent}>
-        <CommentList comment={comment} />
+        <CommentList comment={comment.slice(offset, offset + limit)} />
       </div>
+
+      <Pagination
+        total={comment.length}
+        limit={limit}
+        page={page}
+        setPage={setPage}
+      />
     </Container>
   );
 };

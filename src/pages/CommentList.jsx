@@ -1,17 +1,28 @@
 import styles from './Board.module.css';
-import { format } from 'date-fns';
-import { useState } from 'react';
+import { detailDate } from '../utils/util';
+import { useContext, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import ReplyCommentBoard from './ReplyCommentBoard';
 import ReplyCommentList from '../pages/ReplyCommentList';
 import useAuth from '../hooks/useAuth';
+import UpdateCommentBoard from '../pages/UpdateCommentBoard';
+import ToastContext from '../context/ToastContext';
 
 export default function CommentList({ comment }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const { auth } = useAuth();
+  const navigator = useNavigate();
+  const toastContext = useContext(ToastContext);
   const [visible, setVisible] = useState([false, false, false, false, false]);
+  const [updateVisible, setUpdateVisible] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
 
   const [regComment, setRegComment] = useState({
     contents: '',
@@ -40,6 +51,18 @@ export default function CommentList({ comment }) {
 
   console.log(regComment);
 
+  const onRemove = (targetId) => {
+    axios({
+      method: 'DELETE',
+      url: `http://localhost:8090/comment/delete/${targetId}`,
+      mode: 'cors',
+    }).then(() => {
+      navigator(`/board/${id}`);
+      window.location.reload('/board/${id}');
+    });
+    toastContext.setToastMessage(['삭제되었습니다']);
+  };
+
   return (
     <>
       <div>
@@ -57,7 +80,7 @@ export default function CommentList({ comment }) {
                 <div className={styles.aa6}>
                   <div className={styles.w7pzr95}>{comment.nickname}</div>
                   <div className={styles.w7pzr94}>
-                    {format(comment.update_time, 'yyyy-MM-dd hh:mm:ss')}
+                    {detailDate(comment.update_time)}
                   </div>
                 </div>
 
@@ -112,18 +135,46 @@ export default function CommentList({ comment }) {
                     {comment.user_id == auth?.id ? (
                       <>
                         <span className={`${styles.w7pzr94} ${styles.update}`}>
-                          수정
+                          <button
+                            className={styles.w7pzr94}
+                            onClick={() => {
+                              setUpdateVisible((prev) => {
+                                const updatedState = [...prev];
+                                updatedState[i] = !updatedState[i];
+                                return updatedState;
+                              });
+                            }}
+                          >
+                            {updateVisible[i] ? '숨기기' : '수정'}
+                          </button>
                         </span>
                         <span className={`${styles.w7pzr94} ${styles.update}`}>
-                          삭제
+                          <button
+                            onClick={() => {
+                              if (window.confirm(`삭제하시겠습니까?`)) {
+                                onRemove(comment.comment_id); // 선택한 해당요소 id값을 전달
+                              }
+                            }}
+                          >
+                            삭제
+                          </button>
                         </span>
                       </>
                     ) : (
                       <></>
                     )}
-                    {visible[i] && (
-                      <ReplyCommentBoard commentGroup={comment.comment_group} />
-                    )}
+                    <div>
+                      {updateVisible[i] && (
+                        <UpdateCommentBoard comment_id={comment.comment_id} />
+                      )}
+                    </div>
+                    <div>
+                      {visible[i] && (
+                        <ReplyCommentBoard
+                          commentGroup={comment.comment_group}
+                        />
+                      )}
+                    </div>
                     <ReplyCommentList commentGroup={comment.comment_group} />
                   </div>
                 </div>
