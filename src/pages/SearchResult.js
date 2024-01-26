@@ -23,9 +23,10 @@ export default function SearchResult() {
   const offset = (page - 1) * limit;
 
   const newList = list.sort((a, b) => a[order] - b[order]);
+  console.log('console : ', console);
 
   const handlerecommenBtn = () => {
-    setOrder('price');
+    setOrder('pdTitle');
     setBtnClick('recommen');
   };
   const handleLeastBtn = () => {

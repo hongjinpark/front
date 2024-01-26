@@ -11,6 +11,11 @@ import axios from 'axios';
 import ChatModalContext from '../context/ChatModalProvider';
 import useAuth from './../hooks/useAuth';
 import ToastContext from '../context/ToastContext';
+// swiper
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 export default function ProductDetail() {
   const { product_id } = useParams();
@@ -20,6 +25,11 @@ export default function ProductDetail() {
   const { setIsOpen, setStep } = useContext(ChatModalContext);
   const { auth } = useAuth();
   const toastContext = useContext(ToastContext);
+
+  const [pdImg, setPdImg] = useState([]);
+  const [user, setUser] = useState([]);
+  const [userRegion, setUserRegion] = useState([]);
+
   //관심물품
   const [like, setLike] = useState(false);
   const toggleLike = async () => {
@@ -86,6 +96,21 @@ export default function ProductDetail() {
     }
   };
 
+  const productImgs = async () => {
+    let path = `/product/detail/${product_id}`;
+    try {
+      const options = {
+        path: path,
+      };
+      const getData = await getApi(options);
+      setPdImg(getData.productImageDtoList);
+      setUser(getData.userInfoDtoList);
+      setUserRegion(getData.regionDtoList);
+    } catch (e) {
+      return;
+    }
+  };
+
   const handleChatt = () => {
     setIsOpen(true);
     setStep('init');
@@ -106,6 +131,7 @@ export default function ProductDetail() {
   useEffect(() => {
     productLists();
     likeData();
+    productImgs();
   }, []);
 
   useEffect(() => {
@@ -123,11 +149,23 @@ export default function ProductDetail() {
           <>
             <div className={styles.pdInfo}>
               <div className={styles.imgBox}>
-                <img
-                  src={require(`../assets${course.imgUrl}`)}
-                  alt="상품이미지"
-                  className={styles.pdImg}
-                ></img>
+                <Swiper
+                  pagination={true}
+                  modules={[Pagination]}
+                  spaceBetween={50}
+                >
+                  {pdImg.map((img, index) => {
+                    return (
+                      <SwiperSlide key={index}>
+                        <img
+                          src={require(`../assets${img.imgUrl}`)}
+                          alt="상품이미지"
+                          className={styles.pdImg}
+                        ></img>
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
               </div>
               <div className={styles.infoBox}>
                 {token ? <LikeButton like={like} onClick={toggleLike} /> : null}
@@ -329,13 +367,40 @@ export default function ProductDetail() {
           </>
         )}
         {course && (
-          <div className={styles.content}>
-            <div className={styles.pdDetail}>
-              <h1>상품 내용</h1>
-              <Caution className={styles.caution} />
-              <p>{course.pdContents}</p>
+          <div className={styles.contentArea}>
+            <div className={`${styles.content} ${styles.pdInfoArea}`}>
+              <div className={styles.pdDetail}>
+                <h1>상품 내용</h1>
+                <Caution className={styles.caution} />
+                <p>{course.pdContents}</p>
+              </div>
             </div>
-            <div className={styles.userInfo}></div>
+            <div className={`${styles.content} ${styles.userInfo}`}>
+              <div className={styles.pdDetail}>
+                <h1>사용자 정보</h1>
+
+                {user.length === 0 &&
+                userRegion.length === 0 &&
+                pdImg.length === 0 ? (
+                  <h1>사용자 정보 없음</h1>
+                ) : (
+                  <div className={styles.userInfoArea}>
+                    <span className={styles.userImg}>
+                      <img
+                        src={require(`../assets${user[0].imgUrl}`)}
+                        alt=""
+                      ></img>
+                    </span>
+                    <span className={styles.userName}>
+                      {user[0].usrNickName}
+                    </span>
+                    <span className={styles.userRegion}>
+                      {userRegion[0].regionName}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         )}
 

@@ -3,11 +3,17 @@
   padding-top: 140px;
 }
 
+.swiper {
+  height: 40px;
+  background: pink;
+}
+
 .pdInfo {
   display: flex;
 }
 
 .imgBox {
+  width: 50%;
   background: #fff;
   /* z-index: 9; */
 }
@@ -99,9 +105,45 @@ li {
   opacity: 0.9;
 }
 
+.contentArea {
+  display: flex;
+  padding-bottom: 150px;
+}
 .content {
   margin-top: 50px;
   padding-bottom: 50px;
+}
+.pdInfoArea {
+  width: 50%;
+  margin-left: 10px;
+}
+.userInfo {
+  display: flex;
+  width: 50%;
+  margin-left: 50px;
+}
+
+.userInfoArea {
+  display: flex;
+  padding: 20px;
+  margin-top: 20px;
+}
+.userImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  overflow: hidden;
+}
+.userName {
+  font-weight: bold;
+}
+.userRegion {
+  margin-left: 10px;
+  color: #797979;
+}
+.userName,
+.userRegion {
+  margin: 10px 0 0 20px;
 }
 
 .caution {
@@ -117,7 +159,7 @@ li {
   width: 700px;
   height: 100%;
   background: #fff;
-  z-index: 999;
+  z-index: 1;
   transition: all 0.4s ease;
   transform: translateX(700px);
 }
