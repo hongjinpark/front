@@ -422,6 +422,11 @@ ul.products {
     display: flex;
 }
 
+.aa22 {
+  display: flex;
+  margin-left: 17px;
+}
+
 .aa3 {
   width: 38%;
 }
@@ -434,6 +439,12 @@ ul.products {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.aa55 {
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
 }
 
 .aa6 {
@@ -576,7 +587,7 @@ ul.products {
 }
 
 .replyCommentLike {
-  display: flex;
+  display: block;
   align-items: center;
   justify-content: space-between;
   margin: auto;
@@ -655,7 +666,9 @@ ul.products {
 }
 
 .update1 {
-  margin-left: auto;
+  margin-left: 18px;
+  margin-bottom: 50px;
+  padding-top: 30px;
 }
 .edit {
   /* vertical-align: middle; */

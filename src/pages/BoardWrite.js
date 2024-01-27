@@ -1,14 +1,14 @@
 import styles from './Write.module.css';
 import axios from 'axios';
-import { useContext, useState } from 'react';
+import { useContext, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import ToastContext from '../context/ToastContext';
 
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-// import Image from 'react-bootstrap/Image';
-import Row from 'react-bootstrap/Row';
+// import Col from 'react-bootstrap/Col';
+// import Container from 'react-bootstrap/Container';
+// // import Image from 'react-bootstrap/Image';
+// import Row from 'react-bootstrap/Row';
 
 import { Form } from 'react-bootstrap';
 
@@ -22,6 +22,7 @@ export default function NoticeDetail() {
 
   const [imageList, setImageList] = useState([]);
   const [previewImg, setPreviewImg] = useState([]);
+  const fileInput = useRef();
 
   const saveTitle = (event) => {
     setTitle(event.target.value);
@@ -75,36 +76,37 @@ export default function NoticeDetail() {
           등록
         </Button>
       </div>
-      <div className={styles.top_title}>
+      <div className={styles.img_form}>
         <Form.Control
           type="file"
           id="imageList"
           name="imageList"
           accept="image/jpg,image/png,image/jpeg,image/gif/png/webp"
           multiple
+          ref={fileInput}
           required
           onChange={onChangeImageInput}
         />
-        <Container className={styles.img_list}>
-          <Row>
-            {previewImg.map((imgsrc, index) => (
-              <Col xs={2} md={2} key={index}>
-                <img
-                  className={styles.img_card}
-                  role="presentation"
-                  onClick={() => {
-                    const deleteImg = [...previewImg];
-                    deleteImg.splice(index, 1);
-                    setPreviewImg(deleteImg);
-                    console.log(deleteImg);
-                  }}
-                  src={imgsrc}
-                  alt="thumbnail"
-                />
-              </Col>
-            ))}
-          </Row>
-        </Container>
+        {/* <Container className={styles.img_list}>
+          <Row> */}
+        {previewImg.map((imgsrc, index) => (
+          <div
+            className={styles.img_card}
+            key={index}
+            role="presentation"
+            onClick={() => {
+              const deleteImg = [...previewImg];
+              deleteImg.splice(index, 1);
+              setPreviewImg(deleteImg);
+              fileInput.current.value = '';
+            }}
+          >
+            <img className={styles.img} src={imgsrc} alt="thumbnail" />
+            <p>X</p>
+          </div>
+        ))}
+        {/* </Row>
+        </Container> */}
       </div>
       <button
         onClick={() => {
