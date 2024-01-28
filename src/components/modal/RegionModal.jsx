@@ -1,12 +1,22 @@
 import Modal from './Modal';
 import RegionModalContext from '../../context/RegionModalProvider';
-import { useState } from 'react';
-import regions from '../../data/region.json';
+import { useContext, useEffect, useState } from 'react';
+import regions from '../../data/areas.json';
+import { getRegion, saveRegion } from '../../api/region.api';
 
 export default function RegionModal() {
   const [inputValue, setInputValue] = useState('');
   const [foundLocations, setFoundLocations] = useState([]);
   const [click, setClick] = useState(false);
+  const { isOpen } = useContext(RegionModalContext);
+  useEffect(() => {
+    if (isOpen) getRegion().then((res) => setInputValue(res.data.regionName));
+  }, [isOpen]);
+
+  const handleSaveRegion = () => {
+    if (!click) return;
+    saveRegion(inputValue);
+  };
   const handleInputChange = (e) => {
     const value = e.target.value;
     setInputValue(value);
@@ -20,15 +30,9 @@ export default function RegionModal() {
     // 입력된 값으로 지역을 찾습니다.
     const foundLocations = [];
 
-    for (const city of Object.values(regions)) {
-      for (const district of Object.values(city.districts)) {
-        for (const town of Object.values(district.towns)) {
-          if (town.name.includes(value)) {
-            foundLocations.push(
-              city.name + ' ' + district.name + ' ' + town.name
-            );
-          }
-        }
+    for (const area of Object.values(regions)) {
+      if (area.area_title.includes(value)) {
+        foundLocations.push(area.area_title);
       }
     }
 
@@ -89,7 +93,7 @@ export default function RegionModal() {
           {foundLocations.length > 0 && !click && (
             <div className="mt-4 border-solid border-3 rounded-xl p-2">
               <ul>
-                {foundLocations.slice(0, 10).map((foundLocation, index) => (
+                {foundLocations.slice(0, 15).map((foundLocation, index) => (
                   <li
                     role="presentation"
                     key={index}
@@ -126,7 +130,7 @@ export default function RegionModal() {
           <div>
             <div className="flex justify-center items-center bg-white self-end mt-8 px-5">
               <button
-                // onClick={() => handleSaveUserInfo()}
+                onClick={() => handleSaveRegion()}
                 disabled=""
                 className="relative flex rounded justify-center items-center w-full h-14 bg-black text-white"
               >
