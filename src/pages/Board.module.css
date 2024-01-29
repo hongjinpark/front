@@ -688,6 +688,7 @@ ul.products {
 }
 .boards {
   border-bottom: 1.5px solid #eee;
+  margin-bottom: 5px;
 }
 .btn_post {
   margin-top: 5px;

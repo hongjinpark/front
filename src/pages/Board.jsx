@@ -16,6 +16,10 @@ const Board = () => {
 
   const navigator = useNavigate();
 
+  const login = localStorage.getItem('login');
+
+  // const imgtest = list.length;
+
   const boardLists = async () => {
     let path = `/board/list`;
     try {
@@ -39,15 +43,17 @@ const Board = () => {
       <div className={styles.boards}>
         <BoardList list={list.slice(offset, offset + limit)} />
       </div>
-      <Button
-        className={styles.btn_post}
-        onClick={() => {
-          navigator('/board/write');
-        }}
-        variant="outline-secondary"
-      >
-        등록
-      </Button>
+      {login ? (
+        <Button
+          className={styles.btn_post}
+          onClick={() => {
+            navigator('/board/write');
+          }}
+          variant="outline-secondary"
+        >
+          등록
+        </Button>
+      ) : null}
 
       <Pagination
         total={list.length}
