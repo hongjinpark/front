@@ -6,6 +6,7 @@ import { getApi } from '../api/axios';
 import Products from '../components/Products';
 import Container from '../components/Container';
 import Pagination from './Pagination';
+import Loading from '../components/Loading';
 
 const Home = () => {
   const { auth } = useAuth();
@@ -13,8 +14,10 @@ const Home = () => {
   const [limit, setLimit] = useState(3);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
+  const [loading, setLoading] = useState(true);
 
   const productLists = async () => {
+    setLoading(true);
     let path = `/product/list`;
     try {
       const options = {
@@ -22,6 +25,7 @@ const Home = () => {
       };
       const getData = await getApi(options);
       setList(getData);
+      setLoading(false);
     } catch (e) {
       throw e;
     }
@@ -34,6 +38,7 @@ const Home = () => {
 
   return (
     <Container className={styles.container}>
+      {loading ? <Loading /> : null}
       <div className={styles.box1}>
         <div className={styles.items}>
           <Products

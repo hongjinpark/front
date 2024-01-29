@@ -35,12 +35,10 @@ export default function SearchResult() {
   const handleLowerBtn = () => {
     setOrder('price');
     setBtnClick('lower');
-    console.log('낮은가격순 눌림');
   };
   const handleHighBtn = () => {
     setOrder('-price');
     setBtnClick('high');
-    console.log('높은 가격순 눌림');
   };
 
   const productLists = async () => {
