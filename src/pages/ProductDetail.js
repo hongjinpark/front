@@ -389,6 +389,7 @@ export default function ProductDetail() {
                       <img
                         src={require(`../assets${user[0].imgUrl}`)}
                         alt=""
+                        className={styles.userImage}
                       ></img>
                     </span>
                     <span className={styles.userName}>

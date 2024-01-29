@@ -133,6 +133,9 @@ li {
   border-radius: 50px;
   overflow: hidden;
 }
+.userImage {
+  background-size: cover;
+}
 .userName {
   font-weight: bold;
 }
