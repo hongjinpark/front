@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-catch */
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import styles from './ProductDetail.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { getApi } from '../api/axios';
@@ -16,6 +16,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import DeleteModalContext from '../context/DeleteModalProvider';
 
 export default function ProductDetail() {
   const { product_id } = useParams();
@@ -25,11 +26,12 @@ export default function ProductDetail() {
   const { setIsOpen, setStep } = useContext(ChatModalContext);
   const { auth } = useAuth();
   const toastContext = useContext(ToastContext);
-
+  const navigate = useNavigate();
   const [pdImg, setPdImg] = useState([]);
   const [user, setUser] = useState([]);
   const [userRegion, setUserRegion] = useState([]);
-
+  const { openModal: openDeleteModal, setPdId } =
+    useContext(DeleteModalContext);
   //관심물품
   const [like, setLike] = useState(false);
   const toggleLike = async () => {
@@ -257,7 +259,12 @@ export default function ProductDetail() {
                             </button>
                           </li>
                           <li>
-                            <button className="flex flex-col items-center">
+                            <button
+                              className="flex flex-col items-center"
+                              onClick={() =>
+                                navigate('/mypage/product/update/' + product_id)
+                              }
+                            >
                               <svg
                                 width="24"
                                 height="24"
@@ -311,7 +318,13 @@ export default function ProductDetail() {
                             </button>
                           </li>
                           <li>
-                            <button className="flex flex-col items-center">
+                            <button
+                              className="flex flex-col items-center"
+                              onClick={() => {
+                                setPdId(product_id);
+                                openDeleteModal();
+                              }}
+                            >
                               <svg
                                 width="24"
                                 height="24"
