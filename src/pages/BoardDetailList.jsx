@@ -8,8 +8,10 @@ import styles from './Board.module.css';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import ToastContext from '../context/ToastContext';
 import useAuth from '../hooks/useAuth';
+import axios from 'axios';
 
 export default function BoardDetailList({
+  params,
   list,
   boardImageDtoList,
   userInfoDtoList,
@@ -18,15 +20,24 @@ export default function BoardDetailList({
   const navigator = useNavigate();
   const toastContext = useContext(ToastContext);
   const { auth } = useAuth();
+  const token = localStorage.getItem('login');
 
   const Delete = () => {
     if (window.confirm('삭제하시겠습니까?')) {
-      toastContext.setToastMessage(['게시글이 삭제되었습니다.']);
-      navigator('/board');
+      axios
+        .delete('http://localhost:8090/board/lists/' + params, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(() => {
+          toastContext.setToastMessage(['게시글이 삭제되었습니다.']);
+          navigator('/board');
+        });
     }
   };
   const Edit = () => {
-    navigator('/board/update/3');
+    navigator('/board/update/' + params);
   };
   return (
     <>
@@ -49,7 +60,6 @@ export default function BoardDetailList({
                           src={require(`../assets${board.imgUrl}`)}
                           alt=""
                         />
-                        {console.log(board)}
                       </SwiperSlide>
                     ))}
                   </Swiper>

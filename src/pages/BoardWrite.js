@@ -12,7 +12,7 @@ import ToastContext from '../context/ToastContext';
 
 import { Form } from 'react-bootstrap';
 
-export default function NoticeDetail() {
+export default function BoardWrite() {
   const navigator = useNavigate();
   // const role = localStorage.getItem('role');
 
@@ -30,17 +30,36 @@ export default function NoticeDetail() {
   const saveContent = (event) => {
     setcontents(event.target.value);
   };
-  const Save = () => {
+  const Save = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    imageList.forEach((image) => {
+      formData.append('boardImgFileList', image);
+    });
+
+    const value = {
+      bdSubject: titleValue,
+      bdContents: contentsValue,
+    };
+
+    const blob = new Blob([JSON.stringify(value)], {
+      type: 'application/json',
+    });
+
+    formData.append('boardDto', blob);
+
+    const token = localStorage.getItem('login');
     if (titleValue !== '' && contentsValue !== '') {
-      axios
-        .post('http://localhost:8090/board/new', {
-          noticeContents: contentsValue,
-          noticeTitle: titleValue,
-        })
-        .then(() => {
-          toastContext.setToastMessage(['작성이 완료되었습니다']);
-          navigator('/board', { replace: true });
-        });
+      axios.post('http://localhost:8090/board/new', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      toastContext.setToastMessage(['게시글이 등록되었습니다']);
+      navigator('/board', { replace: true });
     } else if (titleValue == '') {
       toastContext.setToastMessage(['제목을 입력해주세요']);
     } else {
@@ -59,7 +78,7 @@ export default function NoticeDetail() {
         const imgUrl = URL.createObjectURL(fileArr[i]);
         imgUrlList.push(imgUrl);
       }
-      setImageList(imgUrlList); //에러 방지
+      setImageList([...imageList, ...e.target.files]);
       setPreviewImg(imgUrlList);
     }
   };
@@ -87,17 +106,21 @@ export default function NoticeDetail() {
           required
           onChange={onChangeImageInput}
         />
-        {/* <Container className={styles.img_list}>
-          <Row> */}
+
         {previewImg.map((imgsrc, index) => (
           <div
             className={styles.img_card}
             key={index}
             role="presentation"
             onClick={() => {
-              const deleteImg = [...previewImg];
+              const deletePreImg = [...previewImg];
+              deletePreImg.splice(index, 1);
+              setPreviewImg(deletePreImg);
+
+              const deleteImg = [...imageList];
               deleteImg.splice(index, 1);
-              setPreviewImg(deleteImg);
+              setImageList(deleteImg);
+
               fileInput.current.value = '';
             }}
           >
@@ -105,16 +128,7 @@ export default function NoticeDetail() {
             <p>X</p>
           </div>
         ))}
-        {/* </Row>
-        </Container> */}
       </div>
-      <button
-        onClick={() => {
-          console.log(imageList.length);
-        }}
-      >
-        test
-      </button>
       <div className={styles.top_title}>
         <input
           className={styles.title_text}

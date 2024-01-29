@@ -77,6 +77,7 @@ const BoardDetail = () => {
   return (
     <Container className={styles.container}>
       <BoardDetailList
+        params={id}
         list={list}
         boardImageDtoList={boardImageDtoList}
         userInfoDtoList={userInfoDtoList}
