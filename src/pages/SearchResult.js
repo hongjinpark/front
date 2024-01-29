@@ -14,7 +14,7 @@ export default function SearchResult() {
   const [course, setCourse] = useState([]);
   const [keyword, setKeyword] = useState('');
   let nowState = false;
-  const [btnClick, setBtnClick] = useState('recommen');
+  const [btnClick, setBtnClick] = useState('recommend');
   const navigate = useNavigate();
   const [order, setOrder] = useState('price');
   const [limit, setLimit] = useState(3);
@@ -23,23 +23,24 @@ export default function SearchResult() {
   const offset = (page - 1) * limit;
 
   const newList = list.sort((a, b) => a[order] - b[order]);
-  console.log('console : ', console);
 
   const handlerecommenBtn = () => {
-    setOrder('pdTitle');
-    setBtnClick('recommen');
+    setOrder('price');
+    setBtnClick('recommend');
   };
   const handleLeastBtn = () => {
     setOrder('rating');
     setBtnClick('least');
   };
   const handleLowerBtn = () => {
-    setOrder('price', 'ascendingOrder');
+    setOrder('price');
     setBtnClick('lower');
+    console.log('낮은가격순 눌림');
   };
   const handleHighBtn = () => {
-    setOrder('price', 'descendingOrder');
+    setOrder('-price');
     setBtnClick('high');
+    console.log('높은 가격순 눌림');
   };
 
   const productLists = async () => {
@@ -71,8 +72,8 @@ export default function SearchResult() {
   useEffect(() => {
     topicLists();
     productLists();
-    setLimit(20);
-  }, []);
+    setLimit(12);
+  }, [order]);
 
   useEffect(() => {
     if (searchWord.includes('keyword') != -1) {
@@ -237,7 +238,7 @@ export default function SearchResult() {
               <div className={styles.buttonBox}>
                 <button
                   onClick={handlerecommenBtn}
-                  className={btnClick === 'recommen' ? styles.btnEmphasis : ''}
+                  className={btnClick === 'recommend' ? styles.btnEmphasis : ''}
                 >
                   추천순&nbsp;
                 </button>

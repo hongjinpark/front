@@ -1,5 +1,5 @@
 .section {
-  padding-top: 140px;
+  padding: 140px 0 200px;
 }
 
 .container {
@@ -167,7 +167,7 @@
 
 .categoryList {
   --tw-border-opacity: 1;
-  border-color: rgb(218 222 229/var(--tw-border-opacity));
+  border-color: rgb(218 222 229 / var(--tw-border-opacity));
   border-style: solid;
   flex-direction: column;
   display: flex;

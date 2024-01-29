@@ -64,7 +64,7 @@ export default function Search() {
   useEffect(() => {
     productLists();
     topicLists();
-    setLimit(20);
+    setLimit(12);
   }, [order]);
 
   let min,
@@ -109,7 +109,6 @@ export default function Search() {
                   topic.map((e, index) => {
                     let replaced_word = '';
                     let newTopicName = e.topic_name;
-                    console.log('newTopicName : ', newTopicName);
                     if (e.topic_name.indexOf('/') != -1) {
                       replaced_word = e.topic_name.replace('/', '');
                     } else {

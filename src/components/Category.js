@@ -61,11 +61,6 @@ export default function Category({ className }) {
           </ul>
         </div>
       </div>
-      <button className={classNames(styles.btn, styles.eBtn)}>
-        <Link to="/admin" style={{ textDecoration: 'none', color: 'inherit' }}>
-          Admin
-        </Link>
-      </button>
       <button className={classNames(styles.btn, styles.sBtn)}>
         <Link to="/board" style={{ textDecoration: 'none', color: 'inherit' }}>
           게시판
