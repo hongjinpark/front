@@ -5,6 +5,7 @@ import ProfileModalContext from '../../context/ProfileModalProvider';
 import SelectedModalContext from '../../context/SelectedModalProvider';
 import AttentionModalContext from '../../context/AttentionModalProvider';
 import RegionModalContext from '../../context/RegionModalProvider';
+import UserDeleteModalContext from '../../context/UserDeleteModalProvider';
 
 export default function MyPageMenu() {
   const { openModal: openPurchaseModal } = useContext(PurchaseModalContext);
@@ -13,6 +14,7 @@ export default function MyPageMenu() {
   const { openModal: openSelectedModal } = useContext(SelectedModalContext);
   const { openModal: openAttentionModal } = useContext(AttentionModalContext);
   const { openModal: openRegionModal } = useContext(RegionModalContext);
+  const { openModal: openUserDeleteModal } = useContext(UserDeleteModalContext);
   return (
     <div className="hidden lg:block mt-6 min-w-[150px] basis-[300px] flex-shrink [&_ul]:mb-4 [&_li]:w-fit [&_li]:cursor-pointer [&_li]:mb-2 [&_li]:text-gray-600">
       <h2 className="mb-3 text-2xl font-semibold">마이 페이지</h2>
@@ -38,6 +40,9 @@ export default function MyPageMenu() {
         </button>
         <button onClick={() => openRegionModal()}>
           <li>지역 수정</li>
+        </button>
+        <button onClick={() => openUserDeleteModal()}>
+          <li>회원 탈퇴</li>
         </button>
       </ul>
     </div>

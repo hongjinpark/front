@@ -6,10 +6,14 @@ export const AuthProvider = ({ children }) => {
   const storageUser = JSON.parse(localStorage.getItem('user')) || null;
   const [auth, setAuth] = useState(storageUser);
   const getNickName = () => {
-    if (auth.userInfo) {
-      return auth.userInfo.usrNickName;
+    if (auth != null) {
+      if (auth.userInfo) {
+        return auth.userInfo.usrNickName;
+      }
+      return auth.nickname;
+    } else {
+      return null;
     }
-    return auth.nickname;
   };
   return (
     <AuthContext.Provider value={{ auth, setAuth, getNickName }}>

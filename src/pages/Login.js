@@ -73,7 +73,7 @@ const Login = () => {
       >
         {errMsg}
       </p>
-      <Container className={styles.section}>
+      <Container className={styles.section2}>
         <Form onSubmit={handleSubmit}>
           <Form.Group as={Row} ClassName="mb-3" controlId="formBasicEmail">
             <Col sm>

@@ -6,6 +6,7 @@ import SaleModal from './../components/modal/SaleModal';
 import AttentionModal from '../components/modal/AttentionModal';
 import RegionModal from '../components/modal/RegionModal';
 import DeleteModal from '../components/modal/DeleteModal';
+import UserDeleteModal from '../components/modal/UserDeleteModal';
 
 export default function ModalProvider() {
   return (
@@ -18,6 +19,7 @@ export default function ModalProvider() {
       <AttentionModal />
       <RegionModal />
       <DeleteModal />
+      <UserDeleteModal />
     </>
   );
 }

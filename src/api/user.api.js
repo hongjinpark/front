@@ -15,3 +15,13 @@ export const saveUserInfo = ({ userInfoDto, profileImg }) => {
 
   return httpApi.post('/user/info/new2', form);
 };
+
+export const deleteUser = () => {
+  const token = localStorage.getItem('login');
+  return httpApi.delete(`/user/delete`, {
+    headers: {
+      'Content-Type': 'text/html',
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+};

@@ -64,7 +64,7 @@ const Regist = () => {
       >
         {errMsg}
       </p>
-      <Container className={styles.section}>
+      <Container className={styles.section2}>
         <Form onSubmit={handleSubmit} className="mx-auto w-full max-w-[570px]">
           <Form.Group as={Row} className="mb-3">
             <Col sm>

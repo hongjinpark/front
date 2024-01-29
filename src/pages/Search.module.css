@@ -2,6 +2,10 @@
   padding: 140px 0 200px;
 }
 
+.section2 {
+  padding: 350px 0 200px;
+}
+
 .container {
   display: flex;
 }

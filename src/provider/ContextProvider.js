@@ -8,6 +8,7 @@ import { ChatModalProvider } from './../context/ChatModalProvider';
 import { AttentionModalProvider } from '../context/AttentionModalProvider';
 import { RegionModalProvider } from '../context/RegionModalProvider';
 import { DeleteModalProvider } from '../context/DeleteModalProvider';
+import { UserDeleteModalProvider } from '../context/UserDeleteModalProvider';
 
 export default function ContextProvider({ children }) {
   return (
@@ -21,7 +22,11 @@ export default function ContextProvider({ children }) {
                   <SelectedModalProvider>
                     <AttentionModalProvider>
                       <RegionModalProvider>
-                        <DeleteModalProvider>{children}</DeleteModalProvider>
+                        <DeleteModalProvider>
+                          <UserDeleteModalProvider>
+                            {children}
+                          </UserDeleteModalProvider>
+                        </DeleteModalProvider>
                       </RegionModalProvider>
                     </AttentionModalProvider>
                   </SelectedModalProvider>
