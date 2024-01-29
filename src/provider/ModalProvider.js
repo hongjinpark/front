@@ -7,6 +7,7 @@ import AttentionModal from '../components/modal/AttentionModal';
 import RegionModal from '../components/modal/RegionModal';
 import DeleteModal from '../components/modal/DeleteModal';
 import UserDeleteModal from '../components/modal/UserDeleteModal';
+import ChangeStatusModal from '../components/modal/ChangeStatusModal';
 
 export default function ModalProvider() {
   return (
@@ -20,6 +21,7 @@ export default function ModalProvider() {
       <RegionModal />
       <DeleteModal />
       <UserDeleteModal />
+      <ChangeStatusModal />
     </>
   );
 }

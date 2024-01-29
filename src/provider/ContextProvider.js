@@ -9,6 +9,7 @@ import { AttentionModalProvider } from '../context/AttentionModalProvider';
 import { RegionModalProvider } from '../context/RegionModalProvider';
 import { DeleteModalProvider } from '../context/DeleteModalProvider';
 import { UserDeleteModalProvider } from '../context/UserDeleteModalProvider';
+import { ChangeStatusModalProvider } from '../context/ChangeStatusModalProvider';
 
 export default function ContextProvider({ children }) {
   return (
@@ -24,7 +25,9 @@ export default function ContextProvider({ children }) {
                       <RegionModalProvider>
                         <DeleteModalProvider>
                           <UserDeleteModalProvider>
-                            {children}
+                            <ChangeStatusModalProvider>
+                              {children}
+                            </ChangeStatusModalProvider>
                           </UserDeleteModalProvider>
                         </DeleteModalProvider>
                       </RegionModalProvider>

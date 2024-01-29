@@ -49,7 +49,7 @@ export default function Modal({
       ${modalVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-100'}`}
       >
         <div
-          className="relative  w-full md:w-[600px] h-[300px] md:h-[300px] z-50"
+          className="relative  w-full md:w-[500px] h-[300px] md:h-[300px] z-50"
           id="modal"
         >
           <div className="flex flex-col  h-full max-h-full overflow-auto rounded-xl bg-white mx-auto my-0">
