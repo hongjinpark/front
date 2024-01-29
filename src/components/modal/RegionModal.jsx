@@ -3,19 +3,24 @@ import RegionModalContext from '../../context/RegionModalProvider';
 import { useContext, useEffect, useState } from 'react';
 import regions from '../../data/areas.json';
 import { getRegion, saveRegion } from '../../api/region.api';
+import ToastContext from '../../context/ToastContext';
 
 export default function RegionModal() {
   const [inputValue, setInputValue] = useState('');
   const [foundLocations, setFoundLocations] = useState([]);
   const [click, setClick] = useState(false);
-  const { isOpen } = useContext(RegionModalContext);
+  const { isOpen, setIsOpen } = useContext(RegionModalContext);
+  const toastContext = useContext(ToastContext);
   useEffect(() => {
     if (isOpen) getRegion().then((res) => setInputValue(res.data.regionName));
   }, [isOpen]);
 
   const handleSaveRegion = () => {
     if (!click) return;
-    saveRegion(inputValue);
+    saveRegion(inputValue).then(() => {
+      toastContext.setToastMessage(['변경되었습니다.']);
+      setIsOpen(false);
+    });
   };
   const handleInputChange = (e) => {
     const value = e.target.value;

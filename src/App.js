@@ -87,8 +87,8 @@ function App() {
   return (
     <ErrorBoundary>
       <CustomRouter history={history}>
-        <ContextProvider>
-          <ToastContext.Provider value={{ toastMessage, setToastMessage }}>
+        <ToastContext.Provider value={{ toastMessage, setToastMessage }}>
+          <ContextProvider>
             <Nav />
             <Routes>
               <Route path="/">
@@ -151,11 +151,11 @@ function App() {
               toastMessage={toastMessage}
               setToastMessage={setToastMessage}
             />
-          </ToastContext.Provider>
 
-          <Footer />
-          <ModalProvider />
-        </ContextProvider>
+            <Footer />
+            <ModalProvider />
+          </ContextProvider>
+        </ToastContext.Provider>
       </CustomRouter>
     </ErrorBoundary>
   );

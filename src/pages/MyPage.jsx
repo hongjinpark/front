@@ -5,7 +5,7 @@ import MyProductList from '../components/mypage/MyProductList';
 import MyPageProductHeader from '../components/mypage/MyPageProductHeader';
 import MyPageMenu from '../components/mypage/MyPageMenu';
 export default function MyPage() {
-  const { auth } = useAuth();
+  const { auth, getNickName } = useAuth();
 
   const [myProducts, setMyProducts] = useState([]);
   const [status, setStatus] = useState('A');
@@ -56,7 +56,7 @@ export default function MyPage() {
                       }
                     />
                     <h1 className="mr-2 text-xl font-semibold cursor-pointer lg:text-2xl">
-                      {auth.nickname}
+                      {getNickName()}
                     </h1>
                   </div>
                 </div>

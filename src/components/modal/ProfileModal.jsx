@@ -1,15 +1,17 @@
 import ProfileModalContext from '../../context/ProfileModalProvider';
 import Modal from './Modal';
 import useAuth from './../../hooks/useAuth';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { saveUserInfo } from '../../api/user.api';
+import ToastContext from '../../context/ToastContext';
 
 export default function ProfileModal() {
-  const { auth, setAuth } = useAuth();
+  const { auth, setAuth, getNickName } = useAuth();
   const [profileImg, setProfileImg] = useState(auth?.userInfo?.url);
-  const [usrNickName, setUsrNickName] = useState(
-    auth?.userInfo?.nickname || auth?.nickname
-  );
+  const [usrNickName, setUsrNickName] = useState(getNickName());
+  const toastContext = useContext(ToastContext);
+  const { setIsOpen } = useContext(ProfileModalContext);
+
   const handleSaveUserInfo = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     console.log(user);
@@ -20,6 +22,8 @@ export default function ProfileModal() {
       user.userInfo = res.data;
       localStorage.setItem('user', JSON.stringify(user));
       setAuth(user);
+      toastContext.setToastMessage(['변경되었습니다.']);
+      setIsOpen(false);
     });
   };
   const bodyContent = () => {
