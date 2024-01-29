@@ -99,7 +99,11 @@ export default function CommentList({ comment }) {
                         });
                       }}
                     >
-                      {visible[i] ? '숨기기' : '답글쓰기'}
+                      {auth?.id != null
+                        ? visible[i]
+                          ? '숨기기'
+                          : '답글쓰기'
+                        : ''}
                     </button>
                     {comment.user_id == auth?.id ? (
                       <>

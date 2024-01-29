@@ -3,14 +3,19 @@ import UserDeleteModalContext from '../../context/UserDeleteModalProvider';
 import { deleteUser } from '../../api/user.api';
 import ToastContext from '../../context/ToastContext';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function UserDeleteModal() {
   const { isOpen, setIsOpen } = useContext(UserDeleteModalContext);
   const toastContext = useContext(ToastContext);
+  const navigate = useNavigate();
   const handleSaveUserDelete = () => {
     deleteUser().then(() => {
       toastContext.setToastMessage(['탈퇴되었습니다.']);
+      localStorage.removeItem('login');
+      localStorage.removeItem('user');
       setIsOpen(false);
+      navigate('/');
       console.log(isOpen);
     });
   };
