@@ -75,6 +75,7 @@ export default function ProductDetail() {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const likeData = async () => {
     if (token) {
       const att = await axios.get('http://localhost:8090/attention/lists', {
@@ -94,7 +95,9 @@ export default function ProductDetail() {
       }
     }
   };
-  //
+  useEffect(() => {
+    likeData();
+  }, [likeData]);
 
   const productLists = async () => {
     let path = `/product/list`;
@@ -111,6 +114,7 @@ export default function ProductDetail() {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const productImgs = async () => {
     let path = `/product/detail/${product_id}`;
     try {
@@ -125,6 +129,10 @@ export default function ProductDetail() {
       return null;
     }
   };
+
+  useEffect(() => {
+    productImgs();
+  }, [productImgs]);
 
   const handleChatt = () => {
     setIsOpen(true);
@@ -145,8 +153,6 @@ export default function ProductDetail() {
 
   useEffect(() => {
     productLists();
-    likeData();
-    productImgs();
   }, []);
 
   useEffect(() => {

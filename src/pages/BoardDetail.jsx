@@ -55,6 +55,7 @@ const BoardDetail = () => {
     console.log(list);
   }, [boardLists, list]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const commentLists = async () => {
     let path = `/comment/list/${id}`;
 
