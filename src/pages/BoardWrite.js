@@ -52,13 +52,18 @@ export default function BoardWrite() {
 
     const token = localStorage.getItem('login');
     if (titleValue !== '' && contentsValue !== '') {
-      axios.post('http://localhost:8090/board/new', formData, {
+      await axios({
+        method: 'POST',
+        url: `http://localhost:8090/board/new`,
+        mode: 'cors',
         headers: {
           'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
           'Authorization': `Bearer ${token}`,
         },
+        data: formData, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
       });
-      toastContext.setToastMessage(['게시글이 등록되었습니다']);
+      console.log(formData.get('boardDto'));
+      toastContext.setToastMessage(['게시물이 등록되었습니다']);
       navigator('/board', { replace: true });
     } else if (titleValue == '') {
       toastContext.setToastMessage(['제목을 입력해주세요']);
