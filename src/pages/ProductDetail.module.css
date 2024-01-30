@@ -1,6 +1,5 @@
 .container {
-  padding-top: 50px;
-  padding-top: 140px;
+  padding: 150px 0 50px;
 }
 
 .swiper {
@@ -40,28 +39,29 @@
   font-size: 24px;
   font-weight: 800;
 }
+.pdTitleprice {
+  padding-bottom: 10px;
+}
 .price {
+  margin-right: 10px;
   font-size: 34px;
   font-weight: 800;
 }
 
 .plusInfo {
   display: flex;
+  justify-content: center;
   border-top: 1px solid #ccc;
   padding: 30px 0 20px;
-  flex-direction: column;
-}
-li {
-  list-style: none;
 }
 
 .info1,
 .info2 {
-  padding: 0 70px 0 10px;
-  border-right: 1px solid #ccc;
+  padding: 0 10px 0 10px;
 }
-.info3 {
-  padding: 0 50px 0 10px;
+.info1 {
+  width: 35%;
+  border-right: 1px solid #ccc;
 }
 
 .title {
@@ -95,6 +95,9 @@ li {
   margin: 0 30px 0 10px;
   padding: 10px 90px;
 }
+.chatBtndisabled {
+  display: none;
+}
 .buyBtn {
   background: #333;
   color: #fff;
@@ -102,6 +105,12 @@ li {
 }
 .buyBtn:hover {
   opacity: 0.9;
+}
+.pdEdit {
+  width: 100%;
+}
+.pdEditBtn {
+  color: #fff;
 }
 
 .contentArea {
