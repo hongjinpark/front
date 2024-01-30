@@ -26,7 +26,7 @@ export default function AttentionModal() {
     } else {
       setText('');
     }
-  }, [isOpen]);
+  }, [isOpen, setIsOpen, token]);
 
   const onChange = (e) => {
     setText(e.target.value);

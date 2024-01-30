@@ -52,7 +52,7 @@ const BoardDetail = () => {
     boardLists();
     setLimit(10);
     console.log(list);
-  }, []);
+  }, [boardLists, list]);
 
   const commentLists = async () => {
     let path = `/comment/list/${id}`;

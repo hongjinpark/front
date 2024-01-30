@@ -147,7 +147,7 @@ export default function ProductDetail() {
     productLists();
     likeData();
     productImgs();
-  }, []);
+  }, [likeData, productImgs]);
 
   useEffect(() => {
     if (!list) return;

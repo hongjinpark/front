@@ -17,7 +17,7 @@ export default function ChatRoom({ setChatRoom, setTitle }) {
         .catch(() => {
           setIsOpen(false);
         });
-  }, [auth, isOpen, setIsOpen]);
+  }, [auth, isOpen, setIsOpen, setTitle]);
   const findNickName = (chat) => {
     return auth?.id === chat.buyUser.id
       ? chat.buyUser.userInfo

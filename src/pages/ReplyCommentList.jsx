@@ -35,7 +35,7 @@ export default function ReplyCommentList({ commentGroup }) {
     }).then((result) => {
       setList(result.data);
     });
-  }, []);
+  }, [commentGroup, id]);
 
   const onRemove = (targetId) => {
     axios({

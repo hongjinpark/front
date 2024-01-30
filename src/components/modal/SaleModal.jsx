@@ -25,7 +25,7 @@ export default function SaleModal() {
       getSaletHistory()
         .then((res) => setSale(res.data))
         .catch(() => setIsOpen(false));
-  }, [isOpen]);
+  }, [isOpen, setIsOpen]);
   const handleDelete = () => {
     console.log(alterVisible);
     deleteHistory(alterVisible.id).then(() => {

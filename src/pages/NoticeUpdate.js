@@ -51,7 +51,7 @@ export default function NoticeUpdate() {
       });
     }
     getData(data);
-  }, []);
+  }, [data, id]);
 
   return (
     <div className={styles.body}>

@@ -10,7 +10,7 @@ function ToastPopup({ toastMessage, setToastMessage }) {
         setToastMessage([]);
       }, 2000);
     }
-  }, [toastMessage]);
+  }, [toastMessage, setToastMessage]);
 
   if (toastMessage < 1 || toastMessage == null) {
     return null;

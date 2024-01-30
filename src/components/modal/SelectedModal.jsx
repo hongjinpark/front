@@ -27,7 +27,7 @@ export default function SelectedModal() {
       getSelectProduct()
         .then((res) => setSelectProduct(res.data))
         .catch(() => setIsOpen(false));
-  }, [isOpen]);
+  }, [isOpen, setIsOpen]);
 
   const handleDelete = () => {
     deleteSelectProduct(alterVisible.id).then(() => {

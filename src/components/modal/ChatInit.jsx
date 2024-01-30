@@ -28,7 +28,7 @@ export default function ChatInit({ setTitle, setChatRoom }) {
       setProduct(res.data);
       setTitle(res.data.user_nickname);
     });
-  }, []);
+  });
 
   const handleSend = () => {
     createChatRoom(text, location.pathname.replace('/', '')).then((res) => {

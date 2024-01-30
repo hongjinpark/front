@@ -65,7 +65,7 @@ const Product = () => {
   useEffect(() => {
     setErrMsg('');
     console.log(errMsg);
-  }, [product]);
+  }, [product, errMsg]);
 
   useEffect(() => {
     axios.get('http://localhost:8090/topics').then((result) => {

@@ -39,7 +39,7 @@ export default function Nav() {
     } else {
       setKeyword(keyword);
     }
-  }, [searchParams, nowKeyword]);
+  }, [searchParams, nowKeyword, keyword]);
 
   const handleLogin = (e) => {
     e.preventDefault();

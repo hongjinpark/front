@@ -24,7 +24,7 @@ export default function PurchaseModal() {
       getPurchaseHistory()
         .then((res) => setPurchase(res.data))
         .catch(() => setIsOpen(false));
-  }, [isOpen]);
+  }, [isOpen, setIsOpen]);
   const handleDelete = () => {
     console.log(alterVisible);
     deleteHistory(alterVisible.id).then(() => {

@@ -45,7 +45,7 @@ export default function BoardUpdate() {
       });
     }
     getData();
-  }, []);
+  }, [id]);
 
   const Save = async (e) => {
     e.preventDefault();

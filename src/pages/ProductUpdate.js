@@ -91,7 +91,7 @@ const ProductUpdate = () => {
   useEffect(() => {
     setErrMsg('');
     console.log(errMsg);
-  }, [productList]);
+  }, [productList, errMsg]);
 
   useEffect(() => {
     axios.get(`http://localhost:8090/product/list/${id}`).then((result) => {

@@ -37,7 +37,7 @@ export default function ChatBody({ chatRoom, setTitle }) {
         stomp.current.disconnect();
       }
     };
-  }, [chatRoom]);
+  });
   const findNickName = () => {
     return auth?.id === chatRoom.buyUser.id
       ? chatRoom.buyUser.userInfo
