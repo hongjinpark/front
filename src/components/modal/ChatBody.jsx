@@ -14,7 +14,15 @@ export default function ChatBody({ chatRoom, setTitle }) {
   useEffect(() => {
     setChatList([]);
     if (chatRoom) {
-      setTitle(findNickName(chatRoom));
+      setTitle(
+        auth?.id === chatRoom.buyUser.id
+          ? chatRoom.buyUser.userInfo
+            ? chatRoom.sellUser.userInfo.usrNickName
+            : chatRoom.sellUser.nickname
+          : chatRoom.buyUser.userInfo
+            ? chatRoom.buyUser.userInfo.usrNickName
+            : chatRoom.buyUser.nickname
+      );
       const socket = new SockJS('http://localhost:8090/ws');
       stomp.current = Stomp.over(socket);
       axios
@@ -37,16 +45,8 @@ export default function ChatBody({ chatRoom, setTitle }) {
         stomp.current.disconnect();
       }
     };
-  });
-  const findNickName = () => {
-    return auth?.id === chatRoom.buyUser.id
-      ? chatRoom.buyUser.userInfo
-        ? chatRoom.sellUser.userInfo.usrNickName
-        : chatRoom.sellUser.nickname
-      : chatRoom.buyUser.userInfo
-        ? chatRoom.buyUser.userInfo.usrNickName
-        : chatRoom.buyUser.nickname;
-  };
+  }, [auth?.id, auth.token, chatRoom, setTitle]);
+
   const groupMessagesByDate = (messages) => {
     const groupedMessages = [];
 

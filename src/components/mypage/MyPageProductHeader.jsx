@@ -24,6 +24,7 @@ export default function MyPageProductHeader({
   ];
   const [state, setState] = useState(option[0]);
   const [isOpen, setIsOpen] = useState(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const sort = () => {
     if (state.value === 'PRICE_ASC_SORT')
       return myProducts.sort((a, b) => a.price - b.price);

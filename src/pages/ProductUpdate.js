@@ -98,7 +98,7 @@ const ProductUpdate = () => {
       setProductList(result.data);
       console.log(result.data);
     });
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     axios.get('http://localhost:8090/topics').then((result) => {

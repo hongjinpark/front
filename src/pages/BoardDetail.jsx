@@ -30,6 +30,7 @@ const BoardDetail = () => {
   const [comment, setComment] = useState([]);
   const { id } = useParams();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const boardLists = async () => {
     let path = `/board/detail/${id}`;
 

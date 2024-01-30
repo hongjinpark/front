@@ -75,6 +75,7 @@ export default function ProductDetail() {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const likeData = async () => {
     if (token) {
       const att = await axios.get('http://localhost:8090/attention/lists', {
