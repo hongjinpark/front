@@ -83,7 +83,6 @@ const BoardDetail = () => {
         userInfoDtoList={userInfoDtoList}
         regionDtoList={regionDtoList}
       />
-
       <div className={styles.commentContent}>
         <CommentList comment={comment.slice(offset, offset + limit)} />
       </div>
