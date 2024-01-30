@@ -73,7 +73,7 @@ const BoardDetail = () => {
   useEffect(() => {
     commentLists();
     console.log(comment);
-  }, []);
+  }, [comment, commentLists]);
 
   return (
     <Container className={styles.container}>
