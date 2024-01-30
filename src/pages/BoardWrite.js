@@ -62,7 +62,7 @@ export default function BoardWrite() {
         },
         data: formData, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
       });
-      console.log(formData.get('boardDto'));
+      console.log(formData);
       toastContext.setToastMessage(['게시물이 등록되었습니다']);
       navigator('/board', { replace: true });
     } else if (titleValue == '') {
@@ -85,7 +85,9 @@ export default function BoardWrite() {
       }
       setImageList([...imageList, ...e.target.files]);
       setPreviewImg(imgUrlList);
+      console.log(fileArr);
     }
+    fileInput.current.value = '';
   };
 
   return (
@@ -134,6 +136,14 @@ export default function BoardWrite() {
           </div>
         ))}
       </div>
+      <button
+        onClick={() => {
+          console.log(imageList);
+          console.log(previewImg);
+        }}
+      >
+        test
+      </button>
       <div className={styles.top_title}>
         <input
           className={styles.title_text}

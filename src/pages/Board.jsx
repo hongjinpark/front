@@ -28,6 +28,7 @@ const Board = () => {
       };
       const getData = await getApi(options);
       setList(getData);
+      console.log(getData);
     } catch (e) {
       throw e;
     }

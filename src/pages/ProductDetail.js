@@ -97,7 +97,10 @@ export default function ProductDetail() {
   };
   useEffect(() => {
     likeData();
-  }, [likeData]);
+    productImgs();
+    productLists();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const productLists = async () => {
     let path = `/product/list`;
@@ -130,10 +133,6 @@ export default function ProductDetail() {
     }
   };
 
-  useEffect(() => {
-    productImgs();
-  }, [productImgs]);
-
   const handleChatt = () => {
     setIsOpen(true);
     setStep('init');
@@ -150,10 +149,6 @@ export default function ProductDetail() {
   //     }
   //   }
   // };
-
-  useEffect(() => {
-    productLists();
-  }, []);
 
   useEffect(() => {
     if (!list) return;

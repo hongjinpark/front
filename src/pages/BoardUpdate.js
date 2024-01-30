@@ -35,17 +35,25 @@ export default function BoardUpdate() {
 
   useEffect(() => {
     function getData() {
-      axios.get(`http://localhost:8090/board/list`).then((res) => {
+      axios.get(`http://localhost:8090/board/detail/` + id).then((res) => {
         const result = res.data;
-        setTitle(result[result.findIndex((v) => v.boardId == id)].bdSubject);
-        setcontents(
-          result[result.findIndex((v) => v.boardId == id)].bdContents
-        );
-        console.log(result.boardImageDtoList);
+        setTitle(result.bdSubject);
+        setcontents(result.bdContents);
+        setImageList(result.boardImageDtoList);
+
+        console.log(result.boardImageDtoList[0]);
+
+        const blob = new Blob([result.boardImageDtoList[0]], {
+          type: 'image/jpeg',
+        });
+        console.log(blob);
+        const imageUrl = URL.createObjectURL(blob);
+        setPreviewImg((previewImg) => [...previewImg, imageUrl]);
       });
     }
     getData();
-  }, [id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const Save = async (e) => {
     e.preventDefault();
@@ -59,6 +67,7 @@ export default function BoardUpdate() {
     const value = {
       bdSubject: titleValue,
       bdContents: contentsValue,
+      status: 'Y',
     };
 
     const blob = new Blob([JSON.stringify(value)], {
@@ -70,7 +79,7 @@ export default function BoardUpdate() {
     if (titleValue !== '' && contentsValue !== '') {
       token
         ? await axios
-            .put('http://localhost:8090/board/list/' + id, formData, {
+            .put('http://localhost:8090/board/lists/' + id, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
                 'Authorization': `Bearer ${token}`,
@@ -117,7 +126,7 @@ export default function BoardUpdate() {
         </Button>
         <button
           onClick={() => {
-            console.log(id);
+            console.log(previewImg);
           }}
         >
           test
@@ -128,6 +137,7 @@ export default function BoardUpdate() {
           type="file"
           id="imageList"
           name="imageList"
+          defaultValue={imageList}
           accept="image/jpg,image/png,image/jpeg,image/gif/png/webp"
           multiple
           ref={fileInput}

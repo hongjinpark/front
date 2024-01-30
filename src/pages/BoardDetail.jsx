@@ -53,7 +53,8 @@ const BoardDetail = () => {
     boardLists();
     setLimit(10);
     console.log(list);
-  }, [boardLists, list]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const commentLists = async () => {
