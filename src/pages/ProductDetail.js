@@ -18,6 +18,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import DeleteModalContext from '../context/DeleteModalProvider';
 import ChangeStatusModalContext from '../context/ChangeStatusModalProvider';
+import Loading from '../components/Loading';
 
 export default function ProductDetail() {
   const { product_id } = useParams();
@@ -38,6 +39,7 @@ export default function ProductDetail() {
     setPdId: setChangePdid,
     setPdStatus,
   } = useContext(ChangeStatusModalContext);
+  const [loading, setLoading] = useState(true);
   //관심물품
   const [like, setLike] = useState(false);
   const toggleLike = async () => {
@@ -99,6 +101,7 @@ export default function ProductDetail() {
       const getData = await getApi(options);
 
       setList(getData);
+      setLoading(false);
     } catch (e) {
       throw e;
     }
@@ -153,6 +156,7 @@ export default function ProductDetail() {
   return (
     <div role="presentation">
       <Container className={styles.container}>
+        {loading ? <Loading /> : null}
         {course && (
           <>
             <div className={styles.pdInfo}>
