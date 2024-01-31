@@ -59,7 +59,7 @@ export default function ProductDetail() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      toastContext.setToastMessage(['관심 상품이 추가되었습니다.']);
+      toastContext.setToastMessage(['관심 상품이 추가되었습니다']);
       setLike(true);
     } else {
       axios.post(
@@ -136,6 +136,7 @@ export default function ProductDetail() {
 
   const handleChatt = () => {
     if (!auth) {
+      toastContext.setToastMessage(['로그인이 필요합니다']);
       navigate('../login');
     } else {
       setIsOpen(true);

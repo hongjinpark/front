@@ -696,6 +696,9 @@ ul.products {
 
 .img {
   border-radius: 10px;
+  /* object-fit: cover; */
+  height: 600px;
+  width: 500px;
 }
 .boards {
   border-bottom: 1.5px solid #eee;

@@ -27,7 +27,7 @@ const Board = () => {
         path: path,
       };
       const getData = await getApi(options);
-      setList(getData);
+      setList(getData.reverse());
       console.log(getData);
     } catch (e) {
       throw e;
