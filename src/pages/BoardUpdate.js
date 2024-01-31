@@ -26,6 +26,8 @@ export default function BoardUpdate() {
   const { id } = useParams();
   const token = localStorage.getItem('login');
 
+  const formData = new FormData();
+
   const saveTitle = (event) => {
     setTitle(event.target.value);
   };
@@ -41,14 +43,14 @@ export default function BoardUpdate() {
         setcontents(result.bdContents);
         setImageList(result.boardImageDtoList);
 
-        console.log(result.boardImageDtoList[0]);
+        const imagDto = result.boardImageDtoList;
 
-        const blob = new Blob([result.boardImageDtoList[0]], {
-          type: 'image/jpeg',
-        });
-        console.log(blob);
-        const imageUrl = URL.createObjectURL(blob);
-        setPreviewImg((previewImg) => [...previewImg, imageUrl]);
+        for (let i = 0; i < result.boardImageDtoList.length; i++) {
+          setPreviewImg((preimage) => [
+            ...preimage,
+            require(`../assets${imagDto[i].imgUrl}`),
+          ]);
+        }
       });
     }
     getData();
@@ -58,7 +60,7 @@ export default function BoardUpdate() {
   const Save = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
+    // const formData = new FormData();
 
     imageList.forEach((image) => {
       formData.append('boardImgFileList', image);
@@ -126,7 +128,14 @@ export default function BoardUpdate() {
         </Button>
         <button
           onClick={() => {
-            console.log(previewImg);
+            console.log(imageList);
+
+            imageList.forEach((image) => {
+              formData.append('boardImgFileList', image);
+            });
+
+            console.log(formData.getAll('boardImgFileList'));
+            // console.log(previewImg);
           }}
         >
           test
@@ -163,6 +172,7 @@ export default function BoardUpdate() {
             }}
           >
             <img className={styles.img} src={imgsrc} alt="thumbnail" />
+
             <p>X</p>
           </div>
         ))}

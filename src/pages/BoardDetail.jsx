@@ -51,6 +51,7 @@ const BoardDetail = () => {
 
   useEffect(() => {
     boardLists();
+    commentLists();
     setLimit(10);
     console.log(list);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,11 +72,6 @@ const BoardDetail = () => {
       throw e;
     }
   };
-
-  useEffect(() => {
-    commentLists();
-    console.log(comment);
-  }, [comment, commentLists]);
 
   return (
     <Container className={styles.container}>

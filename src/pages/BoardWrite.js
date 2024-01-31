@@ -136,14 +136,7 @@ export default function BoardWrite() {
           </div>
         ))}
       </div>
-      <button
-        onClick={() => {
-          console.log(imageList);
-          console.log(previewImg);
-        }}
-      >
-        test
-      </button>
+
       <div className={styles.top_title}>
         <input
           className={styles.title_text}
