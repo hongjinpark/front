@@ -17,7 +17,7 @@ export default function MyProductList({ product }) {
           <a
             className="group box-border overflow-hidden flex rounded-md cursor-pointer pe-0 pb-2 lg:pb-3 flex-col items-start transition duration-200 ease-in-out transform hover:-translate-y-1 md:hover:-translate-y-1.5 hover:shadow-lg bg-white"
             title="test"
-            href={`/${product.product_id}`}
+            href={`/product/${product.product_id}`}
           >
             <div className="relative w-full rounded-md overflow-hidden pt-[100%] mb-3 md:mb-3.5">
               <img

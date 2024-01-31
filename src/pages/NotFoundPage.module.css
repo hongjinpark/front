@@ -1,5 +1,6 @@
 .container {
-  margin: 120px auto 226px;
+  margin: 0 auto 226px;
+  padding-top: 320px;
 }
 
 .info {

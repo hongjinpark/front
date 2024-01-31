@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-catch */
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import styles from './ProductDetail.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { getApi } from '../api/axios';
@@ -17,6 +17,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import Loading from '../components/Loading';
 import useAuth from '../hooks/useAuth';
+
 // import DeleteModalContext from '../context/DeleteModalProvider';
 // import ChangeStatusModalContext from '../context/ChangeStatusModalProvider';
 
@@ -32,8 +33,8 @@ export default function ProductDetail() {
   const [userRegion, setUserRegion] = useState([]);
 
   const { auth } = useAuth();
-  /* 
   const navigate = useNavigate();
+  /* 
   const { openModal: openDeleteModal, setPdId: setDeletePdid } =
     useContext(DeleteModalContext);
   const {
@@ -134,8 +135,12 @@ export default function ProductDetail() {
   };
 
   const handleChatt = () => {
-    setIsOpen(true);
-    setStep('init');
+    if (!auth) {
+      navigate('../login');
+    } else {
+      setIsOpen(true);
+      setStep('init');
+    }
   };
 
   // const handleExceptioin = (e) => {
