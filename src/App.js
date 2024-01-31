@@ -43,13 +43,11 @@ class ErrorBoundary extends React.Component {
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error) {
-    console.log(error);
+  static getDerivedStateFromError() {
     return { hasError: true };
   }
 
   componentDidCatch(error, errorInfo) {
-    // 에러 로깅 또는 기타 작업을 수행할 수 있습니다.
     console.error(error, errorInfo);
   }
 
@@ -109,7 +107,7 @@ function App() {
                 <Route path="board/:id" element={<BoardDetail />} />
                 <Route path="board/update/:id" element={<BoardUpdate />} />
                 <Route path="board/write" element={<BoardWrite />} />
-                <Route path=":product_id" element={<ProductDetail />} />
+                <Route path="product/:product_id" element={<ProductDetail />} />
                 <Route path="notice" element={<Notice />}>
                   <Route path=":id" element={<NoticeDetail />} />
                 </Route>
@@ -132,7 +130,6 @@ function App() {
                     element={<NoticeUpdate />}
                   ></Route>
                 </Route>
-                <Route path="*" element={<NotFoundPage />} />
               </Route>
               <Route path="search">
                 <Route index element={<Search />} />
@@ -145,6 +142,7 @@ function App() {
                 <Route index element={<Search />} />
                 <Route path=":searchWord" element={<SearchResult />} />
               </Route>
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
 
             <ToastPopup
