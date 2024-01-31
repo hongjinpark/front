@@ -42,7 +42,6 @@ export default function NoticeDetail() {
       axios.delete('http://localhost:8090/notice/' + params.id).then(() => {
         toastContext.setToastMessage(['게시글이 삭제되었습니다']);
         navigator('/notice');
-        // window.location.reload('/notice');
       });
     }
   };

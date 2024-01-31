@@ -136,3 +136,9 @@ ul.menu {
 .myPageBox > ul > li:first-child {
   border-bottom: 1px solid rgba(156, 163, 175, 0.6);
 }
+
+@media screen and (max-width: 78rem) {
+  .searchForm {
+    display: none;
+  }
+}
