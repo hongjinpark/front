@@ -18,8 +18,6 @@ const Board = () => {
 
   const login = localStorage.getItem('login');
 
-  // const imgtest = list.length;
-
   const boardLists = async () => {
     let path = `/board/list`;
     try {
@@ -28,7 +26,6 @@ const Board = () => {
       };
       const getData = await getApi(options);
       setList(getData.reverse());
-      console.log(getData);
     } catch (e) {
       throw e;
     }
@@ -41,6 +38,9 @@ const Board = () => {
 
   return (
     <Container className={styles.container}>
+      <div>
+        <h3 className={styles.pagetitle}>게시판</h3>
+      </div>
       <div className={styles.boards}>
         <BoardList list={list.slice(offset, offset + limit)} />
       </div>

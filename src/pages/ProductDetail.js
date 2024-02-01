@@ -18,9 +18,6 @@ import 'swiper/css/pagination';
 import Loading from '../components/Loading';
 import useAuth from '../hooks/useAuth';
 
-// import DeleteModalContext from '../context/DeleteModalProvider';
-// import ChangeStatusModalContext from '../context/ChangeStatusModalProvider';
-
 export default function ProductDetail() {
   const { product_id } = useParams();
   const [list, setList] = useState([]);
@@ -34,15 +31,6 @@ export default function ProductDetail() {
 
   const { auth } = useAuth();
   const navigate = useNavigate();
-  /* 
-  const { openModal: openDeleteModal, setPdId: setDeletePdid } =
-    useContext(DeleteModalContext);
-  const {
-    openModal: openChangeStatusModal,
-    setPdId: setChangePdid,
-    setPdStatus,
-  } = useContext(ChangeStatusModalContext);
-  */
 
   const [loading, setLoading] = useState(true);
   //관심물품
@@ -144,18 +132,6 @@ export default function ProductDetail() {
     }
   };
 
-  // const handleExceptioin = (e) => {
-  //   let newclassName = e.target.className;
-  //   //추후 수정여부 검토 필요
-  //   if (newclassName.includes !== undefined) {
-  //     if (newclassName.includes('ProductDetail_chat__V1pwk')) {
-  //       setChattingBox(true);
-  //     } else if (chattingBox === true) {
-  //       setChattingBox(false);
-  //     }
-  //   }
-  // };
-
   useEffect(() => {
     if (!list) return;
     const foundCourse = list.find(
@@ -185,6 +161,18 @@ export default function ProductDetail() {
                           alt="상품이미지"
                           className={styles.pdImg}
                         ></img>
+                        {(course.pdStatus === 'C' ||
+                          course.pdStatus === 'R') && (
+                          <div className={styles.pdStatus} key={index}>
+                            <div
+                              className={`${styles.pdStatusBg}  ${
+                                course.pdStatus === 'C'
+                              } ${course.pdStatus === 'R' && 'bg-green-400'} `}
+                            >
+                              {course.pdStatus === 'C' ? '판매완료' : '예약중'}
+                            </div>
+                          </div>
+                        )}
                       </SwiperSlide>
                     );
                   })}
@@ -224,19 +212,31 @@ export default function ProductDetail() {
                 <div className={styles.subForm}>
                   <Button
                     className={
-                      course.user_id !== auth?.id
+                      course.user_id !== auth?.id && course.pdStatus === 'Y'
                         ? styles.chatBtn
                         : styles.chatBtndisabled
                     }
                   >
-                    <button onClick={() => handleChatt()}>채팅하기</button>
+                    <button
+                      className={styles.chatBtntext}
+                      onClick={() => handleChatt()}
+                    >
+                      채팅하기
+                    </button>
                   </Button>
 
                   {course.user_id !== auth?.id ? (
-                    <Button className={styles.buyBtn}>
-                      {' '}
-                      <button>안전거래</button>
-                    </Button>
+                    course.pdStatus === 'Y' ? (
+                      <Button className={styles.buyBtn}>
+                        <button className={styles.pdEditBtn}>안전거래</button>
+                      </Button>
+                    ) : (
+                      <Button className={`${styles.buyBtn} ${styles.pdEdit}`}>
+                        <button className={styles.pdEditBtn}>
+                          거래불가상품
+                        </button>
+                      </Button>
+                    )
                   ) : (
                     <Button className={`${styles.buyBtn} ${styles.pdEdit}`}>
                       <Link to="../mypage">

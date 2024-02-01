@@ -48,9 +48,6 @@ export default function Category({ className }) {
               return (
                 <Link
                   to={`search/${searchWord}`}
-                  onClick={() =>
-                    console.log('searchWord type: ', typeof searchWord)
-                  }
                   key={value}
                   style={{ textDecoration: 'none', color: 'inherit' }}
                 >

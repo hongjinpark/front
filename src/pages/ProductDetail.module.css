@@ -21,10 +21,32 @@
   height: 612px;
   background-size: cover;
   transition: all 0.3s ease-out;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 .pdImg:hover {
   opacity: 0.9;
+}
+
+.pdStatus {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 600px;
+  height: 612px;
+  background: black;
+  opacity: 0.5;
+  border-radius: 20px;
+  text-align: end;
+  overflow: hidden;
+}
+.pdStatusBg {
+  width: 100%;
+  color: #fff;
+  background: black;
+  opacity: 1;
+  text-align: center;
+  margin: 50% auto;
+  font-size: 30px;
 }
 
 .infoBox {
@@ -93,7 +115,11 @@
 
 .chatBtn {
   margin: 0 30px 0 10px;
-  padding: 10px 90px;
+  background: #fff;
+}
+.chatBtntext {
+  padding: 15px 90px;
+  color: black;
 }
 .chatBtndisabled {
   display: none;
@@ -101,7 +127,6 @@
 .buyBtn {
   background: #333;
   color: #fff;
-  padding: 10px 90px;
 }
 .buyBtn:hover {
   opacity: 0.9;
@@ -110,6 +135,8 @@
   width: 100%;
 }
 .pdEditBtn {
+  width: 100%;
+  padding: 15px 90px;
   color: #fff;
 }
 
