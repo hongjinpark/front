@@ -185,7 +185,7 @@ section.notice {
 .container {
   width: 1100px;
   margin: 0 auto;
-  padding: 140px 0 300px;
+  /* padding: 140px 0 300px; */
 }
 
 .blind {
@@ -696,11 +696,6 @@ ul.products {
   cursor: pointer;
 }
 
-.img {
-  border-radius: 10px;
-  height: 600px;
-  width: 500px;
-}
 .boards {
   border-top: 1.5px solid #eee;
   border-bottom: 1.5px solid #eee;
@@ -733,4 +728,10 @@ ul.products {
 
 .update1 {
   margin-right: auto;
+}
+
+.img {
+  border-radius: 10px;
+  height: 600px;
+  width: 500px;
 }
