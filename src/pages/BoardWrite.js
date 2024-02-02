@@ -34,6 +34,10 @@ export default function BoardWrite() {
   const Save = async (e) => {
     e.preventDefault();
 
+    // if (imageList.length == 0) {
+    //   toastContext.setToastMessage(['사진을 등록해주세요']);
+    // }
+
     const formData = new FormData();
 
     imageList.forEach((image) => {
@@ -52,7 +56,7 @@ export default function BoardWrite() {
     formData.append('boardDto', blob);
 
     const token = localStorage.getItem('login');
-    if (titleValue !== '' && contentsValue !== '') {
+    if (imageList.length !== 0 && titleValue !== '' && contentsValue !== '') {
       await axios({
         method: 'POST',
         url: `http://localhost:8090/board/new`,
@@ -66,9 +70,12 @@ export default function BoardWrite() {
       console.log(formData);
       toastContext.setToastMessage(['게시물이 등록되었습니다']);
       navigator('/board', { replace: true });
+    } else if (imageList.length == 0) {
+      toastContext.setToastMessage(['사진을 등록해주세요']);
     } else if (titleValue == '') {
       toastContext.setToastMessage(['제목을 입력해주세요']);
-    } else {
+    } else if (contentsValue == '') {
+      console.log(imageList);
       toastContext.setToastMessage(['내용을 입력해주세요']);
     }
   };
@@ -86,7 +93,6 @@ export default function BoardWrite() {
       }
       setImageList([...imageList, ...e.target.files]);
       setPreviewImg(imgUrlList);
-      console.log(fileArr);
     }
     fileInput.current.value = '';
   };
