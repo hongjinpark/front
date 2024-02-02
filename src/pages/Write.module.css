@@ -105,6 +105,27 @@
   border: 1.5px solid #eee;
   border-radius: 10px;
   padding: 20px 20px 20px 20px;
-  height: 200px;
+  height: 160px;
   margin-bottom: 10px;
+  display: flex;
+}
+.file_input {
+  margin-top: 10px;
+  border-radius: 10px;
+  height: 100px;
+  width: 150px;
+  border: 1.5px solid #eee;
+  background-color: #eee;
+  text-align: center;
+  margin-right: 5px;
+}
+.file_input:hover {
+  cursor: pointer;
+}
+.file_icon {
+  color: gray;
+  font-size: 50px;
+  margin-top: 25px;
+}
+.preview_list {
 }

@@ -735,12 +735,12 @@ ul.products {
   margin-right: auto;
 }
 
-.img {
+.img_list {
   border-radius: 10px;
   height: 600px;
   width: 500px;
 }
-.test {
+.img {
   height: 100%;
   width: 100%;
 }

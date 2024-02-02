@@ -10,7 +10,7 @@ import ToastContext from '../context/ToastContext';
 // // import Image from 'react-bootstrap/Image';
 // import Row from 'react-bootstrap/Row';
 
-import { Form } from 'react-bootstrap';
+import { PictureOutlined } from '@ant-design/icons';
 
 export default function BoardUpdate() {
   const navigator = useNavigate();
@@ -104,8 +104,8 @@ export default function BoardUpdate() {
     const fileArr = e.target.files;
     const imgUrlList = [...previewImg];
 
-    if (previewImg.length + fileArr.length > 6) {
-      toastContext.setToastMessage(['사진은 6개까지 등록 가능합니다']);
+    if (previewImg.length + fileArr.length > 5) {
+      toastContext.setToastMessage(['사진은 5개까지 등록 가능합니다']);
     } else {
       for (let i = 0; i < fileArr.length; i++) {
         const imgUrl = URL.createObjectURL(fileArr[i]);
@@ -114,6 +114,7 @@ export default function BoardUpdate() {
       setImageList([...imageList, ...e.target.files]);
       setPreviewImg(imgUrlList);
     }
+    fileInput.current.value = '';
   };
 
   return (
@@ -143,7 +144,10 @@ export default function BoardUpdate() {
         </button>
       </div>
       <div className={styles.img_form}>
-        <Form.Control
+        <label className={styles.file_input} htmlFor="imageList">
+          {<PictureOutlined className={styles.file_icon} />}
+        </label>
+        <input
           type="file"
           id="imageList"
           name="imageList"
@@ -153,6 +157,7 @@ export default function BoardUpdate() {
           ref={fileInput}
           required
           onChange={onChangeImageInput}
+          style={{ display: 'none' }}
         />
 
         {previewImg.map((imgsrc, index) => (
