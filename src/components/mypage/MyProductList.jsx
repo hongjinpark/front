@@ -23,7 +23,7 @@ export default function MyProductList({ product }) {
               <img
                 alt="test"
                 referrerPolicy="no-referrer"
-                src={require(`../../assets${product.imgUrl}`)}
+                src={process.env.PUBLIC_URL + `/assets${product.imgUrl}`}
                 decoding="async"
                 data-nimg="fill"
                 className="bg-gray-300 object-cover w-full transition duration-200 ease-in rounded-md group-hover:rounded-b-none"

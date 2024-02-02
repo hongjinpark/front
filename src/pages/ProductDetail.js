@@ -157,7 +157,9 @@ export default function ProductDetail() {
                     return (
                       <SwiperSlide key={index}>
                         <img
-                          src={require(`../assets${img.imgUrl}`)}
+                          src={
+                            process.env.PUBLIC_URL + `../assets${img.imgUrl}`
+                          }
                           alt="상품이미지"
                           className={styles.pdImg}
                         ></img>
@@ -270,7 +272,9 @@ export default function ProductDetail() {
                   <div className={styles.userInfoArea}>
                     <span className={styles.userImg}>
                       <img
-                        src={require(`../assets${user[0].imgUrl}`)}
+                        src={
+                          process.env.PUBLIC_URL + `../assets${user[0].imgUrl}`
+                        }
                         alt=""
                         className={styles.userImage}
                       ></img>

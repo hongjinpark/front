@@ -48,7 +48,7 @@ export default function BoardUpdate() {
         for (let i = 0; i < result.boardImageDtoList.length; i++) {
           setPreviewImg((preimage) => [
             ...preimage,
-            require(`../assets${imagDto[i].imgUrl}`),
+            process.env.PUBLIC_URL + `../assets${imagDto[i].imgUrl}`,
           ]);
         }
       });

@@ -120,7 +120,10 @@ export default function AttentionModal() {
                   <div className={styles.imgBox}>
                     <img
                       className={styles.img}
-                      src={require(`../../assets${attentionItem.imgUrl}`)}
+                      src={
+                        process.env.PUBLIC_URL +
+                        `/assets${attentionItem.imgUrl}`
+                      }
                       alt=""
                     />
                   </div>

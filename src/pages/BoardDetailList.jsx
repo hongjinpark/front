@@ -57,7 +57,9 @@ export default function BoardDetailList({
                       <SwiperSlide key={index}>
                         <img
                           className={styles.img}
-                          src={require(`../assets${board.imgUrl}`)}
+                          src={
+                            process.env.PUBLIC_URL + `/assets${board.imgUrl}`
+                          }
                           alt=""
                         />
                       </SwiperSlide>
@@ -78,7 +80,10 @@ export default function BoardDetailList({
                           <img
                             className={styles.imageStyle}
                             alt=""
-                            src={require(`../assets${userInfo.imgUrl}`)}
+                            src={
+                              process.env.PUBLIC_URL +
+                              `/assets${userInfo.imgUrl}`
+                            }
                           />
                         </div>
                       ))}

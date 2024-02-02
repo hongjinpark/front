@@ -88,7 +88,8 @@ export default function ChatBody({ chatRoom, setTitle }) {
             <img
               alt="상품 썸네일"
               src={
-                chatRoom && require(`../../assets${chatRoom?.product.imgUrl}`)
+                chatRoom &&
+                process.env.PUBLIC_URL + `/assets${chatRoom?.product.imgUrl}`
               } // 상품 이미지
               decoding="async"
               data-nimg="fill"

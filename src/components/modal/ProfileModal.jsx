@@ -49,7 +49,8 @@ export default function ProfileModal() {
                       profileImg
                         ? URL.createObjectURL(profileImg)
                         : auth?.userInfo
-                          ? require(`../../assets${auth.userInfo.imgUrl}`)
+                          ? process.env.PUBLIC_URL +
+                            `/assets${auth.userInfo.imgUrl}`
                           : 'profile.png'
                     }
                     alt="profile"

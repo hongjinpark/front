@@ -31,13 +31,18 @@ export default function BoardList({ list }) {
                       <span className={styles.box}>
                         {location ? (
                           <img
-                            src={require(`../assets${board.imgUrl}`)}
+                            src={
+                              process.env.PUBLIC_URL + `/assets${board.imgUrl}`
+                            }
                             alt="게시글이미지"
                             className={`${styles._19qbbiq0} ${styles.imgBox}`}
                           />
                         ) : (
                           <img
-                            src={require(`../assets${board.imgUrl}`)}
+                            src={
+                              process.env.PUBLIC_URL +
+                              `../assets${board.imgUrl}`
+                            }
                             alt="게시글이미지"
                             className={`${styles._19qbbiq0} ${styles.imgBox}`}
                           />

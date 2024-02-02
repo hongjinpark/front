@@ -73,7 +73,7 @@ export default function CommentList({ comment }) {
                 <img
                   className={styles.commentImageStyle}
                   alt=""
-                  src={require(`../assets${comment.img_url}`)}
+                  src={process.env.PUBLIC_URL + `../assets${comment.img_url}`}
                 />
               </div>
               <div>

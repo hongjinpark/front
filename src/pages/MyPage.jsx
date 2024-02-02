@@ -51,7 +51,8 @@ export default function MyPage() {
                       alt="profile"
                       src={
                         auth?.userInfo
-                          ? require(`../assets${auth.userInfo.imgUrl}`)
+                          ? process.env.PUBLIC_URL +
+                            `../assets${auth.userInfo.imgUrl}`
                           : 'profile.png'
                       }
                     />
@@ -71,6 +72,7 @@ export default function MyPage() {
                     className="h-full rounded bg-[#0DCC5A]"
                     style={{ width: '20.5%' }}
                   ></div>
+                  process.env.PUBLIC_URL +
                 </div>
                 <ul className="flex justify-between mt-4 py-4 text-center text-jnGray-600 border border-gray-300 rounded-lg lg:border-none [&amp;_li]:w-full [&amp;_li]:border-r [&amp;_li]:border-gray-300">
                   <li>
