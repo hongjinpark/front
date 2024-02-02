@@ -42,12 +42,17 @@ const Login = () => {
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
+        localStorage.removeItem('login');
+        // alert('이메일 또는 비밀번호를 확인해주세요.');
         toastContext.setToastMessage(['이메일 또는 비밀번호를 확인해주세요.']);
       } else if (err.response?.status === 400) {
+        localStorage.removeItem('login');
         alert('Missing Username or Password');
       } else if (err.response?.status === 401) {
+        localStorage.removeItem('login');
         alert('Unauthorized');
       } else {
+        localStorage.removeItem('login');
         alert('Login Failed');
       }
       errRef.current.focus();
@@ -120,21 +125,23 @@ const Login = () => {
               로그인
             </Button>
           </div>
-          <div style={{ marginTop: 20 }} className="d-grid gap-1">
+        </Form>
+
+        <div style={{ marginTop: 20 }} className="d-grid gap-1">
+          <Link
+            to="/regist"
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
             <Button
               variant="secondary"
               type="submit"
               className="bg-[rgb(108,117,125)]"
+              style={{ width: '100%' }}
             >
-              <Link
-                to="/regist"
-                style={{ textDecoration: 'none', color: 'inherit' }}
-              >
-                회원가입
-              </Link>
+              회원가입
             </Button>
-          </div>
-        </Form>
+          </Link>
+        </div>
       </Container>
     </div>
   );

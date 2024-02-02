@@ -50,12 +50,13 @@ export default function BoardDetailList({
                   pagination={true}
                   modules={[Pagination]}
                   // className="banner"
-                  className={styles.img}
+                  className={styles.img_list}
                   spaceBetween={50}
                 >
                   {boardImageDtoList.map((board, index) => (
                     <SwiperSlide key={index}>
                       <img
+                        className={styles.img}
                         src={process.env.PUBLIC_URL + `/assets${board.imgUrl}`}
                         alt=""
                       />

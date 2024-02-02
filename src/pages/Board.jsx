@@ -37,7 +37,7 @@ const Board = () => {
   }, []);
 
   return (
-    <Container className={styles.container}>
+    <Container className={styles.list_container}>
       <div>
         <h3 className={styles.pagetitle}>게시판</h3>
       </div>
