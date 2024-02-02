@@ -51,6 +51,7 @@ export default function BoardUpdate() {
             process.env.PUBLIC_URL + `/assets${imagDto[i].imgUrl}`,
           ]);
         }
+        console.log(process.env.PUBLIC_URL);
       });
     }
     getData();
@@ -177,6 +178,14 @@ export default function BoardUpdate() {
           </div>
         ))}
       </div>
+      <button
+        onClick={() => {
+          console.log(imageList);
+          console.log(previewImg);
+        }}
+      >
+        test
+      </button>
       <div className={styles.top_title}>
         <input
           className={styles.title_text}
