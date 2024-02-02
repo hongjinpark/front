@@ -89,17 +89,13 @@ export default function Products({ list }) {
                     <Card className={styles.card}>
                       {location ? (
                         <img
-                          src={
-                            process.env.PUBLIC_URL + `../assets${item.imgUrl}`
-                          }
+                          src={process.env.PUBLIC_URL + `/assets${item.imgUrl}`}
                           alt="상품이미지"
                           className={styles.imgHome}
                         />
                       ) : (
                         <img
-                          src={
-                            process.env.PUBLIC_URL + `../assets${item.imgUrl}`
-                          }
+                          src={process.env.PUBLIC_URL + `/assets${item.imgUrl}`}
                           alt="상품이미지"
                           className={styles.imgSearchList}
                         />

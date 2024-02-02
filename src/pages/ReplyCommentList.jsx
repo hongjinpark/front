@@ -57,7 +57,7 @@ export default function ReplyCommentList({ commentGroup }) {
             <img
               className={styles.commentImageStyle}
               alt=""
-              src={process.env.PUBLIC_URL + `../assets${list.img_url}`}
+              src={process.env.PUBLIC_URL + `/assets${list.img_url}`}
             />
           </div>
           <div>

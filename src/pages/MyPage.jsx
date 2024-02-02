@@ -52,7 +52,7 @@ export default function MyPage() {
                       src={
                         auth?.userInfo
                           ? process.env.PUBLIC_URL +
-                            `../assets${auth.userInfo.imgUrl}`
+                            `/assets${auth.userInfo.imgUrl}`
                           : 'profile.png'
                       }
                     />
