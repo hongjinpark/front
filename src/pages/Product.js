@@ -1,12 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import useAuth from './../hooks/useAuth';
 import styles from '../pages/Search.module.css';
+import ToastContext from '../context/ToastContext';
+import { PictureOutlined } from '@ant-design/icons';
 
 const Product = () => {
   const [imageList, setImageList] = useState([]);
+  const [previewImg, setPreviewImg] = useState([]);
   const [product, setProduct] = useState({
     pdTitle: '',
     pdContents: '',
@@ -19,6 +22,8 @@ const Product = () => {
   const errRef = useRef();
   const [errMsg, setErrMsg] = useState('');
   const navigate = useNavigate();
+  const toastContext = useContext(ToastContext);
+  const fileInput = useRef();
 
   const [category, setCategory] = useState('');
 
@@ -46,20 +51,25 @@ const Product = () => {
     formData.append('productDto', blob); // 또는  formData.append("data", JSON.stringify(value)); // JSON 형식으로 파싱.(백엔드의 요청에 따라 전송방식이 달라진다.)
     // axios를 이용한 post 요청. 헤더를 multipart/form-data 로 한다.
     const token = localStorage.getItem('login');
-    token
-      ? axios({
-          method: 'POST',
-          url: `http://localhost:8090/product/new`,
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
-            'Authorization': `Bearer ${token}`,
-          },
-          data: formData, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
-        })
-      : null;
-    alert('게시글이 등록되었습니다');
-    navigate('/', { replace: true });
+    if (imageList.length !== 0) {
+      token
+        ? axios({
+            method: 'POST',
+            url: `http://localhost:8090/product/new`,
+            mode: 'cors',
+            headers: {
+              'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
+              'Authorization': `Bearer ${token}`,
+            },
+            data: formData, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
+          })
+        : null;
+      toastContext.setToastMessage(['게시물이 등록되었습니다']);
+      // alert('게시글이 등록되었습니다');
+      navigate('/', { replace: true });
+    } else if (imageList.length == 0) {
+      toastContext.setToastMessage(['사진을 등록해주세요']);
+    }
   };
 
   useEffect(() => {
@@ -74,7 +84,20 @@ const Product = () => {
   }, []);
 
   const onChangeImageInput = (e) => {
-    setImageList([...imageList, ...e.target.files]);
+    const fileArr = e.target.files;
+    const imgUrlList = [...previewImg];
+
+    if (previewImg.length + fileArr.length > 5) {
+      toastContext.setToastMessage(['사진은 5개까지 등록 가능합니다']);
+    } else {
+      for (let i = 0; i < fileArr.length; i++) {
+        const imgUrl = URL.createObjectURL(fileArr[i]);
+        imgUrlList.push(imgUrl);
+      }
+      setImageList([...imageList, ...e.target.files]);
+      setPreviewImg(imgUrlList);
+    }
+    fileInput.current.value = '';
   };
   console.log(auth.nickname);
 
@@ -89,7 +112,45 @@ const Product = () => {
       </p>
       <Container className={styles.section}>
         <Form onSubmit={onClickSubmit} className="mx-auto w-full max-w-[768px]">
-          <Form.Group
+          <div className={styles.img_form}>
+            <label className={styles.file_input} htmlFor="imageList">
+              {<PictureOutlined className={styles.file_icon} />}
+            </label>
+            <Form.Control
+              type="file"
+              id="imageList"
+              name="imageList"
+              accept="image/jpg,image/png,image/jpeg,image/gif/png/webp"
+              multiple
+              ref={fileInput}
+              // required
+              onChange={onChangeImageInput}
+              style={{ display: 'none' }}
+            />
+            {previewImg.map((imgsrc, index) => (
+              <div
+                className={styles.img_card}
+                key={index}
+                role="presentation"
+                onClick={() => {
+                  const deletePreImg = [...previewImg];
+                  deletePreImg.splice(index, 1);
+                  setPreviewImg(deletePreImg);
+
+                  const deleteImg = [...imageList];
+                  deleteImg.splice(index, 1);
+                  setImageList(deleteImg);
+
+                  fileInput.current.value = '';
+                }}
+              >
+                <img className={styles.img} src={imgsrc} alt="thumbnail" />
+                <p>X</p>
+              </div>
+            ))}
+          </div>
+
+          {/* <Form.Group
             as={Row}
             className="flex flex-col justify-center mt-6 lg:mt-8"
           >
@@ -104,7 +165,8 @@ const Product = () => {
                 onChange={onChangeImageInput}
               />
             </Col>
-          </Form.Group>
+          </Form.Group> */}
+
           <Form.Group
             style={{ marginTop: 20 }}
             as={Row}
