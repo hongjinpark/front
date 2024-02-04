@@ -82,7 +82,7 @@ export default function BoardUpdate() {
     if (titleValue !== '' && contentsValue !== '') {
       token
         ? await axios
-            .put('http://localhost:8090/board/lists/' + id, formData, {
+            .post('http://localhost:8090/board/lists/' + id, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
                 'Authorization': `Bearer ${token}`,

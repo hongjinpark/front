@@ -74,7 +74,7 @@ const ProductUpdate = () => {
     const token = localStorage.getItem('login');
     token
       ? axios({
-          method: 'PUT',
+          method: 'POST',
           url: `http://localhost:8090/product/update/${id}`,
           mode: 'cors',
           headers: {
