@@ -60,6 +60,7 @@ const ProductUpdate = () => {
     imageList.forEach((image) => {
       formData.append('productImgFileList', image);
     });
+    console.log(formData.get('productImgFileList'));
 
     const value = {
       pdTitle: productList.pdTitle,
@@ -75,24 +76,11 @@ const ProductUpdate = () => {
     formData.append('productDto', blob); // 또는  formData.append("data", JSON.stringify(value)); // JSON 형식으로 파싱.(백엔드의 요청에 따라 전송방식이 달라진다.)
     // axios를 이용한 post 요청. 헤더를 multipart/form-data 로 한다.
     const token = localStorage.getItem('login');
-    token
-      ? axios({
-          method: 'POST',
-          url: `http://localhost:8090/product/update/${id}`,
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
-            'Authorization': `Bearer ${token}`,
-          },
-          data: formData, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
-        })
-      : null;
-    alert('게시글이 등록되었습니다');
     navigate('/', { replace: true });
     if (imageList.length !== 0) {
       token
         ? axios({
-            method: 'PUT',
+            method: 'POST',
             url: `http://localhost:8090/product/update/${id}`,
             mode: 'cors',
             headers: {
@@ -119,6 +107,7 @@ const ProductUpdate = () => {
       axios.get(`http://localhost:8090/product/detail/${id}`).then((result) => {
         const resdata = result.data;
         setProductList(resdata);
+        setImageList(resdata.productImageDtoList);
         console.log(resdata);
 
         const imagDto = resdata.productImageDtoList;
@@ -165,6 +154,7 @@ const ProductUpdate = () => {
       >
         {errMsg}
       </p>
+
       <Container className={styles.section}>
         <Form onSubmit={onClickSubmit} className="mx-auto w-full max-w-[768px]">
           <div className={styles.img_form}>
@@ -204,6 +194,7 @@ const ProductUpdate = () => {
               </div>
             ))}
           </div>
+
           {/* <Form.Group
             as={Row}
             className="flex flex-col justify-center mt-6 lg:mt-8"
@@ -344,6 +335,13 @@ const ProductUpdate = () => {
           </div>
         </Form>
       </Container>
+      <button
+        onClick={() => {
+          console.log(imageList);
+        }}
+      >
+        test
+      </button>
       <div style={{ marginTop: 50 }}></div>
     </div>
   );
