@@ -62,13 +62,6 @@ export default function NoticeUpdate() {
         <Button variant="outline-dark" onClick={Save} className={styles.button}>
           수정
         </Button>
-        <button
-          onClick={() => {
-            console.log(data);
-          }}
-        >
-          test
-        </button>
       </div>
       <div className={styles.top_title}>
         <input
