@@ -18,6 +18,7 @@ export const saveUserInfo = ({ userInfoDto, profileImg }) => {
 
 export const deleteUser = () => {
   const token = localStorage.getItem('login');
+  alert('탈퇴하시겠습니까?');
   return httpApi.delete(`/user/delete`, {
     headers: {
       'Content-Type': 'text/html',

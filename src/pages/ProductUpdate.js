@@ -77,24 +77,21 @@ const ProductUpdate = () => {
     // axios를 이용한 post 요청. 헤더를 multipart/form-data 로 한다.
     const token = localStorage.getItem('login');
     navigate('/', { replace: true });
-    if (imageList.length !== 0) {
-      token
-        ? axios({
-            method: 'POST',
-            url: `http://localhost:8090/product/update/${id}`,
-            mode: 'cors',
-            headers: {
-              'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
-              'Authorization': `Bearer ${token}`,
-            },
-            data: formData, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
-          })
-        : null;
-      toastContext.setToastMessage(['게시글이 등록되었습니다']);
-      navigate('/', { replace: true });
-    } else if (imageList.length == 0) {
-      toastContext.setToastMessage(['사진을 등록해주세요']);
-    }
+    token
+      ? axios({
+          method: 'POST',
+          url: `http://localhost:8090/product/update/${id}`,
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
+            'Authorization': `Bearer ${token}`,
+          },
+          data: formData, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
+        })
+      : null;
+    toastContext.setToastMessage(['게시글이 등록되었습니다']);
+    navigate('/', { replace: true });
+    window.location.replace('/');
   };
 
   useEffect(() => {
