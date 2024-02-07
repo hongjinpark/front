@@ -28,6 +28,7 @@ export default function NoticeUpdate() {
           noticeContents: data.contents,
         })
         .then(() => {
+          console.log(console.log(data));
           toastContext.setToastMessage(['수정이 완료되었습니다']);
           navigator('/notice');
         });
@@ -51,7 +52,8 @@ export default function NoticeUpdate() {
       });
     }
     getData(data);
-  }, [data, id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={styles.body}>
@@ -60,6 +62,13 @@ export default function NoticeUpdate() {
         <Button variant="outline-dark" onClick={Save} className={styles.button}>
           수정
         </Button>
+        <button
+          onClick={() => {
+            console.log(data);
+          }}
+        >
+          test
+        </button>
       </div>
       <div className={styles.top_title}>
         <input
