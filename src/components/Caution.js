@@ -11,7 +11,7 @@ export default function Caution({ className }) {
           <br />
           유도하는 경우 사기일 가능성이 높으니 거래를 자제해 주시고 <br />
           <span className={styles.point}>
-            <span className={styles.red}>중고나라 고객센터</span>로 신고해주시기
+            <span className={styles.red}>중고로움 고객센터</span>로 신고해주시기
             바랍니다.
           </span>
         </p>

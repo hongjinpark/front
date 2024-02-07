@@ -7,9 +7,9 @@ export default function Footer() {
       <div className={styles.fBox}>
         <ul className={styles.links}>
           <li className={styles.title}>
-            <h4>중고 나라</h4>
+            <h4>중고 로움</h4>
           </li>
-          <li>(주)중고나라</li>
+          <li>(주)중고로움</li>
           <li>대표자 : 대표자</li>
           <li>사업자 등록 번호 : ***-**-****</li>
           <li>통신판매신고번호 : 제****-서울**-****호</li>
@@ -50,7 +50,7 @@ export default function Footer() {
               <span className={styles.subLists}>게시글 수집 및 이용 안내</span>
             </li>
             <li>
-              <span className={styles.subLists}>중고나라 고객센터</span>
+              <span className={styles.subLists}>중고로움 고객센터</span>
             </li>
           </div>
         </ul>
@@ -69,10 +69,10 @@ export default function Footer() {
               <span className={styles.subLists}>주소 : 경기도</span>
             </li>
             <li>
-              <span className={styles.subLists}>중고나라 광고 문의</span>
+              <span className={styles.subLists}>중고로움 광고 문의</span>
             </li>
             <li>
-              <span className={styles.subLists}>중고나라 파트너스</span>
+              <span className={styles.subLists}>중고로움 파트너스</span>
             </li>
           </div>
         </ul>

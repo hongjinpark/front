@@ -204,7 +204,7 @@ export default function ProductDetail() {
                     <li className={styles.subTitle}>배송비 별도</li>
                   </div>
                   <div className={`${styles.info2} ${styles.option}`}>
-                    <li className={styles.title}>중고나라 거래 혜택</li>
+                    <li className={styles.title}>중고로움 거래 혜택</li>
                     <li>결제 네이버페이 결제 시 즉시할인 외 4건 &gt;</li>
                     <li>무이자 1만원 이상 무이자 할부 &gt;</li>
                   </div>

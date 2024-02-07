@@ -108,7 +108,7 @@ export default function Nav() {
       <div className={styles.nav}>
         <div className={styles.container}>
           <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <h2 className={styles.logo}>중고 나라</h2>
+            <h2 className={styles.logo}>중고 로움</h2>
           </Link>
           <div className={styles.searchForm}>
             <form className={styles.form} onSubmit={handleSearch}>
