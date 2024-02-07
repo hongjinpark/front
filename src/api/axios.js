@@ -2,7 +2,7 @@
 import axios from 'axios';
 // import history from '../utils/history';
 // import useAuth from '../hooks/useAuth';
-const BASE_URL = 'http://localhost:8090';
+const BASE_URL = 'http://3.34.99.253:8090';
 
 export default axios.create({
   baseURL: BASE_URL,
@@ -14,7 +14,7 @@ export const axiosPrivate = axios.create({
   withCredentials: true,
 });
 export const httpApi = axios.create({
-  baseURL: 'http://localhost:8090',
+  baseURL: 'http://3.34.99.253:8090',
 });
 httpApi.defaults.headers.common['Authorization'] =
   `Bearer ${localStorage.getItem('login')}`;

@@ -16,7 +16,7 @@ export default function ReplyCommentBoard({ commentGroup }) {
     token
       ? axios({
           method: 'POST',
-          url: `http://localhost:8090/comment/renew`,
+          url: `http://3.34.99.253:8090/comment/renew`,
           mode: 'cors',
           headers: {
             'Content-Type': 'application/json', // Content-Type을 반드시 이렇게 하여야 한다.

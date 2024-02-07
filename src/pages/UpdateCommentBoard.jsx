@@ -10,7 +10,7 @@ export default function UpdateCommentBoard({ comment_id }) {
   const handleSubmit = async () => {
     axios({
       method: 'POST',
-      url: `http://localhost:8090/comment/update`,
+      url: `http://3.34.99.253:8090/comment/update`,
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json', // Content-Type을 반드시 이렇게 하여야 한다.

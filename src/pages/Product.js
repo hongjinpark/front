@@ -55,7 +55,7 @@ const Product = () => {
       token
         ? axios({
             method: 'POST',
-            url: `http://localhost:8090/product/new`,
+            url: `http://3.34.99.253:8090/product/new`,
             mode: 'cors',
             headers: {
               'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
@@ -78,7 +78,7 @@ const Product = () => {
   }, [product, errMsg]);
 
   useEffect(() => {
-    axios.get('http://localhost:8090/topics').then((result) => {
+    axios.get('http://3.34.99.253:8090/topics').then((result) => {
       setTopicList(result.data);
     });
   }, []);

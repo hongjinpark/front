@@ -156,7 +156,8 @@ export default function SelectedModal() {
                     <img
                       className="top-1/2 left-1/2 w-full h-auto rounded-lg object-cover -translate-x-2/4 -translate-y-2/4 absolute min-h-full"
                       src={
-                        process.env.PUBLIC_URL + `/assets${selectItem.imgUrl}`
+                        'http://3.34.99.253:8000/public' +
+                        `/assets${selectItem.imgUrl}`
                       }
                       alt=""
                     />

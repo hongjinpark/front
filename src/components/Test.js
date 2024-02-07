@@ -11,7 +11,7 @@ function Test() {
   ]);
 
   const fetchData = async () => {
-    const response = await axios.get('http://localhost:8090/comment/list/3');
+    const response = await axios.get('http://3.34.99.253:8090/comment/list/3');
     setData(response.data);
   };
   useEffect(() => {

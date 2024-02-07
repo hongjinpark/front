@@ -25,7 +25,7 @@ export default function BoardDetailList({
   const Delete = () => {
     if (window.confirm('삭제하시겠습니까?')) {
       axios
-        .delete('http://localhost:8090/board/lists/' + params, {
+        .delete('http://3.34.99.253:8090/board/lists/' + params, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -57,7 +57,10 @@ export default function BoardDetailList({
                     <SwiperSlide key={index}>
                       <img
                         className={styles.img}
-                        src={process.env.PUBLIC_URL + `/assets${board.imgUrl}`}
+                        src={
+                          'http://3.34.99.253:8000/public' +
+                          `/assets${board.imgUrl}`
+                        }
                         alt=""
                       />
                     </SwiperSlide>
@@ -79,7 +82,7 @@ export default function BoardDetailList({
                             className={styles.imageStyle}
                             alt=""
                             src={
-                              process.env.PUBLIC_URL +
+                              'http://3.34.99.253:8000/public' +
                               `/assets${userInfo.imgUrl}`
                             }
                           />

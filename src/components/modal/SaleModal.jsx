@@ -153,7 +153,10 @@ export default function SaleModal() {
                   <div className="w-20 h-20 inline-block pt-0 rounded relative overflow-hidden">
                     <img
                       className="top-1/2 left-1/2 w-full h-auto rounded-lg object-cover -translate-x-2/4 -translate-y-2/4 absolute"
-                      src={process.env.PUBLIC_URL + `/assets${saleItem.imgUrl}`}
+                      src={
+                        'http://3.34.99.253:8000/public' +
+                        `/assets${saleItem.imgUrl}`
+                      }
                       alt=""
                     />
                   </div>

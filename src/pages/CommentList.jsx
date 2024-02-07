@@ -33,7 +33,7 @@ export default function CommentList({ comment }) {
     token
       ? axios({
           method: 'POST',
-          url: `http://localhost:8090/comment/new`,
+          url: `http://3.34.99.253:8090/comment/new`,
           mode: 'cors',
           headers: {
             'Content-Type': 'application/json', // Content-Type을 반드시 이렇게 하여야 한다.
@@ -54,7 +54,7 @@ export default function CommentList({ comment }) {
   const onRemove = (targetId) => {
     axios({
       method: 'DELETE',
-      url: `http://localhost:8090/comment/delete/${targetId}`,
+      url: `http://3.34.99.253:8090/comment/delete/${targetId}`,
       mode: 'cors',
     }).then(() => {
       navigator(`/board/${id}`);
@@ -73,7 +73,10 @@ export default function CommentList({ comment }) {
                 <img
                   className={styles.commentImageStyle}
                   alt=""
-                  src={process.env.PUBLIC_URL + `/assets${comment.img_url}`}
+                  src={
+                    'http://3.34.99.253:8000/public' +
+                    `/assets${comment.img_url}`
+                  }
                 />
               </div>
               <div>

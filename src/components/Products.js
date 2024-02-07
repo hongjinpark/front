@@ -35,7 +35,10 @@ export default function Products({ list }) {
               {newSearchWord ? (
                 <>
                   <Link
-                    to={process.env.PUBLIC_URL + `/product/${item.product_id}`}
+                    to={
+                      'http://3.34.99.253:8000/public' +
+                      `/product/${item.product_id}`
+                    }
                     style={{ textDecoration: 'none', color: 'inherit' }}
                   >
                     <div>
@@ -43,7 +46,8 @@ export default function Products({ list }) {
                         {location ? (
                           <img
                             src={
-                              process.env.PUBLIC_URL + `/assets${item.imgUrl}`
+                              'http://3.34.99.253:8000/public' +
+                              `/assets${item.imgUrl}`
                             }
                             alt="상품이미지"
                             className={styles.imgHome}
@@ -51,7 +55,8 @@ export default function Products({ list }) {
                         ) : (
                           <img
                             src={
-                              process.env.PUBLIC_URL + `/assets${item.imgUrl}`
+                              'http://3.34.99.253:8000/public' +
+                              `/assets${item.imgUrl}`
                             }
                             alt="상품이미지"
                             className={styles.imgSearchList}
@@ -89,13 +94,19 @@ export default function Products({ list }) {
                     <Card className={styles.card}>
                       {location ? (
                         <img
-                          src={process.env.PUBLIC_URL + `/assets${item.imgUrl}`}
+                          src={
+                            'http://3.34.99.253:8000/public' +
+                            `/assets${item.imgUrl}`
+                          }
                           alt="상품이미지"
                           className={styles.imgHome}
                         />
                       ) : (
                         <img
-                          src={process.env.PUBLIC_URL + `/assets${item.imgUrl}`}
+                          src={
+                            'http://3.34.99.253:8000/public' +
+                            `/assets${item.imgUrl}`
+                          }
                           alt="상품이미지"
                           className={styles.imgSearchList}
                         />
@@ -139,7 +150,9 @@ export default function Products({ list }) {
               <div>
                 <Card className={styles.card}>
                   <img
-                    src={process.env.PUBLIC_URL + `/assets${list.imgUrl}`}
+                    src={
+                      'http://3.34.99.253:8000/public' + `/assets${list.imgUrl}`
+                    }
                     alt="상품이미지"
                     className={styles.imgSearchList}
                   />
@@ -158,7 +171,9 @@ export default function Products({ list }) {
               <div>
                 <Card className={styles.card}>
                   <img
-                    src={process.env.PUBLIC_URL + `/assets${list.imgUrl}`}
+                    src={
+                      'http://3.34.99.253:8000/public' + `/assets${list.imgUrl}`
+                    }
                     alt="상품이미지"
                     className={styles.imgSearchList}
                   />

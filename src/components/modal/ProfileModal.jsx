@@ -49,7 +49,7 @@ export default function ProfileModal() {
                       profileImg
                         ? URL.createObjectURL(profileImg)
                         : auth?.userInfo
-                          ? process.env.PUBLIC_URL +
+                          ? 'http://3.34.99.253:8000/public' +
                             `/assets${auth.userInfo.imgUrl}`
                           : 'profile.png'
                     }

@@ -22,7 +22,7 @@ export default function NoticeDetail() {
   const Save = () => {
     if (titleValue !== '' && contentsValue !== '') {
       axios
-        .post('http://localhost:8090/notice/new', {
+        .post('http://3.34.99.253:8090/notice/new', {
           noticeContents: contentsValue,
           noticeTitle: titleValue,
         })

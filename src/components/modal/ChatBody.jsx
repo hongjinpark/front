@@ -29,10 +29,10 @@ export default function ChatBody({ chatRoom, setTitle }) {
             ? chatRoom.buyUser.userInfo.usrNickName
             : chatRoom.buyUser.nickname
       );
-      const socket = new SockJS('http://localhost:8090/ws');
+      const socket = new SockJS('http://3.34.99.253:8090/ws');
       stomp.current = Stomp.over(socket);
       axios
-        .get(`http://localhost:8090/chat/${chatRoom.chatRoomId}`)
+        .get(`http://3.34.99.253:8090/chat/${chatRoom.chatRoomId}`)
         .then((result) => {
           //   setChatList(result.data);
           setChatList(result.data);
@@ -87,7 +87,7 @@ export default function ChatBody({ chatRoom, setTitle }) {
   const Delete = () => {
     if (window.confirm('채팅방을 나가시겠습니까?')) {
       axios
-        .delete(`http://localhost:8090/chat/exit/${chatRoom.chatRoomId}`, {
+        .delete(`http://3.34.99.253:8090/chat/exit/${chatRoom.chatRoomId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -111,7 +111,8 @@ export default function ChatBody({ chatRoom, setTitle }) {
               alt="상품 썸네일"
               src={
                 chatRoom &&
-                process.env.PUBLIC_URL + `/assets${chatRoom?.product.imgUrl}`
+                'http://3.34.99.253:8000/public' +
+                  `/assets${chatRoom?.product.imgUrl}`
               } // 상품 이미지
               decoding="async"
               data-nimg="fill"

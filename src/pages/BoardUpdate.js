@@ -37,7 +37,7 @@ export default function BoardUpdate() {
 
   useEffect(() => {
     function getData() {
-      axios.get(`http://localhost:8090/board/detail/` + id).then((res) => {
+      axios.get(`http://3.34.99.253:8090/board/detail/` + id).then((res) => {
         const result = res.data;
         setTitle(result.bdSubject);
         setcontents(result.bdContents);
@@ -72,7 +72,7 @@ export default function BoardUpdate() {
     if (titleValue !== '' && contentsValue !== '') {
       token
         ? await axios
-            .post('http://localhost:8090/board/lists/' + id, formData, {
+            .post('http://3.34.99.253:8090/board/lists/' + id, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
                 'Authorization': `Bearer ${token}`,

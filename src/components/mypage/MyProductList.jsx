@@ -23,7 +23,9 @@ export default function MyProductList({ product }) {
               <img
                 alt="test"
                 referrerPolicy="no-referrer"
-                src={process.env.PUBLIC_URL + `/assets${product.imgUrl}`}
+                src={
+                  'http://3.34.99.253:8000/public' + `/assets${product.imgUrl}`
+                }
                 decoding="async"
                 data-nimg="fill"
                 className="bg-gray-300 object-cover w-full transition duration-200 ease-in rounded-md group-hover:rounded-b-none"

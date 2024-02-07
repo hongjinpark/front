@@ -110,11 +110,11 @@ export default function ChatRoom({ setChatRoom, setTitle }) {
                         ? auth
                           ? auth.id === chatroom?.buyUser.id
                             ? chatroom?.sellUser.userInfo
-                              ? process.env.PUBLIC_URL +
+                              ? 'http://3.34.99.253:8000/public' +
                                 `/assets${chatroom?.sellUser.userInfo.imgUrl}`
                               : 'profile.png'
                             : chatroom.buyUser.userInfo
-                              ? process.env.PUBLIC_URL +
+                              ? 'http://3.34.99.253:8000/public' +
                                 `/assets${chatroom?.buyUser.userInfo.imgUrl}`
                               : 'profile.png'
                           : null

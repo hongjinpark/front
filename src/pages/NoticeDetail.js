@@ -15,14 +15,14 @@ export default function NoticeDetail() {
   const toastContext = useContext(ToastContext);
 
   useEffect(() => {
-    axios.get('http://localhost:8090/notice/list').then((result) => {
+    axios.get('http://3.34.99.253:8090/notice/list').then((result) => {
       setData(result.data);
     });
     //role 정보 담기
     const token = localStorage.getItem('login');
     token
       ? axios
-          .get('http://localhost:8090/user/info/role', {
+          .get('http://3.34.99.253:8090/user/info/role', {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -39,7 +39,7 @@ export default function NoticeDetail() {
 
   const Delete = () => {
     if (window.confirm('삭제하시겠습니까?')) {
-      axios.delete('http://localhost:8090/notice/' + params.id).then(() => {
+      axios.delete('http://3.34.99.253:8090/notice/' + params.id).then(() => {
         toastContext.setToastMessage(['게시글이 삭제되었습니다']);
         navigator('/notice');
       });

@@ -32,7 +32,8 @@ export default function BoardList({ list }) {
                         {location ? (
                           <img
                             src={
-                              process.env.PUBLIC_URL + `/assets${board.imgUrl}`
+                              'http://3.34.99.253:8000/public' +
+                              `/assets${board.imgUrl}`
                             }
                             alt="게시글이미지"
                             className={`${styles._19qbbiq0} ${styles.imgBox}`}
@@ -40,7 +41,8 @@ export default function BoardList({ list }) {
                         ) : (
                           <img
                             src={
-                              process.env.PUBLIC_URL + `/assets${board.imgUrl}`
+                              'http://3.34.99.253:8000/public' +
+                              `/assets${board.imgUrl}`
                             }
                             alt="게시글이미지"
                             className={`${styles._19qbbiq0} ${styles.imgBox}`}

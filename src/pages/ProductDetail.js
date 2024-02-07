@@ -38,7 +38,7 @@ export default function ProductDetail() {
   const toggleLike = async () => {
     if (like == false) {
       axios.post(
-        'http://localhost:8090/attention',
+        'http://3.34.99.253:8090/attention',
         {
           status: 'Y',
           productId: product_id,
@@ -51,7 +51,7 @@ export default function ProductDetail() {
       setLike(true);
     } else {
       axios.post(
-        'http://localhost:8090/attention',
+        'http://3.34.99.253:8090/attention',
         {
           status: 'N',
           productId: product_id,
@@ -67,7 +67,7 @@ export default function ProductDetail() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const likeData = async () => {
     if (token) {
-      const att = await axios.get('http://localhost:8090/attention/lists', {
+      const att = await axios.get('http://3.34.99.253:8090/attention/lists', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -157,7 +157,10 @@ export default function ProductDetail() {
                     return (
                       <SwiperSlide key={index}>
                         <img
-                          src={process.env.PUBLIC_URL + `/assets${img.imgUrl}`}
+                          src={
+                            'http://3.34.99.253:8000/public' +
+                            `/assets${img.imgUrl}`
+                          }
                           alt="상품이미지"
                           className={styles.pdImg}
                         ></img>
@@ -271,7 +274,8 @@ export default function ProductDetail() {
                     <span className={styles.userImg}>
                       <img
                         src={
-                          process.env.PUBLIC_URL + `/assets${user[0].imgUrl}`
+                          'http://3.34.99.253:8000/public' +
+                          `/assets${user[0].imgUrl}`
                         }
                         alt=""
                         className={styles.userImage}

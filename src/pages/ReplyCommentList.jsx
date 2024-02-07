@@ -24,7 +24,7 @@ export default function ReplyCommentList({ commentGroup }) {
   useEffect(() => {
     axios({
       method: 'GET',
-      url: `http://localhost:8090/comment/list/reply/${id}`,
+      url: `http://3.34.99.253:8090/comment/list/reply/${id}`,
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json', // Content-Type을 반드시 이렇게 하여야 한다.
@@ -40,7 +40,7 @@ export default function ReplyCommentList({ commentGroup }) {
   const onRemove = (targetId) => {
     axios({
       method: 'DELETE',
-      url: `http://localhost:8090/comment/delete/${targetId}`,
+      url: `http://3.34.99.253:8090/comment/delete/${targetId}`,
       mode: 'cors',
     }).then(() => {
       navigator(`/board/${id}`);
@@ -57,7 +57,7 @@ export default function ReplyCommentList({ commentGroup }) {
             <img
               className={styles.commentImageStyle}
               alt=""
-              src={process.env.PUBLIC_URL + `/assets${list.img_url}`}
+              src={'http://3.34.99.253:8000/public' + `/assets${list.img_url}`}
             />
           </div>
           <div>

@@ -59,7 +59,7 @@ export default function BoardWrite() {
     if (imageList.length !== 0 && titleValue !== '' && contentsValue !== '') {
       await axios({
         method: 'POST',
-        url: `http://localhost:8090/board/new`,
+        url: `http://3.34.99.253:8090/board/new`,
         mode: 'cors',
         headers: {
           'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.

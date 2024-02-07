@@ -22,14 +22,14 @@ export default function Noitce() {
   const offset = (page - 1) * limit;
 
   useEffect(() => {
-    axios.get('http://localhost:8090/notice/list').then((result) => {
+    axios.get('http://3.34.99.253:8090/notice/list').then((result) => {
       setBoard(result.data.reverse());
     });
     //role 정보 담기
     const token = localStorage.getItem('login');
     token
       ? axios
-          .get('http://localhost:8090/user/info/role', {
+          .get('http://3.34.99.253:8090/user/info/role', {
             headers: {
               Authorization: `Bearer ${token}`,
             },

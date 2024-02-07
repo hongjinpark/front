@@ -80,7 +80,7 @@ const ProductUpdate = () => {
     token
       ? axios({
           method: 'POST',
-          url: `http://localhost:8090/product/update/${id}`,
+          url: `http://3.34.99.253:8090/product/update/${id}`,
           mode: 'cors',
           headers: {
             'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
@@ -101,26 +101,28 @@ const ProductUpdate = () => {
 
   useEffect(() => {
     function getData() {
-      axios.get(`http://localhost:8090/product/detail/${id}`).then((result) => {
-        const resdata = result.data;
-        setProductList(resdata);
-        // setImageList(resdata.productImageDtoList);
-        console.log(resdata);
+      axios
+        .get(`http://3.34.99.253:8090/product/detail/${id}`)
+        .then((result) => {
+          const resdata = result.data;
+          setProductList(resdata);
+          // setImageList(resdata.productImageDtoList);
+          console.log(resdata);
 
-        // const imagDto = resdata.productImageDtoList;
-        // for (let i = 0; i < resdata.productImageDtoList.length; i++) {
-        //   setPreviewImg((preimage) => [
-        //     ...preimage,
-        //     process.env.PUBLIC_URL + `/assets${imagDto[i].imgUrl}`,
-        //   ]);
-        // }
-      });
+          // const imagDto = resdata.productImageDtoList;
+          // for (let i = 0; i < resdata.productImageDtoList.length; i++) {
+          //   setPreviewImg((preimage) => [
+          //     ...preimage,
+          //     "http://3.34.99.253:8000/public" + `/assets${imagDto[i].imgUrl}`,
+          //   ]);
+          // }
+        });
     }
     getData();
   }, [id]);
 
   useEffect(() => {
-    axios.get('http://localhost:8090/topics').then((result) => {
+    axios.get('http://3.34.99.253:8090/topics').then((result) => {
       setTopicList(result.data);
     });
   }, []);

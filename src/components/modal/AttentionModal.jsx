@@ -16,7 +16,7 @@ export default function AttentionModal() {
   useEffect(() => {
     if (isOpen) {
       axios
-        .get('http://localhost:8090/attention/lists/status', {
+        .get('http://3.34.99.253:8090/attention/lists/status', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -32,7 +32,7 @@ export default function AttentionModal() {
     setText(e.target.value);
     if (e.target.value == '') {
       axios
-        .get('http://localhost:8090/attention/lists/status', {
+        .get('http://3.34.99.253:8090/attention/lists/status', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -45,7 +45,7 @@ export default function AttentionModal() {
   const handleGet = () => {
     if (text == '') {
       axios
-        .get('http://localhost:8090/attention/lists/status', {
+        .get('http://3.34.99.253:8090/attention/lists/status', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -121,7 +121,7 @@ export default function AttentionModal() {
                     <img
                       className={styles.img}
                       src={
-                        process.env.PUBLIC_URL +
+                        'http://3.34.99.253:8000/public' +
                         `/assets${attentionItem.imgUrl}`
                       }
                       alt=""

@@ -23,7 +23,7 @@ export default function NoticeUpdate() {
   const Save = () => {
     if (data.title !== '' && data.contents !== '') {
       axios
-        .put('http://localhost:8090/notice/update/' + id, {
+        .put('http://3.34.99.253:8090/notice/update/' + id, {
           noticeTitle: data.title,
           noticeContents: data.contents,
         })
@@ -41,7 +41,7 @@ export default function NoticeUpdate() {
 
   useEffect(() => {
     function getData() {
-      axios.get('http://localhost:8090/notice/list').then((res) => {
+      axios.get('http://3.34.99.253:8090/notice/list').then((res) => {
         const result = res.data;
         setData({
           title:
