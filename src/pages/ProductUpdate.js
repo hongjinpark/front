@@ -107,16 +107,16 @@ const ProductUpdate = () => {
       axios.get(`http://localhost:8090/product/detail/${id}`).then((result) => {
         const resdata = result.data;
         setProductList(resdata);
-        setImageList(resdata.productImageDtoList);
+        // setImageList(resdata.productImageDtoList);
         console.log(resdata);
 
-        const imagDto = resdata.productImageDtoList;
-        for (let i = 0; i < resdata.productImageDtoList.length; i++) {
-          setPreviewImg((preimage) => [
-            ...preimage,
-            process.env.PUBLIC_URL + `/assets${imagDto[i].imgUrl}`,
-          ]);
-        }
+        // const imagDto = resdata.productImageDtoList;
+        // for (let i = 0; i < resdata.productImageDtoList.length; i++) {
+        //   setPreviewImg((preimage) => [
+        //     ...preimage,
+        //     process.env.PUBLIC_URL + `/assets${imagDto[i].imgUrl}`,
+        //   ]);
+        // }
       });
     }
     getData();

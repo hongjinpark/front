@@ -41,17 +41,7 @@ export default function BoardUpdate() {
         const result = res.data;
         setTitle(result.bdSubject);
         setcontents(result.bdContents);
-        setImageList(result.boardImageDtoList);
-
-        const imagDto = result.boardImageDtoList;
-
-        for (let i = 0; i < result.boardImageDtoList.length; i++) {
-          setPreviewImg((preimage) => [
-            ...preimage,
-            process.env.PUBLIC_URL + `/assets${imagDto[i].imgUrl}`,
-          ]);
-        }
-        console.log(process.env.PUBLIC_URL);
+        // setImageList(result.boardImageDtoList);
       });
     }
     getData();
@@ -128,21 +118,14 @@ export default function BoardUpdate() {
         >
           등록
         </Button>
-        <button
-          onClick={() => {
-            console.log(imageList);
-
-            imageList.forEach((image) => {
-              formData.append('boardImgFileList', image);
-            });
-
-            console.log(formData.getAll('boardImgFileList'));
-            // console.log(previewImg);
-          }}
-        >
-          test
-        </button>
       </div>
+      <button
+        onClick={() => {
+          console.log(imageList);
+        }}
+      >
+        test
+      </button>
       <div className={styles.img_form}>
         <label className={styles.file_input} htmlFor="imageList">
           {<PictureOutlined className={styles.file_icon} />}
@@ -183,14 +166,7 @@ export default function BoardUpdate() {
           </div>
         ))}
       </div>
-      <button
-        onClick={() => {
-          console.log(imageList);
-          console.log(previewImg);
-        }}
-      >
-        test
-      </button>
+
       <div className={styles.top_title}>
         <input
           className={styles.title_text}
