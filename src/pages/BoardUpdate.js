@@ -119,13 +119,7 @@ export default function BoardUpdate() {
           등록
         </Button>
       </div>
-      <button
-        onClick={() => {
-          console.log(imageList);
-        }}
-      >
-        test
-      </button>
+
       <div className={styles.img_form}>
         <label className={styles.file_input} htmlFor="imageList">
           {<PictureOutlined className={styles.file_icon} />}
