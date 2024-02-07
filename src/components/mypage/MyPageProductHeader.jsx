@@ -35,9 +35,9 @@ export default function MyPageProductHeader({
   };
 
   useEffect(() => {
-    console.log(sort());
     setMyProducts((prev) => [...prev], sort());
-  }, [state, setMyProducts, sort]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className="items-center justify-between block mb-4 md:flex lg:mb-7">
       <div className="flex-shrink-0 mb-1 text-xs leading-4 text-body md:text-sm pe-4 md:me-6 lg:ps-2 lg:block">

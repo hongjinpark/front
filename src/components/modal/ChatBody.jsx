@@ -3,14 +3,20 @@ import axios from './../../api/axios';
 import AuthContext from '../../context/AuthProvider';
 import SockJS from 'sockjs-client';
 import Stomp from 'webstomp-client';
+import styles from '../../pages/Board.module.css';
 import { format, isSameDay } from 'date-fns';
 import { formattedNumber } from './../../utils/util';
+import { ToastContext } from '../../context/ToastContext';
+import ChatModalContext from '../../context/ChatModalProvider';
 
 export default function ChatBody({ chatRoom, setTitle }) {
   const [text, setText] = useState();
   const { auth } = useContext(AuthContext);
+  const token = localStorage.getItem('login');
+  const { setIsOpen } = useContext(ChatModalContext);
   const [chatList, setChatList] = useState([]);
   const stomp = useRef(null);
+  const toastContext = useContext(ToastContext);
   useEffect(() => {
     setChatList([]);
     if (chatRoom) {
@@ -77,6 +83,22 @@ export default function ChatBody({ chatRoom, setTitle }) {
     stomp.current.send(`/room/${chatRoom.chatRoomId}`, text);
     setText('');
   };
+
+  const Delete = () => {
+    if (window.confirm('채팅방을 나가시겠습니까?')) {
+      axios
+        .delete(`http://localhost:8090/chat/exit/${chatRoom.chatRoomId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(() => {
+          toastContext.setToastMessage(['나가기 완료.']);
+          setIsOpen(false);
+        });
+    }
+  };
+
   const header = () => {
     return (
       <div className="border-t-2 px-4 min-h-[70px] basis-[70px] flex justify-between items-center">
@@ -108,6 +130,9 @@ export default function ChatBody({ chatRoom, setTitle }) {
             </span>
           </div>
         </a>
+        <li className={styles.w7pzr94}>
+          <button onClick={Delete}>채팅방 나가기</button>
+        </li>
       </div>
     );
   };
