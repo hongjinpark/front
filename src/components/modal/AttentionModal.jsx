@@ -115,7 +115,7 @@ export default function AttentionModal() {
         {attention.length > 0 ? (
           attention.map((attentionItem) => (
             <div className={styles.card} key={attentionItem.attention_id}>
-              <a href={'/' + attentionItem.product_id}>
+              <a href={'/product/' + attentionItem.product_id}>
                 <div className={styles.cardFlex}>
                   <div className={styles.imgBox}>
                     <img

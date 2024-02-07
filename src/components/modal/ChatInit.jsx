@@ -16,7 +16,7 @@ export default function ChatInit({ setTitle, setChatRoom }) {
       navigate('/login');
       setIsOpen(false);
     }
-    const pdId = location.pathname.replace('/', '');
+    const pdId = location.pathname.replace('/product/', '');
     existChatRoom(pdId).then((res) => {
       const data = res.data;
       if (data) {
@@ -28,16 +28,18 @@ export default function ChatInit({ setTitle, setChatRoom }) {
       setProduct(res.data);
       setTitle(res.data.user_nickname);
     });
-  });
+  }, []);
 
   const handleSend = () => {
-    createChatRoom(text, location.pathname.replace('/', '')).then((res) => {
-      const id = res.data;
-      getChatRoom(id).then((res) => {
-        setChatRoom(res.data);
-        setStep('chat');
-      });
-    });
+    createChatRoom(text, location.pathname.replace('/product/', '')).then(
+      (res) => {
+        const id = res.data;
+        getChatRoom(id).then((res) => {
+          setChatRoom(res.data);
+          setStep('chat');
+        });
+      }
+    );
   };
 
   useEffect(() => {
@@ -51,16 +53,18 @@ export default function ChatInit({ setTitle, setChatRoom }) {
         <div className="p-5 h-full bg-[#e9edef] overflow-auto">
           <div></div>
           <div className="flex flex-col items-center justify-center h-full gap-3 text-center">
-            <img
-              alt="알림 로고"
-              src="alert.svg"
-              width="48"
+            <svg
+              stroke="currentColor"
+              fill="currentColor"
+              strokeWidth="0"
+              viewBox="0 0 512 512"
+              color="#141313"
               height="48"
-              decoding="async"
-              data-nimg="1"
-              loading="lazy"
-              // style="color: transparent;"
-            />
+              width="48"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm0 319.91a20 20 0 1120-20 20 20 0 01-20 20zm21.72-201.15l-5.74 122a16 16 0 01-32 0l-5.74-121.94v-.05a21.74 21.74 0 1143.44 0z"></path>
+            </svg>
             <h2 className="font-semibold text-jnblack">
               중고나라 채팅, 중고나라 페이가 <br /> 가장 안전합니다!
             </h2>

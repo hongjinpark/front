@@ -82,7 +82,7 @@ export default function ChatBody({ chatRoom, setTitle }) {
       <div className="border-t-2 px-4 min-h-[70px] basis-[70px] flex justify-between items-center">
         <a
           className="flex flex-grow h-10 gap-4"
-          href={`/${chatRoom?.product.product_id}`}
+          href={`/product/${chatRoom?.product.product_id}`}
         >
           <div className="relative w-10 h-10 aspect-square">
             <img
